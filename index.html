@@ -898,24 +898,30 @@ function enviar(){
       fotoAnversoB64:res[0],fotoAnversoNombre:fA.name,fotoAnversoTipo:fA.type,
       fotoReversoB64:res[1],fotoReversoNombre:fR.name,fotoReversoTipo:fR.type
     };
-    fetch(GAS_URL, {
-      method: 'POST',
-      mode:   'no-cors',
-      body:   JSON.stringify(datos)
-    })
-    .then(function() {
+    // Formulario oculto — bypasea CORS completamente
+    var formEl = document.getElementById('hidden-gas-form');
+    var inputEl = document.getElementById('hidden-gas-data');
+    inputEl.value = JSON.stringify(datos);
+    formEl.action = GAS_URL;
+    formEl.submit();
+
+    // Mostrar éxito después de 3s (el form envía a iframe oculto)
+    setTimeout(function() {
       document.getElementById('step7').classList.remove('active');
       for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);dot.classList.add('done');dot.textContent='✓';}
       document.getElementById('successScreen').classList.add('show');
       window.scrollTo({top:0,behavior:'smooth'});
-    })
-    .catch(function(){
-      btn.disabled=false;
-      btn.innerHTML='Enviar Ficha';
-      alert('Error de conexión. Verifique su internet e intente nuevamente.');
-    });
+    }, 3000);
+  });
+}
   });
 }
 </script>
+<!-- Form oculto para envío sin CORS -->
+<iframe name="hidden-iframe" style="display:none"></iframe>
+<form id="hidden-gas-form" method="POST" target="hidden-iframe" style="display:none">
+  <input type="hidden" id="hidden-gas-data" name="datos">
+</form>
+
 </body>
 </html>
