@@ -854,8 +854,39 @@ function validar(n){
   return ok;
 }
 
-// Envío
-function b64(file){return new Promise(function(res,rej){if(!file){res(null);return;}var r=new FileReader();r.onload=function(e){res(e.target.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
+// Comprimir imagen con canvas antes de enviar (reduce de 3MB a ~80KB)
+function comprimirImagen(file){
+  return new Promise(function(resolve){
+    // Si es PDF, enviarlo como base64 directo sin comprimir
+    if(file.type === 'application/pdf'){
+      var r=new FileReader();
+      r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:'application/pdf',nombre:file.name});};
+      r.readAsDataURL(file);
+      return;
+    }
+    var img=new Image();
+    var url=URL.createObjectURL(file);
+    img.onload=function(){
+      var MAX=1200;
+      var w=img.width, h=img.height;
+      if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}
+      var canvas=document.createElement('canvas');
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      var dataUrl=canvas.toDataURL('image/jpeg',0.78);
+      resolve({b64:dataUrl.split(',')[1],tipo:'image/jpeg',nombre:file.name.replace(/\.[^.]+$/,'.jpg')});
+    };
+    img.onerror=function(){
+      // fallback sin compresión
+      var r=new FileReader();
+      r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:file.type,nombre:file.name});};
+      r.readAsDataURL(file);
+    };
+    img.src=url;
+  });
+}
+
 function enviar(){
   var fA=document.getElementById('fotoAnverso').files[0];
   var fR=document.getElementById('fotoReverso').files[0];
@@ -865,7 +896,11 @@ function enviar(){
   if(!fR){document.getElementById('e-fotoR').classList.add('show');ok=false;}else document.getElementById('e-fotoR').classList.remove('show');
   if(!dec){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
   if(!ok)return;
-  var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
+
+  var btn=document.getElementById('btnEnviar');
+  btn.disabled=true;
+  btn.innerHTML='<div class="spin"></div> Comprimiendo fotos...';
+
   var pv=document.querySelector('input[name="pension"]:checked');
   var hv=document.querySelector('input[name="hijos"]:checked');
   var sv=document.querySelector('input[name="sede"]:checked');
@@ -873,7 +908,9 @@ function enviar(){
   var aav=document.querySelector('input[name="ayudaAfil"]:checked');
   var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
   var tieneCuenta=tcv&&tcv.value==='Sí';
-  Promise.all([b64(fA),b64(fR)]).then(function(res){
+
+  Promise.all([comprimirImagen(fA), comprimirImagen(fR)]).then(function(imgs){
+    btn.innerHTML='<div class="spin"></div> Enviando...';
     var datos={
       dni:document.getElementById('dni').value.trim(),
       nombres:document.getElementById('nombres').value.trim(),
@@ -894,24 +931,28 @@ function enviar(){
       ayudaAfiliacion:(aav||{}).value||'',
       tieneCuenta:tcv?tcv.value:'',
       banco:tieneCuenta?document.getElementById('banco').value:'BCP (apertura pendiente)',
-      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
-      fotoAnversoB64:res[0],fotoAnversoNombre:fA.name,fotoAnversoTipo:fA.type,
-      fotoReversoB64:res[1],fotoReversoNombre:fR.name,fotoReversoTipo:fR.type
+      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura'
     };
-    // Formulario oculto — bypasea CORS completamente
-    var formEl = document.getElementById('hidden-gas-form');
-    var inputEl = document.getElementById('hidden-gas-data');
-    inputEl.value = JSON.stringify(datos);
-    formEl.action = GAS_URL;
+
+    // Envío via formulario oculto — fotos como campos separados
+    var formEl=document.getElementById('hidden-gas-form');
+    document.getElementById('hidden-gas-data').value=JSON.stringify(datos);
+    document.getElementById('hidden-foto-a').value  = imgs[0] ? imgs[0].b64    : '';
+    document.getElementById('hidden-foto-an').value = imgs[0] ? imgs[0].nombre : '';
+    document.getElementById('hidden-foto-at').value = imgs[0] ? imgs[0].tipo   : '';
+    document.getElementById('hidden-foto-r').value  = imgs[1] ? imgs[1].b64    : '';
+    document.getElementById('hidden-foto-rn').value = imgs[1] ? imgs[1].nombre : '';
+    document.getElementById('hidden-foto-rt').value = imgs[1] ? imgs[1].tipo   : '';
+    formEl.action=GAS_URL;
     formEl.submit();
 
-    // Mostrar éxito después de 3s (el form envía a iframe oculto)
-    setTimeout(function() {
+    // Mostrar éxito a los 4 segundos
+    setTimeout(function(){
       document.getElementById('step7').classList.remove('active');
       for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);dot.classList.add('done');dot.textContent='✓';}
       document.getElementById('successScreen').classList.add('show');
       window.scrollTo({top:0,behavior:'smooth'});
-    }, 3000);
+    }, 4000);
   });
 }
 </script>
@@ -919,6 +960,12 @@ function enviar(){
 <iframe name="hidden-iframe" style="display:none"></iframe>
 <form id="hidden-gas-form" method="POST" target="hidden-iframe" style="display:none">
   <input type="hidden" id="hidden-gas-data" name="datos">
+  <input type="hidden" id="hidden-foto-a"  name="foto_a">
+  <input type="hidden" id="hidden-foto-an" name="foto_an">
+  <input type="hidden" id="hidden-foto-at" name="foto_at">
+  <input type="hidden" id="hidden-foto-r"  name="foto_r">
+  <input type="hidden" id="hidden-foto-rn" name="foto_rn">
+  <input type="hidden" id="hidden-foto-rt" name="foto_rt">
 </form>
 
 </body>
