@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ficha de Incorporación — Walpa Chicken</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --maroon:  #4A0E0E;
+  --maroon2: #3A0B0B;
+  --yellow:  #F5C200;
+  --yellow2: #E0B000;
+  --red:     #CC2222;
+  --white:   #FFFFFF;
+  --bg:      #FBF5EC;
+  --card:    #FFFFFF;
+  --ice:     #FFF8EE;
+  --line:    #E8D8C0;
+  --muted:   #9A7E5A;
+  --text:    #2A1506;
+  --ok:      #2D7A3A;
+  --err:     #CC2222;
+  --r:       14px;
+  --rs:      10px;
+  --sh:      0 2px 16px rgba(74,14,14,.08);
+  --sh2:     0 8px 32px rgba(74,14,14,.13);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+
+/* ══ HEADER ══ */
+.site-header{
+  background:var(--maroon2);
+  padding:0 20px;
+  height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.35);
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-crown{font-size:1.4rem;line-height:1}
+.logo-text{display:flex;flex-direction:column;line-height:1.1}
+.logo-walpa{font-size:1.1rem;font-weight:700;color:var(--yellow);letter-spacing:.3px}
+.logo-chicken{font-size:.62rem;color:rgba(255,255,255,.55);font-weight:400;letter-spacing:1.5px;text-transform:uppercase}
+.header-tag{font-size:.63rem;color:rgba(255,255,255,.35);letter-spacing:.8px;text-transform:uppercase;display:none}
+@media(min-width:480px){.header-tag{display:block}}
+
+/* ══ HERO ══ */
+.hero{
+  background:linear-gradient(150deg,#2A0808 0%,#4A0E0E 50%,#6B1515 100%);
+  padding:28px 20px 44px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 70% 50%, rgba(245,194,0,.08) 0%, transparent 65%);
+}
+.hero-crown{font-size:2rem;margin-bottom:8px;position:relative}
+.hero h1{font-size:1.35rem;font-weight:700;color:var(--white);margin-bottom:6px;position:relative}
+.hero h1 span{color:var(--yellow)}
+.hero p{font-size:.82rem;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto;font-weight:300;line-height:1.6;position:relative}
+@media(min-width:480px){
+  .hero{padding:36px 24px 52px}
+  .hero h1{font-size:1.55rem}
+  .hero p{font-size:.88rem}
+}
+
+/* Progress dots */
+.steps-track{
+  display:flex;align-items:center;justify-content:center;
+  margin:22px auto 0;max-width:360px;padding:0 4px;
+}
+.step-dot{
+  width:26px;height:26px;min-width:26px;border-radius:50%;
+  border:2px solid rgba(245,194,0,.25);color:rgba(255,255,255,.35);
+  font-size:.68rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;transition:all .3s;
+}
+.step-dot.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.step-dot.active{background:var(--yellow);border-color:var(--yellow);color:var(--maroon2);box-shadow:0 0 0 4px rgba(245,194,0,.25)}
+.step-line{flex:1;height:2px;background:rgba(245,194,0,.15);min-width:8px}
+.step-line.done{background:var(--ok)}
+
+/* ══ MAIN ══ */
+.main{max-width:660px;margin:-20px auto 48px;padding:0 12px}
+@media(min-width:480px){.main{padding:0 16px}}
+
+/* ══ CARD ══ */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh2);overflow:hidden;display:none;animation:fadeUp .35s ease both}
+.card.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.card-top{padding:20px;border-bottom:1px solid var(--ice);display:flex;align-items:flex-start;gap:12px}
+@media(min-width:480px){.card-top{padding:24px 28px}}
+.card-icon{width:40px;height:40px;min-width:40px;border-radius:var(--rs);background:var(--ice);display:flex;align-items:center;justify-content:center;font-size:1.15rem}
+.card-top h2{font-size:1.05rem;font-weight:700;color:var(--maroon);margin-bottom:3px}
+.card-top p{font-size:.8rem;color:var(--muted);font-weight:300;line-height:1.55}
+@media(min-width:480px){.card-top h2{font-size:1.12rem}}
+
+.card-body{padding:20px}
+@media(min-width:480px){.card-body{padding:24px 28px}}
+
+/* ══ FIELDS ══ */
+.field{margin-bottom:16px}
+.field>label{display:block;font-size:.78rem;font-weight:600;color:var(--maroon);margin-bottom:5px;letter-spacing:.2px}
+.req{color:var(--red);margin-left:2px}
+.hint{font-size:.72rem;color:var(--muted);margin-bottom:5px;font-weight:300;line-height:1.5}
+
+/* Inputs — sin placeholder visible, sin watermark */
+input[type=text],
+input[type=email],
+input[type=tel],
+select{
+  width:100%;height:48px;padding:0 14px;
+  border:1.5px solid var(--line);border-radius:var(--rs);
+  font-family:'Outfit',sans-serif;font-size:16px;
+  color:var(--text);background:var(--ice);
+  transition:border-color .2s,box-shadow .2s,background .2s;
+  outline:none;appearance:none;-webkit-appearance:none;
+  touch-action:manipulation;
+}
+input[type=text]::placeholder,
+input[type=email]::placeholder,
+input[type=tel]::placeholder{color:transparent}
+@media(min-width:480px){
+  input[type=text],input[type=email],input[type=tel],select{height:46px;font-size:.9rem}
+}
+input:focus,select:focus{
+  border-color:var(--yellow2);background:#fff;
+  box-shadow:0 0 0 3px rgba(245,194,0,.18);
+}
+input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34,.1)}
+
+.sel-wrap{position:relative}
+.sel-wrap::after{
+  content:'';position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);pointer-events:none;
+  border:5px solid transparent;border-top:6px solid var(--muted);border-bottom:none;
+}
+
+/* Grid */
+.row{display:grid;gap:0;grid-template-columns:1fr}
+.c2,.c3{grid-template-columns:1fr;gap:0}
+@media(min-width:480px){
+  .c2{grid-template-columns:1fr 1fr;gap:14px}
+  .c3{grid-template-columns:1fr 1fr 1fr;gap:14px}
+}
+
+/* Chips */
+.chips{display:flex;gap:10px}
+.chip{
+  flex:1;border:1.5px solid var(--line);border-radius:var(--rs);
+  padding:13px 10px;text-align:center;cursor:pointer;
+  font-size:.88rem;font-weight:500;color:var(--muted);
+  background:var(--ice);transition:all .18s;user-select:none;
+  min-height:48px;display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.chip input{display:none}
+.chip.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:600}
+
+/* Sede chips — más grandes */
+.sede-chips{display:flex;flex-direction:column;gap:10px}
+@media(min-width:420px){.sede-chips{flex-direction:row}}
+.sede-chip{
+  flex:1;border:1.5px solid var(--line);border-radius:var(--rs);
+  padding:16px 14px;text-align:center;cursor:pointer;
+  font-size:.9rem;font-weight:500;color:var(--muted);
+  background:var(--ice);transition:all .18s;user-select:none;
+  -webkit-tap-highlight-color:transparent;line-height:1.4;
+}
+.sede-chip input{display:none}
+.sede-chip .sede-ico{font-size:1.3rem;margin-bottom:4px;display:block}
+.sede-chip.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:600;border-width:2px}
+
+/* Radio rows */
+.radio-list{display:flex;flex-direction:column;gap:8px}
+.rr{
+  display:flex;align-items:center;gap:12px;
+  border:1.5px solid var(--line);border-radius:var(--rs);
+  padding:14px 16px;cursor:pointer;font-size:.88rem;
+  color:var(--text);background:var(--ice);transition:all .18s;
+  user-select:none;min-height:52px;-webkit-tap-highlight-color:transparent;
+}
+.rr input{display:none}
+.rr-dot{width:20px;height:20px;min-width:20px;border-radius:50%;border:2px solid var(--line);background:#fff;transition:all .18s}
+.rr.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:500;border-width:2px}
+.rr.on .rr-dot{border-color:var(--yellow);background:var(--yellow);box-shadow:inset 0 0 0 3px #fff}
+
+/* File upload */
+.upload-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:480px){.upload-grid{grid-template-columns:1fr 1fr}}
+.upload-box{
+  border:2px dashed var(--line);border-radius:var(--rs);
+  padding:24px 16px;text-align:center;cursor:pointer;
+  background:var(--ice);transition:all .2s;
+  position:relative;overflow:hidden;min-height:110px;
+  -webkit-tap-highlight-color:transparent;
+}
+.upload-box:hover,.upload-box.drag{border-color:var(--yellow2);background:#FFFBEA}
+.upload-box input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px}
+.upload-ico{font-size:1.5rem;margin-bottom:5px}
+.upload-lbl{font-size:.84rem;font-weight:600;color:var(--maroon)}
+.upload-sub{font-size:.71rem;color:var(--muted);margin-top:3px}
+.upload-ok{font-size:.75rem;color:var(--ok);margin-top:8px;font-weight:600;display:none;word-break:break-all}
+.upload-ok.show{display:block}
+
+/* Checkbox */
+.ck-wrap{
+  display:flex;gap:12px;align-items:flex-start;
+  border:1.5px solid var(--line);border-radius:var(--rs);
+  padding:14px;background:var(--ice);cursor:pointer;transition:all .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ck-wrap:has(input:checked){border-color:var(--yellow2);background:#FFFBEA;border-width:2px}
+.ck-wrap input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--yellow2);cursor:pointer;appearance:auto;-webkit-appearance:auto;flex-shrink:0}
+.ck-txt{font-size:.82rem;line-height:1.65;color:var(--text)}
+
+.divider{height:1px;background:var(--ice);margin:18px 0}
+.sub-field{margin-top:10px;padding:14px;background:var(--ice);border-radius:var(--rs);border-left:3px solid var(--yellow)}
+
+/* Error */
+.emsg{font-size:.72rem;color:var(--err);margin-top:5px;font-weight:500;display:none}
+.emsg.show{display:block}
+
+/* ══ NAVEGACIÓN ══ */
+.card-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px;border-top:1px solid var(--ice);background:var(--ice);gap:10px;
+}
+@media(min-width:480px){.card-nav{padding:16px 28px}}
+
+.btn{
+  padding:13px 22px;border-radius:var(--rs);
+  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;
+  cursor:pointer;border:none;transition:all .2s;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:50px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted);flex-shrink:0}
+.btn-ghost:hover{border-color:var(--maroon);color:var(--maroon)}
+.btn-main{
+  background:var(--yellow);color:var(--maroon2);
+  box-shadow:0 4px 12px rgba(245,194,0,.4);flex:1;
+}
+.btn-main:hover{background:var(--yellow2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(245,194,0,.45)}
+.btn-main:active{transform:scale(.98)}
+.btn:disabled{opacity:.5;pointer-events:none}
+@media(min-width:480px){.btn-main{flex:0 0 auto;min-width:140px}}
+
+/* ══ ÉXITO ══ */
+.success{display:none;text-align:center;padding:48px 24px 44px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh2);animation:fadeUp .5s ease}
+.success.show{display:block}
+.s-crown{font-size:3rem;margin-bottom:12px;display:block}
+.s-circle{width:76px;height:76px;margin:0 auto 20px;background:linear-gradient(135deg,#1A5C28,#2D7A3A);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(45,122,58,.35)}
+.s-circle svg{width:38px;height:38px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.s-title{font-size:1.6rem;font-weight:700;color:var(--maroon);margin-bottom:6px;line-height:1.3}
+.s-walpa{color:var(--yellow2)}
+.s-body{font-size:.88rem;color:var(--muted);line-height:1.8;max-width:380px;margin:0 auto}
+.s-divider{width:48px;height:3px;background:linear-gradient(90deg,var(--maroon),var(--yellow));border-radius:4px;margin:18px auto}
+
+/* Spinner */
+.spin{width:18px;height:18px;border:2.5px solid rgba(74,14,14,.2);border-top-color:var(--maroon2);border-radius:50%;animation:rot .65s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-crown">👑</span>
+    <div class="logo-text">
+      <span class="logo-walpa">Walpa</span>
+      <span class="logo-chicken">Chicken</span>
+    </div>
+  </div>
+  <span class="header-tag">Ficha de Incorporación</span>
+</header>
+
+<div class="hero">
+  <div class="hero-crown">👑</div>
+  <h1>Bienvenido/a al equipo <span>Walpa</span></h1>
+  <p>Complete su ficha en pocos pasos. Tenga a la mano su DNI y tarjeta bancaria antes de comenzar.</p>
+  <div class="steps-track">
+    <div class="step-dot active" id="sd1">1</div><div class="step-line" id="sl1"></div>
+    <div class="step-dot" id="sd2">2</div><div class="step-line" id="sl2"></div>
+    <div class="step-dot" id="sd3">3</div><div class="step-line" id="sl3"></div>
+    <div class="step-dot" id="sd4">4</div><div class="step-line" id="sl4"></div>
+    <div class="step-dot" id="sd5">5</div><div class="step-line" id="sl5"></div>
+    <div class="step-dot" id="sd6">6</div><div class="step-line" id="sl6"></div>
+    <div class="step-dot" id="sd7">7</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 1. DATOS PERSONALES -->
+<div class="card active" id="step1">
+  <div class="card-top">
+    <div class="card-icon">👤</div>
+    <div><h2>Datos Personales</h2><p>Ingrese sus datos exactamente como aparecen en su DNI.</p></div>
+  </div>
+  <div class="card-body">
+    <div class="field">
+      <label>Número de DNI <span class="req">*</span></label>
+      <div class="hint">8 dígitos numéricos</div>
+      <input type="text" id="dni" inputmode="numeric" maxlength="8">
+      <div class="emsg" id="e-dni">Ingrese exactamente 8 dígitos numéricos.</div>
+    </div>
+    <div class="field">
+      <label>Nombres <span class="req">*</span></label>
+      <div class="hint">Tal como figuran en su DNI, en mayúsculas</div>
+      <input type="text" id="nombres" autocomplete="given-name">
+      <div class="emsg" id="e-nombres">Campo requerido.</div>
+    </div>
+    <div class="row c2">
+      <div class="field">
+        <label>Apellido Paterno <span class="req">*</span></label>
+        <input type="text" id="apPaterno" autocomplete="family-name">
+        <div class="emsg" id="e-apPaterno">Campo requerido.</div>
+      </div>
+      <div class="field">
+        <label>Apellido Materno <span class="req">*</span></label>
+        <input type="text" id="apMaterno">
+        <div class="emsg" id="e-apMaterno">Campo requerido.</div>
+      </div>
+    </div>
+    <div class="row c2">
+      <div class="field">
+        <label>Estado Civil <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="estadoCivil">
+            <option value="">Seleccionar...</option>
+            <option>Soltero/a</option><option>Casado/a</option>
+            <option>Conviviente</option><option>Divorciado/a</option><option>Viudo/a</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-estadoCivil">Seleccione una opción.</div>
+      </div>
+      <div class="field">
+        <label>Nacionalidad <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="nacionalidad">
+            <option>Peruana</option><option>Colombiana</option><option>Venezolana</option>
+            <option>Ecuatoriana</option><option>Boliviana</option><option>Argentina</option>
+            <option>Chilena</option><option>Otra</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Grado de Instrucción <span class="req">*</span></label>
+      <div class="sel-wrap">
+        <select id="instruccion">
+          <option value="">Seleccionar...</option>
+          <option>Primaria completa</option><option>Secundaria incompleta</option>
+          <option>Secundaria completa</option><option>Técnico incompleto</option>
+          <option>Técnico completo</option><option>Universitario incompleto</option>
+          <option>Universitario completo</option><option>Posgrado</option>
+        </select>
+      </div>
+      <div class="emsg" id="e-instruccion">Seleccione una opción.</div>
+    </div>
+    <div class="field">
+      <label>Sexo <span class="req">*</span></label>
+      <div class="chips">
+        <label class="chip" id="chip-m"><input type="radio" name="sexo" value="Masculino" onchange="chipSel('chip-m','chip-f')">♂ Masculino</label>
+        <label class="chip" id="chip-f"><input type="radio" name="sexo" value="Femenino"  onchange="chipSel('chip-f','chip-m')">♀ Femenino</label>
+      </div>
+      <div class="emsg" id="e-sexo">Seleccione una opción.</div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>¿Tiene hijos menores de 18 años? <span class="req">*</span></label>
+      <div class="chips">
+        <label class="chip" id="chip-hs"><input type="radio" name="hijos" value="Sí" onchange="chipSel('chip-hs','chip-hn');toggleHijos(true)">Sí</label>
+        <label class="chip" id="chip-hn"><input type="radio" name="hijos" value="No" onchange="chipSel('chip-hn','chip-hs');toggleHijos(false)">No</label>
+      </div>
+      <div class="emsg" id="e-hijos">Seleccione una opción.</div>
+      <div id="cantHijosWrap" style="display:none;margin-top:12px">
+        <div class="sub-field">
+          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:6px">¿Cuántos hijos menores tiene? <span class="req">*</span></label>
+          <div class="sel-wrap" style="max-width:180px">
+            <select id="cantHijos">
+              <option value="">— Cantidad —</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>Más de 5</option>
+            </select>
+          </div>
+          <div class="emsg" id="e-cantHijos">Indique la cantidad.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <div style="flex:1"></div>
+    <button class="btn btn-main" onclick="goTo(2)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 2. FECHA DE NACIMIENTO -->
+<div class="card" id="step2">
+  <div class="card-top">
+    <div class="card-icon">📅</div>
+    <div><h2>Fecha de Nacimiento</h2><p>Seleccione su fecha tal como aparece en su DNI.</p></div>
+  </div>
+  <div class="card-body">
+    <div class="row c3">
+      <div class="field">
+        <label>Día <span class="req">*</span></label>
+        <div class="sel-wrap"><select id="diaNac"></select></div>
+        <div class="emsg" id="e-diaNac">Seleccione el día.</div>
+      </div>
+      <div class="field">
+        <label>Mes <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="mesNac">
+            <option value="">— Mes —</option>
+            <option value="01">Enero</option><option value="02">Febrero</option>
+            <option value="03">Marzo</option><option value="04">Abril</option>
+            <option value="05">Mayo</option><option value="06">Junio</option>
+            <option value="07">Julio</option><option value="08">Agosto</option>
+            <option value="09">Septiembre</option><option value="10">Octubre</option>
+            <option value="11">Noviembre</option><option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-mesNac">Seleccione el mes.</div>
+      </div>
+      <div class="field">
+        <label>Año <span class="req">*</span></label>
+        <div class="sel-wrap"><select id="anioNac"></select></div>
+        <div class="emsg" id="e-anioNac">Seleccione el año.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(1)">← Atrás</button>
+    <button class="btn btn-main" onclick="goTo(3)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 3. DOMICILIO -->
+<div class="card" id="step3">
+  <div class="card-top">
+    <div class="card-icon">🏠</div>
+    <div><h2>Domicilio Actual</h2><p>Ingrese la dirección donde vive actualmente.</p></div>
+  </div>
+  <div class="card-body">
+    <div class="row c2">
+      <div class="field">
+        <label>Departamento <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="departamento" onchange="onDeptChange()">
+            <option value="">Seleccionar...</option>
+            <option selected>Lima</option>
+            <option>Amazonas</option><option>Áncash</option><option>Apurímac</option>
+            <option>Arequipa</option><option>Ayacucho</option><option>Cajamarca</option>
+            <option>Callao</option><option>Cusco</option><option>Huancavelica</option>
+            <option>Huánuco</option><option>Ica</option><option>Junín</option>
+            <option>La Libertad</option><option>Lambayeque</option>
+            <option>Loreto</option><option>Madre de Dios</option><option>Moquegua</option>
+            <option>Pasco</option><option>Piura</option><option>Puno</option>
+            <option>San Martín</option><option>Tacna</option><option>Tumbes</option><option>Ucayali</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-departamento">Seleccione el departamento.</div>
+      </div>
+      <div class="field">
+        <label>Provincia <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="provincia">
+            <option value="Lima" selected>Lima</option>
+            <option>Barranca</option><option>Cajatambo</option><option>Canta</option>
+            <option>Cañete</option><option>Huaral</option><option>Huarochirí</option>
+            <option>Huaura</option><option>Oyón</option><option>Yauyos</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-provincia">Seleccione la provincia.</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Distrito <span class="req">*</span></label>
+      <div class="sel-wrap"><select id="distrito"></select></div>
+      <div class="emsg" id="e-distrito">Seleccione el distrito.</div>
+    </div>
+    <div class="field">
+      <label>Dirección <span class="req">*</span></label>
+      <div class="hint">Calle o avenida, número y referencia</div>
+      <input type="text" id="direccion" autocomplete="street-address">
+      <div class="emsg" id="e-direccion">Campo requerido.</div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(2)">← Atrás</button>
+    <button class="btn btn-main" onclick="goTo(4)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 4. CONTACTO Y SEDE -->
+<div class="card" id="step4">
+  <div class="card-top">
+    <div class="card-icon">📱</div>
+    <div><h2>Contacto y Sede</h2><p>Sus datos de contacto y la sede donde trabajará.</p></div>
+  </div>
+  <div class="card-body">
+    <div class="field">
+      <label>Número de Celular <span class="req">*</span></label>
+      <div class="hint">9 dígitos numéricos</div>
+      <input type="tel" id="celular" inputmode="numeric" maxlength="9" autocomplete="tel">
+      <div class="emsg" id="e-celular">Ingrese 9 dígitos numéricos.</div>
+    </div>
+    <div class="field">
+      <label>Correo Electrónico <span class="req">*</span></label>
+      <input type="email" id="email" autocomplete="email" inputmode="email">
+      <div class="emsg" id="e-email">Ingrese un correo electrónico válido.</div>
+    </div>
+    <div class="field">
+      <label>Cargo o Puesto <span class="req">*</span></label>
+      <div class="hint">El cargo acordado con su jefe directo</div>
+      <input type="text" id="cargo">
+      <div class="emsg" id="e-cargo">Campo requerido.</div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>Sede de Trabajo <span class="req">*</span></label>
+      <div class="hint">Seleccione la sede donde realizará sus funciones</div>
+      <div class="sede-chips">
+        <label class="sede-chip" id="sede-flores">
+          <input type="radio" name="sede" value="Walpa Flores" onchange="sedeChip('sede-flores','sede-jardines')">
+          <span class="sede-ico">🌸</span>
+          <strong>Walpa Flores</strong>
+        </label>
+        <label class="sede-chip" id="sede-jardines">
+          <input type="radio" name="sede" value="Walpa Los Jardines" onchange="sedeChip('sede-jardines','sede-flores')">
+          <span class="sede-ico">🌳</span>
+          <strong>Walpa Los Jardines</strong>
+        </label>
+      </div>
+      <div class="emsg" id="e-sede">Seleccione su sede de trabajo.</div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(3)">← Atrás</button>
+    <button class="btn btn-main" onclick="goTo(5)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 5. PENSIONES -->
+<div class="card" id="step5">
+  <div class="card-top">
+    <div class="card-icon">🏦</div>
+    <div><h2>Sistema de Pensiones</h2><p>Si no recuerda cuál es el suyo, revise su última boleta de pago o elija "No lo sé".</p></div>
+  </div>
+  <div class="card-body">
+    <div class="field">
+      <label>¿A qué sistema pertenece? <span class="req">*</span></label>
+      <div class="radio-list">
+        <label class="rr" id="rr-onp">
+          <input type="radio" name="pension" value="ONP" onchange="selRR('rr-onp',['rr-afp','rr-na','rr-ns']);toggleAfp(false);toggleNoAfiliado(false)">
+          <div class="rr-dot"></div>
+          <div><strong>ONP</strong> — Sistema Nacional de Pensiones (del Estado)</div>
+        </label>
+        <label class="rr" id="rr-afp">
+          <input type="radio" name="pension" value="AFP" onchange="selRR('rr-afp',['rr-onp','rr-na','rr-ns']);toggleAfp(true);toggleNoAfiliado(false)">
+          <div class="rr-dot"></div>
+          <div><strong>AFP</strong> — Sistema Privado de Pensiones</div>
+        </label>
+        <label class="rr" id="rr-na">
+          <input type="radio" name="pension" value="No afiliado" onchange="selRR('rr-na',['rr-onp','rr-afp','rr-ns']);toggleAfp(false);toggleNoAfiliado(true)">
+          <div class="rr-dot"></div>
+          <div>Aún no estoy afiliado/a</div>
+        </label>
+        <label class="rr" id="rr-ns">
+          <input type="radio" name="pension" value="No lo sé" onchange="selRR('rr-ns',['rr-onp','rr-afp','rr-na']);toggleAfp(false);toggleNoAfiliado(false)">
+          <div class="rr-dot"></div>
+          <div>No lo sé — <span style="color:var(--muted);font-weight:400">RRHH me orientará</span></div>
+        </label>
+      </div>
+      <div class="emsg" id="e-pension">Seleccione una opción.</div>
+
+      <!-- Sub: elegir AFP (+ opción No lo sé dentro de AFP) -->
+      <div id="afpWrap" style="display:none;margin-top:12px">
+        <div class="sub-field">
+          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:6px">¿A cuál AFP pertenece? <span class="req">*</span></label>
+          <div class="radio-list">
+            <label class="rr" id="afp-hab"><input type="radio" name="afpNombreR" value="Habitat" onchange="selAfp('afp-hab',['afp-int','afp-pri','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Habitat</label>
+            <label class="rr" id="afp-int"><input type="radio" name="afpNombreR" value="Integra"  onchange="selAfp('afp-int',['afp-hab','afp-pri','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Integra</label>
+            <label class="rr" id="afp-pri"><input type="radio" name="afpNombreR" value="Prima"    onchange="selAfp('afp-pri',['afp-hab','afp-int','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Prima</label>
+            <label class="rr" id="afp-pro"><input type="radio" name="afpNombreR" value="Profuturo" onchange="selAfp('afp-pro',['afp-hab','afp-int','afp-pri','afp-ns'])"><div class="rr-dot"></div>AFP Profuturo</label>
+            <label class="rr" id="afp-ns"><input type="radio" name="afpNombreR" value="No lo sé"  onchange="selAfp('afp-ns',['afp-hab','afp-int','afp-pri','afp-pro'])"><div class="rr-dot"></div>No lo sé — <span style="color:var(--muted);font-weight:400">RRHH verificará por mí</span></label>
+          </div>
+          <div class="emsg" id="e-afpNombre">Seleccione su AFP.</div>
+        </div>
+      </div>
+
+      <!-- Sub: no afiliado → quiere ayuda -->
+      <div id="noAfiliadoWrap" style="display:none;margin-top:12px">
+        <div class="sub-field">
+          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:8px">¿Desea que le ayudemos a afiliarse? <span class="req">*</span></label>
+          <div class="chips">
+            <label class="chip" id="chip-ay"><input type="radio" name="ayudaAfil" value="Sí, deseo que me ayuden" onchange="chipSel('chip-ay','chip-no')">Sí, por favor</label>
+            <label class="chip" id="chip-no"><input type="radio" name="ayudaAfil" value="No, lo haré por mi cuenta" onchange="chipSel('chip-no','chip-ay')">Lo haré por mi cuenta</label>
+          </div>
+          <div class="emsg" id="e-ayudaAfil">Seleccione una opción.</div>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:10px;line-height:1.6">
+            💡 Si elige <strong>"Sí, por favor"</strong>, RRHH coordinará el trámite de afiliación durante su primer mes. No se preocupe, es un proceso sencillo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(4)">← Atrás</button>
+    <button class="btn btn-main" onclick="goTo(6)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 6. DATOS BANCARIOS -->
+<div class="card" id="step6">
+  <div class="card-top">
+    <div class="card-icon">💳</div>
+    <div><h2>Datos Bancarios</h2><p>Su sueldo será depositado en esta cuenta. Tenga a la mano su tarjeta o app del banco.</p></div>
+  </div>
+  <div class="card-body">
+
+    <!-- Opción: no tengo cuenta -->
+    <div class="field">
+      <label>¿Cuenta con una cuenta bancaria activa? <span class="req">*</span></label>
+      <div class="chips">
+        <label class="chip" id="chip-tsi"><input type="radio" name="tieneCuenta" value="Sí" onchange="chipSel('chip-tsi','chip-tno');toggleCuenta(true)">Sí, tengo cuenta</label>
+        <label class="chip" id="chip-tno"><input type="radio" name="tieneCuenta" value="No" onchange="chipSel('chip-tno','chip-tsi');toggleCuenta(false)">No tengo cuenta</label>
+      </div>
+      <div class="emsg" id="e-tieneCuenta">Seleccione una opción.</div>
+    </div>
+
+    <!-- Formulario de cuenta (visible si tiene cuenta) -->
+    <div id="cuentaWrap">
+      <div class="field">
+        <label>Banco <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="banco">
+            <option value="">Seleccionar banco...</option>
+            <option>BCP — Banco de Crédito del Perú</option><option>BBVA Perú</option>
+            <option>Interbank</option><option>Scotiabank Perú</option><option>BanBif</option>
+            <option>Banco Pichincha</option><option>Banco GNB</option><option>Mibanco</option>
+            <option>Caja Arequipa</option><option>Caja Cusco</option>
+            <option>Caja Huancayo</option><option>Caja Piura</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-banco">Seleccione su banco.</div>
+      </div>
+      <div class="field">
+        <label>Número de Cuenta <span class="req">*</span></label>
+        <div class="hint">Solo números, sin espacios. Lo encuentra en su tarjeta o en la app de su banco</div>
+        <input type="text" id="numeroCuenta" inputmode="numeric">
+        <div class="emsg" id="e-numeroCuenta">Ingrese al menos 8 dígitos.</div>
+      </div>
+    </div>
+
+    <!-- Mensaje si NO tiene cuenta -->
+    <div id="noCuentaWrap" style="display:none">
+      <div class="sub-field" style="border-left-color:var(--yellow);background:#FFFBEA">
+        <p style="font-size:.85rem;font-weight:600;color:var(--maroon);margin-bottom:8px">🏦 No se preocupe, le ayudamos a abrir su cuenta</p>
+        <p style="font-size:.8rem;color:var(--text);line-height:1.7;margin-bottom:10px">
+          Por defecto tramitaremos la apertura de una <strong>Cuenta de Ahorros BCP</strong> a su nombre, sin costo y sin requisitos complicados. Solo necesitará su DNI.<br><br>
+          RRHH coordinará todo durante su primer mes. Su sueldo se depositará ahí desde el primer pago.
+        </p>
+        <div style="background:var(--white);border-radius:8px;padding:12px;border:1px solid var(--line);display:flex;align-items:center;gap:10px">
+          <span style="font-size:1.4rem">🟡</span>
+          <div>
+            <div style="font-size:.8rem;font-weight:700;color:var(--maroon)">BCP — Banco de Crédito del Perú</div>
+            <div style="font-size:.72rem;color:var(--muted)">Cuenta de Ahorros · Sin costo de apertura</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(5)">← Atrás</button>
+    <button class="btn btn-main" onclick="goTo(7)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- 7. FOTOS + DECLARACIÓN -->
+<div class="card" id="step7">
+  <div class="card-top">
+    <div class="card-icon">📎</div>
+    <div><h2>Fotos del DNI y Confirmación</h2><p>Adjunte fotos nítidas de ambas caras de su DNI.</p></div>
+  </div>
+  <div class="card-body">
+    <div class="upload-grid">
+      <div class="field">
+        <label>Foto DNI — Parte delantera <span class="req">*</span></label>
+        <div class="upload-box" id="ub-a">
+          <input type="file" id="fotoAnverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-a','ub-a')">
+          <div class="upload-ico">📷</div>
+          <div class="upload-lbl">Toque para tomar o subir foto</div>
+          <div class="upload-sub">JPG, PNG o PDF — máx. 10 MB</div>
+          <div class="upload-ok" id="ok-a"></div>
+        </div>
+        <div class="emsg" id="e-fotoA">Suba la foto del frente de su DNI.</div>
+      </div>
+      <div class="field">
+        <label>Foto DNI — Parte trasera <span class="req">*</span></label>
+        <div class="upload-box" id="ub-r">
+          <input type="file" id="fotoReverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-r','ub-r')">
+          <div class="upload-ico">📷</div>
+          <div class="upload-lbl">Toque para tomar o subir foto</div>
+          <div class="upload-sub">JPG, PNG o PDF — máx. 10 MB</div>
+          <div class="upload-ok" id="ok-r"></div>
+        </div>
+        <div class="emsg" id="e-fotoR">Suba la foto del reverso de su DNI.</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label class="ck-wrap">
+        <input type="checkbox" id="declaracion">
+        <span class="ck-txt">Confirmo que todos los datos ingresados son verídicos y corresponden a mis documentos oficiales. Entiendo que proporcionar información falsa puede afectar mi relación laboral con Walpa Chicken.</span>
+      </label>
+      <div class="emsg" id="e-decl">Debe confirmar la declaración para continuar.</div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button class="btn btn-ghost" onclick="goTo(6)">← Atrás</button>
+    <button class="btn btn-main" id="btnEnviar" onclick="enviar()">Enviar Ficha</button>
+  </div>
+</div>
+
+<!-- ÉXITO -->
+<div class="success" id="successScreen">
+  <span class="s-crown">👑</span>
+  <div class="s-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h2 class="s-title">¡Bienvenido/a a la<br>familia <span class="s-walpa">Walpa</span>!</h2>
+  <div class="s-divider"></div>
+  <p class="s-body">Sus datos han sido registrados exitosamente. El equipo de Recursos Humanos se comunicará con usted a la brevedad para coordinar los siguientes pasos de su incorporación.</p>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  IMPORTANTE: Pega aquí la URL de tu Google Apps Script
+//  después de implementarlo como Aplicación Web
+// ══════════════════════════════════════════════════════════
+var GAS_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+// Días y años
+(function(){
+  var sd=document.getElementById('diaNac');
+  sd.innerHTML='<option value="">— Día —</option>';
+  for(var d=1;d<=31;d++) sd.innerHTML+='<option>'+d+'</option>';
+  var sa=document.getElementById('anioNac');
+  sa.innerHTML='<option value="">— Año —</option>';
+  for(var a=2006;a>=1950;a--) sa.innerHTML+='<option>'+a+'</option>';
+})();
+
+// Distritos Lima
+var distritosLima=["San Juan de Lurigancho","Ate","Comas","Villa El Salvador","Villa María del Triunfo","San Martín de Porres","Los Olivos","Puente Piedra","Carabayllo","Chorrillos","San Juan de Miraflores","Independencia","El Agustino","Santa Anita","Lurigancho","Rímac","La Victoria","Breña","Lima (Cercado)","La Molina","Miraflores","San Isidro","San Borja","Surco (Santiago de Surco)","Surquillo","Lince","Jesús María","Pueblo Libre","Magdalena del Mar","San Miguel","Barranco","Chaclacayo","Lurín","Pachacámac","Cieneguilla","Ancón","Santa Rosa","Punta Negra","Punta Hermosa","San Bartolo","Santa María del Mar"];
+function poblarDistritos(lista,def){
+  var sel=document.getElementById('distrito');sel.innerHTML='';
+  lista.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;if(d===def)o.selected=true;sel.appendChild(o);});
+}
+poblarDistritos(distritosLima,"San Juan de Lurigancho");
+function onDeptChange(){
+  var dep=document.getElementById('departamento').value;
+  if(dep==='Lima') poblarDistritos(distritosLima,"San Juan de Lurigancho");
+  else document.getElementById('distrito').innerHTML='<option value="">Seleccionar...</option>';
+}
+
+// Chips
+function chipSel(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
+function sedeChip(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
+function selRR(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){document.getElementById(id).classList.remove('on');});}
+function selAfp(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){document.getElementById(id).classList.remove('on');});}
+function toggleAfp(show){document.getElementById('afpWrap').style.display=show?'block':'none';if(!show){var rs=document.querySelectorAll('input[name="afpNombreR"]');rs.forEach(function(r){r.checked=false;});document.querySelectorAll('[id^="afp-"]').forEach(function(el){el.classList.remove('on');});}}
+function toggleNoAfiliado(show){document.getElementById('noAfiliadoWrap').style.display=show?'block':'none';if(!show){var rs=document.querySelectorAll('input[name="ayudaAfil"]');rs.forEach(function(r){r.checked=false;});['chip-ay','chip-no'].forEach(function(id){document.getElementById(id).classList.remove('on');});}}
+function toggleHijos(show){document.getElementById('cantHijosWrap').style.display=show?'block':'none';if(!show)document.getElementById('cantHijos').value='';}
+function toggleCuenta(show){
+  document.getElementById('cuentaWrap').style.display=show?'block':'none';
+  document.getElementById('noCuentaWrap').style.display=show?'none':'block';
+  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';}
+}
+function onFile(inp,okId,boxId){var f=inp.files[0];if(!f)return;var ok=document.getElementById(okId);ok.textContent='✔ '+f.name;ok.classList.add('show');document.getElementById(boxId).querySelector('.upload-ico').textContent='✅';}
+
+// Navegación
+var current=1,TOTAL=7;
+function goTo(n){
+  if(n>current&&!validar(current)) return;
+  document.getElementById('step'+current).classList.remove('active');
+  document.getElementById('step'+n).classList.add('active');
+  for(var i=1;i<=TOTAL;i++){
+    var dot=document.getElementById('sd'+i);dot.classList.remove('active','done');
+    if(i<n)dot.classList.add('done');else if(i===n)dot.classList.add('active');
+    if(i<TOTAL)document.getElementById('sl'+i).classList.toggle('done',i<n);
+  }
+  current=n;window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Validación
+function v(id){var el=document.getElementById(id);var ok=el&&el.value.trim()!=='';var em=document.getElementById('e-'+id);if(el)el.classList.toggle('err',!ok);if(em)em.classList.toggle('show',!ok);return ok;}
+function validar(n){
+  var ok=true;
+  if(n===1){
+    var dniOk=/^[0-9]{8}$/.test(document.getElementById('dni').value);
+    document.getElementById('dni').classList.toggle('err',!dniOk);document.getElementById('e-dni').classList.toggle('show',!dniOk);
+    if(!dniOk)ok=false;
+    ['nombres','apPaterno','apMaterno','estadoCivil','instruccion'].forEach(function(id){if(!v(id))ok=false;});
+    var sexoOk=!!document.querySelector('input[name="sexo"]:checked');document.getElementById('e-sexo').classList.toggle('show',!sexoOk);if(!sexoOk)ok=false;
+    var hijosOk=!!document.querySelector('input[name="hijos"]:checked');document.getElementById('e-hijos').classList.toggle('show',!hijosOk);if(!hijosOk)ok=false;
+    var hv=document.querySelector('input[name="hijos"]:checked');if(hv&&hv.value==='Sí'&&!v('cantHijos'))ok=false;
+  }
+  if(n===2){['diaNac','mesNac','anioNac'].forEach(function(id){if(!v(id))ok=false;});}
+  if(n===3){['departamento','provincia','distrito','direccion'].forEach(function(id){if(!v(id))ok=false;});}
+  if(n===4){
+    var celOk=/^[0-9]{9}$/.test(document.getElementById('celular').value);
+    document.getElementById('celular').classList.toggle('err',!celOk);document.getElementById('e-celular').classList.toggle('show',!celOk);if(!celOk)ok=false;
+    ['email','cargo'].forEach(function(id){if(!v(id))ok=false;});
+    var sedeOk=!!document.querySelector('input[name="sede"]:checked');document.getElementById('e-sede').classList.toggle('show',!sedeOk);if(!sedeOk)ok=false;
+  }
+  if(n===5){
+    var pOk=!!document.querySelector('input[name="pension"]:checked');document.getElementById('e-pension').classList.toggle('show',!pOk);if(!pOk)ok=false;
+    var pv=document.querySelector('input[name="pension"]:checked');
+    if(pv&&pv.value==='AFP'){
+      var afpOk=!!document.querySelector('input[name="afpNombreR"]:checked');
+      document.getElementById('e-afpNombre').classList.toggle('show',!afpOk);if(!afpOk)ok=false;
+    }
+    if(pv&&pv.value==='No afiliado'){
+      var aOk=!!document.querySelector('input[name="ayudaAfil"]:checked');
+      document.getElementById('e-ayudaAfil').classList.toggle('show',!aOk);if(!aOk)ok=false;
+    }
+  }
+  if(n===6){
+    var tcOk=!!document.querySelector('input[name="tieneCuenta"]:checked');
+    document.getElementById('e-tieneCuenta').classList.toggle('show',!tcOk);if(!tcOk)ok=false;
+    var tc=document.querySelector('input[name="tieneCuenta"]:checked');
+    if(tc&&tc.value==='Sí'){['banco','numeroCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+  }
+  return ok;
+}
+
+// Envío
+function b64(file){return new Promise(function(res,rej){if(!file){res(null);return;}var r=new FileReader();r.onload=function(e){res(e.target.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
+function enviar(){
+  var fA=document.getElementById('fotoAnverso').files[0];
+  var fR=document.getElementById('fotoReverso').files[0];
+  var dec=document.getElementById('declaracion').checked;
+  var ok=true;
+  if(!fA){document.getElementById('e-fotoA').classList.add('show');ok=false;}else document.getElementById('e-fotoA').classList.remove('show');
+  if(!fR){document.getElementById('e-fotoR').classList.add('show');ok=false;}else document.getElementById('e-fotoR').classList.remove('show');
+  if(!dec){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
+  if(!ok)return;
+  var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
+  var pv=document.querySelector('input[name="pension"]:checked');
+  var hv=document.querySelector('input[name="hijos"]:checked');
+  var sv=document.querySelector('input[name="sede"]:checked');
+  var av=document.querySelector('input[name="afpNombreR"]:checked');
+  var aav=document.querySelector('input[name="ayudaAfil"]:checked');
+  var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
+  var tieneCuenta=tcv&&tcv.value==='Sí';
+  Promise.all([b64(fA),b64(fR)]).then(function(res){
+    var datos={
+      dni:document.getElementById('dni').value.trim(),
+      nombres:document.getElementById('nombres').value.trim(),
+      apPaterno:document.getElementById('apPaterno').value.trim(),
+      apMaterno:document.getElementById('apMaterno').value.trim(),
+      sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
+      estadoCivil:document.getElementById('estadoCivil').value,
+      nacionalidad:document.getElementById('nacionalidad').value,
+      instruccion:document.getElementById('instruccion').value,
+      hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
+      diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
+      departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
+      distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
+      celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
+      cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
+      sistemaPension:(pv||{}).value||'',
+      afpNombre:(av||{}).value||'',
+      ayudaAfiliacion:(aav||{}).value||'',
+      tieneCuenta:tcv?tcv.value:'',
+      banco:tieneCuenta?document.getElementById('banco').value:'BCP (apertura pendiente)',
+      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
+      fotoAnversoB64:res[0],fotoAnversoNombre:fA.name,fotoAnversoTipo:fA.type,
+      fotoReversoB64:res[1],fotoReversoNombre:fR.name,fotoReversoTipo:fR.type
+    };
+    fetch(GAS_URL, {
+      method: 'POST',
+      mode:   'no-cors',
+      body:   JSON.stringify(datos)
+    })
+    .then(function() {
+      document.getElementById('step7').classList.remove('active');
+      for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);dot.classList.add('done');dot.textContent='✓';}
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({top:0,behavior:'smooth'});
+    })
+    .catch(function(){
+      btn.disabled=false;
+      btn.innerHTML='Enviar Ficha';
+      alert('Error de conexión. Verifique su internet e intente nuevamente.');
+    });
+  });
+}
+</script>
+</body>
+</html>
