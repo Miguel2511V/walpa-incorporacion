@@ -56,7 +56,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .ctop-ico{width:44px;height:44px;min-width:44px;border-radius:var(--rs);background:linear-gradient(135deg,var(--ink),#6B1010);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(58,8,8,.25)}
 .card-top h2{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:4px}
 .card-top p{font-size:.79rem;color:var(--muted);font-weight:300;line-height:1.55}
-.badge-minor{display:inline-block;background:linear-gradient(135deg,#1A4FD6,#2563EB);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:100px;margin-top:6px;text-transform:uppercase}
+.badge-minor{display:inline-block;background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--ink2);font-size:.68rem;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:100px;margin-top:6px;text-transform:uppercase}
 
 .card-body{padding:20px}
 @media(min-width:480px){.card-body{padding:24px 28px}}
@@ -147,10 +147,10 @@ select{text-transform:none}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
 
 /* MINOR ALERT */
-.minor-alert{background:linear-gradient(135deg,#EBF3FF,#DBEAFE);border:2px solid #2563EB;border-radius:var(--rs);padding:16px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
+.minor-alert{background:linear-gradient(135deg,#FFF8EE,#FFEEC8);border:2px solid var(--gold2);border-radius:var(--rs);padding:16px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
 .minor-alert .ma-ico{font-size:1.4rem;flex-shrink:0}
-.minor-alert .ma-txt{font-size:.82rem;line-height:1.65;color:#1E3A6B}
-.minor-alert .ma-txt strong{color:#0B2D6B}
+.minor-alert .ma-txt{font-size:.82rem;line-height:1.65;color:#5A2D00}
+.minor-alert .ma-txt strong{color:var(--ink)}
 
 /* ERROR */
 .emsg{font-size:.72rem;color:var(--err);margin-top:5px;font-weight:500;display:none}
@@ -576,24 +576,50 @@ select{text-transform:none}
   <div class="card-body">
     <!-- Aviso menor de edad -->
     <div class="minor-alert" id="minorBancoAlert" style="display:none">
-      <span class="ma-ico">🔵</span>
-      <div class="ma-txt"><strong>Como eres menor de edad</strong>, el sueldo se depositará en la cuenta de tu apoderado. Ingresa los datos bancarios de tu padre, madre o tutor.</div>
+      <span class="ma-ico">👶</span>
+      <div class="ma-txt"><strong>Colaborador menor de edad:</strong> el sueldo se depositará en la cuenta del apoderado (padre, madre o tutor). Ingresa los datos de esa cuenta a continuación.</div>
     </div>
 
     <div class="dj-box">
       <div class="dj-title">⚖️ Declaración Jurada</div>
-      <div class="dj-body">Al registrar tus datos bancarios confirmas bajo Declaración Jurada que la cuenta es activa, está a tu nombre (o de tu apoderado si eres menor de edad), y autorizas a Walpa Chicken a depositar tu remuneración en ella.</div>
+      <div class="dj-body">Al registrar los datos bancarios confirmas bajo Declaración Jurada que la cuenta es activa y autorizas a Walpa Chicken a depositar la remuneración en ella.</div>
     </div>
 
-    <div class="field">
-      <label>¿Cuentas con una cuenta bancaria activa? <span class="req">*</span></label>
-      <div class="chips">
-        <label class="chip" id="chip-tsi"><input type="radio" name="tieneCuenta" value="Sí" onchange="chipSel('chip-tsi','chip-tno');toggleCuenta(true)">Sí, tengo cuenta</label>
-        <label class="chip" id="chip-tno"><input type="radio" name="tieneCuenta" value="No" onchange="chipSel('chip-tno','chip-tsi');toggleCuenta(false)">No tengo cuenta</label>
+    <!-- Para MAYORES: ¿tiene cuenta? -->
+    <div id="mayorCuentaSection">
+      <div class="field">
+        <label>¿Cuentas con una cuenta bancaria activa? <span class="req">*</span></label>
+        <div class="chips">
+          <label class="chip" id="chip-tsi"><input type="radio" name="tieneCuenta" value="Sí" onchange="chipSel('chip-tsi','chip-tno');toggleCuenta(true)">Sí, tengo cuenta</label>
+          <label class="chip" id="chip-tno"><input type="radio" name="tieneCuenta" value="No" onchange="chipSel('chip-tno','chip-tsi');toggleCuenta(false)">No tengo cuenta</label>
+        </div>
+        <div class="emsg" id="e-tieneCuenta">Seleccione una opción.</div>
       </div>
-      <div class="emsg" id="e-tieneCuenta">Seleccione una opción.</div>
+      <div id="noCuentaWrap" style="display:none">
+        <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA">
+          <p style="font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:8px">🏦 Te ayudamos a abrir tu cuenta</p>
+          <p style="font-size:.8rem;color:var(--text);line-height:1.7;margin-bottom:10px">Gestionaremos la apertura de una <strong>Cuenta de Ahorros BCP</strong> gratuita. Solo necesitas tu DNI. RRHH coordinará durante tu primer mes.</p>
+          <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid var(--line);display:flex;align-items:center;gap:10px">
+            <span style="font-size:1.2rem">🟡</span>
+            <div>
+              <div style="font-size:.82rem;font-weight:700;color:var(--ink)">BCP — Banco de Crédito del Perú</div>
+              <div style="font-size:.72rem;color:var(--muted)">Cuenta de Ahorros · Sin costo</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- Para MENORES: siempre mostrar formulario de cuenta del apoderado -->
+    <div id="menorCuentaSection" style="display:none">
+      <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA;margin-bottom:14px">
+        <p style="font-size:.8rem;color:var(--text);line-height:1.7">
+          ℹ️ Si el apoderado <strong>no tiene cuenta bancaria</strong>, deberán acudir juntos a abrir una en cualquier banco antes de la fecha de inicio. El área de RRHH los puede orientar en el proceso.
+        </p>
+      </div>
+    </div>
+
+    <!-- Formulario de cuenta (visible si mayor tiene cuenta, o siempre si es menor) -->
     <div id="cuentaWrap">
       <div class="field">
         <label>Banco <span class="req">*</span></label>
@@ -615,19 +641,11 @@ select{text-transform:none}
         <input type="text" id="numeroCuenta" inputmode="numeric">
         <div class="emsg" id="e-numeroCuenta">Ingrese al menos 8 dígitos.</div>
       </div>
-    </div>
-
-    <div id="noCuentaWrap" style="display:none">
-      <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA">
-        <p style="font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:8px">🏦 Te ayudamos a abrir tu cuenta</p>
-        <p style="font-size:.8rem;color:var(--text);line-height:1.7;margin-bottom:10px">Gestionaremos la apertura de una <strong>Cuenta de Ahorros BCP</strong> gratuita a tu nombre. Solo necesitas tu DNI. RRHH coordinará todo durante tu primer mes.</p>
-        <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid var(--line);display:flex;align-items:center;gap:10px">
-          <span style="font-size:1.3rem">🟡</span>
-          <div>
-            <div style="font-size:.82rem;font-weight:700;color:var(--ink)">BCP — Banco de Crédito del Perú</div>
-            <div style="font-size:.72rem;color:var(--muted)">Cuenta de Ahorros · Sin costo de apertura</div>
-          </div>
-        </div>
+      <div class="field" id="titularField">
+        <label>Titular de la Cuenta <span class="req">*</span></label>
+        <div class="hint">Nombre completo tal como figura en el banco</div>
+        <input type="text" id="titularCuenta">
+        <div class="emsg" id="e-titularCuenta">Campo requerido.</div>
       </div>
     </div>
   </div>
@@ -732,6 +750,13 @@ select{text-transform:none}
         <div class="emsg" id="e-fotoR2">Suba la foto del reverso de su DNI.</div>
       </div>
     </div>
+    <!-- Opción extravío -->
+    <div style="margin-top:12px">
+      <label class="ck-wrap" id="sinDniWrap">
+        <input type="checkbox" id="sinDni" onchange="toggleSinDni(this.checked)">
+        <span class="ck-txt">📋 <span class="ck-bold">Extravié mi DNI o no lo tengo a la mano.</span> Me comprometo a enviarlo al administrador antes de mi fecha de inicio o en la brevedad posible.</span>
+      </label>
+    </div>
     <div class="divider"></div>
     <div class="field">
       <label class="ck-wrap">
@@ -822,26 +847,35 @@ function actualizarMenor(es){
   document.getElementById('minorAlert2').style.display=es?'flex':'none';
   document.getElementById('badgeMinor').style.display=es?'inline-block':'none';
   document.getElementById('minorBancoAlert').style.display=es?'flex':'none';
-
-  // Paso 7: si menor → apoderado + fotos en paso 8
-  // Si mayor → paso 7 muestra solo fotos directamente
+  // Banco: menores siempre ven el form (cuenta del apoderado), mayores ven la pregunta
+  document.getElementById('mayorCuentaSection').style.display=es?'none':'block';
+  document.getElementById('menorCuentaSection').style.display=es?'block':'none';
+  document.getElementById('cuentaWrap').style.display=es?'block':'none';
+  // Titular siempre visible
+  if(!es){
+    // Resetear para mayor
+    document.getElementById('cuentaWrap').style.display='none';
+    document.getElementById('noCuentaWrap').style.display='none';
+    var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
+    if(tcv){
+      document.getElementById('cuentaWrap').style.display=tcv.value==='Sí'?'block':'none';
+      document.getElementById('noCuentaWrap').style.display=tcv.value==='No'?'block':'none';
+    }
+  }
+  // Paso 7
   if(!es){
     document.getElementById('apoderadoSection').style.display='none';
     document.getElementById('fotosSection7').style.display='block';
     document.getElementById('step7Title').textContent='Fotos del DNI y Confirmación';
     document.getElementById('step7Desc2').textContent='Adjunta fotos nítidas de ambas caras de tu DNI.';
     document.getElementById('step7Ico').textContent='📎';
-    document.getElementById('btnNext7').textContent='Siguiente →';
-    // Ocultar paso 8 (no necesario para mayores, saltan de 7 al éxito)
     document.getElementById('btnNext7').onclick=function(){ goTo(8); };
-    // Update dots to show 7 steps effectively but keep 8 in DOM
   } else {
     document.getElementById('apoderadoSection').style.display='block';
     document.getElementById('fotosSection7').style.display='none';
     document.getElementById('step7Title').textContent='Datos del Apoderado';
     document.getElementById('step7Desc2').textContent='Como eres menor de edad, necesitamos los datos de tu padre, madre o tutor legal.';
     document.getElementById('step7Ico').textContent='👨‍👩‍👧';
-    document.getElementById('btnNext7').textContent='Siguiente →';
     document.getElementById('btnNext7').onclick=function(){ goTo(8); };
   }
 }
@@ -858,7 +892,14 @@ function toggleNoAfil(show){document.getElementById('noAfilWrap').style.display=
 function toggleCuenta(show){
   document.getElementById('cuentaWrap').style.display=show?'block':'none';
   document.getElementById('noCuentaWrap').style.display=show?'none':'block';
-  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';}
+  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';document.getElementById('titularCuenta').value='';}
+}
+function toggleSinDni(sinDni){
+  // Si marca que no tiene DNI, las fotos ya no son obligatorias
+  var grid=document.querySelector('.upload-grid');
+  if(grid) grid.style.opacity=sinDni?'0.4':'1';
+  document.getElementById('fotoAnverso2').disabled=sinDni;
+  document.getElementById('fotoReverso2').disabled=sinDni;
 }
 function onFile(inp,okId,boxId){var f=inp.files[0];if(!f)return;document.getElementById(okId).textContent='✔ '+f.name;document.getElementById(okId).classList.add('show');document.getElementById(boxId).querySelector('.uico').textContent='✅';}
 
@@ -920,9 +961,14 @@ function validar(n){
     if(pv&&pv.value==='No afiliado'){if(!document.querySelector('input[name="ayudaAfil"]:checked')){document.getElementById('e-ayudaAfil').classList.add('show');ok=false;}else document.getElementById('e-ayudaAfil').classList.remove('show');}
   }
   if(n===6){
-    if(!document.querySelector('input[name="tieneCuenta"]:checked')){document.getElementById('e-tieneCuenta').classList.add('show');ok=false;}else document.getElementById('e-tieneCuenta').classList.remove('show');
-    var tc=document.querySelector('input[name="tieneCuenta"]:checked');
-    if(tc&&tc.value==='Sí'){['banco','numeroCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+    if(esMenor){
+      // Menor: siempre llena banco + cuenta + titular
+      ['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});
+    } else {
+      if(!document.querySelector('input[name="tieneCuenta"]:checked')){document.getElementById('e-tieneCuenta').classList.add('show');ok=false;}else document.getElementById('e-tieneCuenta').classList.remove('show');
+      var tc=document.querySelector('input[name="tieneCuenta"]:checked');
+      if(tc&&tc.value==='Sí'){['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+    }
   }
   if(n===7){
     if(esMenor){
@@ -940,10 +986,16 @@ function validar(n){
     }
   }
   if(n===8){
-    var fA2=document.getElementById('fotoAnverso2').files[0];
-    var fR2=document.getElementById('fotoReverso2').files[0];
-    if(!fA2){document.getElementById('e-fotoA2').classList.add('show');ok=false;}else document.getElementById('e-fotoA2').classList.remove('show');
-    if(!fR2){document.getElementById('e-fotoR2').classList.add('show');ok=false;}else document.getElementById('e-fotoR2').classList.remove('show');
+    var sinDni=document.getElementById('sinDni').checked;
+    if(!sinDni){
+      var fA2=document.getElementById('fotoAnverso2').files[0];
+      var fR2=document.getElementById('fotoReverso2').files[0];
+      if(!fA2){document.getElementById('e-fotoA2').classList.add('show');ok=false;}else document.getElementById('e-fotoA2').classList.remove('show');
+      if(!fR2){document.getElementById('e-fotoR2').classList.add('show');ok=false;}else document.getElementById('e-fotoR2').classList.remove('show');
+    } else {
+      document.getElementById('e-fotoA2').classList.remove('show');
+      document.getElementById('e-fotoR2').classList.remove('show');
+    }
     if(!document.getElementById('declaracion').checked){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
   }
   return ok;
@@ -1029,9 +1081,11 @@ function enviarDatos(imgs,btn,fromStep){
     sistemaPension:(pv||{}).value||'',
     afpNombre:(av||{}).value||'',
     ayudaAfiliacion:(aav||{}).value||'',
-    tieneCuenta:tcv?tcv.value:'',
-    banco:tieneCuenta?document.getElementById('banco').value:'BCP (apertura pendiente)',
-    numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
+    tieneCuenta:esMenor?'Apoderado':(tcv?tcv.value:''),
+    banco:document.getElementById('banco').value||'BCP (apertura pendiente)',
+    numeroCuenta:document.getElementById('numeroCuenta').value.trim()||'Pendiente',
+    titularCuenta:document.getElementById('titularCuenta').value.trim(),
+    sinDni:document.getElementById('sinDni').checked?'Sí - Regularizará después':'No',
     apodNombre:esMenor?document.getElementById('apodNombre').value.trim():'',
     apodDni:esMenor?document.getElementById('apodDni').value.trim():'',
     apodParentesco:esMenor?document.getElementById('apodParentesco').value:'',
