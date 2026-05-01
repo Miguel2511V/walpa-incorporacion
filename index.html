@@ -610,12 +610,22 @@ select{text-transform:none}
       </div>
     </div>
 
-    <!-- Para MENORES: siempre mostrar formulario de cuenta del apoderado -->
+    <!-- Para MENORES: ¿ya tienen cuenta aperturada? -->
     <div id="menorCuentaSection" style="display:none">
-      <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA;margin-bottom:14px">
-        <p style="font-size:.8rem;color:var(--text);line-height:1.7">
-          ℹ️ Si el apoderado <strong>no tiene cuenta bancaria</strong>, deberán acudir juntos a abrir una en cualquier banco antes de la fecha de inicio. El área de RRHH los puede orientar en el proceso.
-        </p>
+      <div class="field">
+        <label>¿Ya tienen una cuenta bancaria aperturada para recibir el sueldo? <span class="req">*</span></label>
+        <div class="chips">
+          <label class="chip" id="chip-msi"><input type="radio" name="tieneCuentaMenor" value="Sí" onchange="chipSel('chip-msi','chip-mno');toggleCuentaMenor(true)">Sí, ya tenemos</label>
+          <label class="chip" id="chip-mno"><input type="radio" name="tieneCuentaMenor" value="No" onchange="chipSel('chip-mno','chip-msi');toggleCuentaMenor(false)">Aún no</label>
+        </div>
+        <div class="emsg" id="e-tieneCuentaMenor">Seleccione una opción.</div>
+      </div>
+      <div id="sinCuentaMenorMsg" style="display:none">
+        <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA">
+          <p style="font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:8px">📌 Paso importante antes de tu inicio</p>
+          <p style="font-size:.8rem;color:var(--text);line-height:1.75">Necesitas acercarte a cualquier banco <strong>junto a tu apoderado</strong> (padre, madre o tutor) para aperturar una cuenta de ahorros a nombre del apoderado. Solo necesitan sus DNIs.</p>
+          <p style="font-size:.78rem;color:var(--muted);margin-top:10px;line-height:1.6">Una vez aperturada, comunícate con el área de RRHH para registrar los datos bancarios antes de tu primera fecha de pago. Puedes continuar con el formulario.</p>
+        </div>
       </div>
     </div>
 
@@ -690,25 +700,6 @@ select{text-transform:none}
         <label>Celular del Apoderado <span class="req">*</span></label>
         <input type="tel" id="apodCelular" inputmode="numeric" maxlength="9">
         <div class="emsg" id="e-apodCelular">Ingrese 9 dígitos.</div>
-      </div>
-      <div class="divider"></div>
-      <div class="sec-label">Cuenta Bancaria del Apoderado</div>
-      <div class="field">
-        <label>Banco <span class="req">*</span></label>
-        <div class="sel-wrap">
-          <select id="apodBanco">
-            <option value="">Seleccionar banco...</option>
-            <option>BCP — Banco de Crédito del Perú</option><option>BBVA Perú</option>
-            <option>Interbank</option><option>Scotiabank Perú</option><option>BanBif</option>
-            <option>Banco Pichincha</option><option>Mibanco</option><option>Otro</option>
-          </select>
-        </div>
-        <div class="emsg" id="e-apodBanco">Seleccione el banco.</div>
-      </div>
-      <div class="field">
-        <label>Número de Cuenta <span class="req">*</span></label>
-        <input type="text" id="apodCuenta" inputmode="numeric">
-        <div class="emsg" id="e-apodCuenta">Ingrese al menos 8 dígitos.</div>
       </div>
     </div>
 
@@ -847,20 +838,18 @@ function actualizarMenor(es){
   document.getElementById('minorAlert2').style.display=es?'flex':'none';
   document.getElementById('badgeMinor').style.display=es?'inline-block':'none';
   document.getElementById('minorBancoAlert').style.display=es?'flex':'none';
-  // Banco: menores siempre ven el form (cuenta del apoderado), mayores ven la pregunta
+  // Banco: menores ven su propio Sí/No, mayores ven la pregunta de mayor
   document.getElementById('mayorCuentaSection').style.display=es?'none':'block';
   document.getElementById('menorCuentaSection').style.display=es?'block':'none';
-  document.getElementById('cuentaWrap').style.display=es?'block':'none';
-  // Titular siempre visible
-  if(!es){
-    // Resetear para mayor
+  // Para menores, cuentaWrap empieza oculto hasta que elijan "Sí"
+  if(es){
     document.getElementById('cuentaWrap').style.display='none';
-    document.getElementById('noCuentaWrap').style.display='none';
+    document.getElementById('sinCuentaMenorMsg').style.display='none';
+  } else {
+    // Para mayores resetear según su elección
     var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
-    if(tcv){
-      document.getElementById('cuentaWrap').style.display=tcv.value==='Sí'?'block':'none';
-      document.getElementById('noCuentaWrap').style.display=tcv.value==='No'?'block':'none';
-    }
+    document.getElementById('cuentaWrap').style.display=(tcv&&tcv.value==='Sí')?'block':'none';
+    document.getElementById('noCuentaWrap').style.display=(tcv&&tcv.value==='No')?'block':'none';
   }
   // Paso 7
   if(!es){
@@ -892,6 +881,11 @@ function toggleNoAfil(show){document.getElementById('noAfilWrap').style.display=
 function toggleCuenta(show){
   document.getElementById('cuentaWrap').style.display=show?'block':'none';
   document.getElementById('noCuentaWrap').style.display=show?'none':'block';
+  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';document.getElementById('titularCuenta').value='';}
+}
+function toggleCuentaMenor(show){
+  document.getElementById('cuentaWrap').style.display=show?'block':'none';
+  document.getElementById('sinCuentaMenorMsg').style.display=show?'none':'block';
   if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';document.getElementById('titularCuenta').value='';}
 }
 function toggleSinDni(sinDni){
@@ -962,8 +956,14 @@ function validar(n){
   }
   if(n===6){
     if(esMenor){
-      // Menor: siempre llena banco + cuenta + titular
-      ['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});
+      var tcm=document.querySelector('input[name="tieneCuentaMenor"]:checked');
+      if(!tcm){document.getElementById('e-tieneCuentaMenor').classList.add('show');ok=false;}
+      else{
+        document.getElementById('e-tieneCuentaMenor').classList.remove('show');
+        // Si tienen cuenta, validar los campos
+        if(tcm.value==='Sí'){['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+        // Si no tienen cuenta, pueden avanzar sin llenar banco
+      }
     } else {
       if(!document.querySelector('input[name="tieneCuenta"]:checked')){document.getElementById('e-tieneCuenta').classList.add('show');ok=false;}else document.getElementById('e-tieneCuenta').classList.remove('show');
       var tc=document.querySelector('input[name="tieneCuenta"]:checked');
@@ -1054,45 +1054,44 @@ function enviarDatos(imgs,btn,fromStep){
   var av=document.querySelector('input[name="afpR"]:checked');
   var aav=document.querySelector('input[name="ayudaAfil"]:checked');
   var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
-  var tieneCuenta=tcv&&tcv.value==='Sí';
   var ev=document.querySelector('input[name="enfermedad"]:checked');
-
+  var tcm=document.querySelector('input[name="tieneCuentaMenor"]:checked');
+  var tieneCuenta=(esMenor?(tcm&&tcm.value==='Sí'):(tcv&&tcv.value==='Sí'));
   var datos={
-    esMenor:esMenor?'Sí':'No',
-    dni:document.getElementById('dni').value.trim(),
-    nombres:document.getElementById('nombres').value.trim(),
-    apPaterno:document.getElementById('apPaterno').value.trim(),
-    apMaterno:document.getElementById('apMaterno').value.trim(),
-    sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
-    estadoCivil:document.getElementById('estadoCivil').value,
-    nacionalidad:document.getElementById('nacionalidad').value,
-    instruccion:document.getElementById('instruccion').value,
-    hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
-    diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
-    departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
-    distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
-    celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
-    cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
-    emergNombre:document.getElementById('emergNombre').value.trim(),
-    emergParentesco:document.getElementById('emergParentesco').value,
-    emergCelular:document.getElementById('emergCelular').value.trim(),
-    enfermedad:(ev||{}).value||'',
-    enfermedadDesc:document.getElementById('enfermedadDesc').value.trim(),
-    sistemaPension:(pv||{}).value||'',
-    afpNombre:(av||{}).value||'',
-    ayudaAfiliacion:(aav||{}).value||'',
-    tieneCuenta:esMenor?'Apoderado':(tcv?tcv.value:''),
-    banco:document.getElementById('banco').value||'BCP (apertura pendiente)',
-    numeroCuenta:document.getElementById('numeroCuenta').value.trim()||'Pendiente',
-    titularCuenta:document.getElementById('titularCuenta').value.trim(),
-    sinDni:document.getElementById('sinDni').checked?'Sí - Regularizará después':'No',
-    apodNombre:esMenor?document.getElementById('apodNombre').value.trim():'',
-    apodDni:esMenor?document.getElementById('apodDni').value.trim():'',
-    apodParentesco:esMenor?document.getElementById('apodParentesco').value:'',
-    apodCelular:esMenor?document.getElementById('apodCelular').value.trim():'',
-    apodBanco:esMenor?document.getElementById('apodBanco').value:'',
-    apodCuenta:esMenor?document.getElementById('apodCuenta').value.trim():''
-  };
+      esMenor:esMenor?'Sí':'No',
+      dni:document.getElementById('dni').value.trim(),
+      nombres:document.getElementById('nombres').value.trim(),
+      apPaterno:document.getElementById('apPaterno').value.trim(),
+      apMaterno:document.getElementById('apMaterno').value.trim(),
+      sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
+      estadoCivil:document.getElementById('estadoCivil').value,
+      nacionalidad:document.getElementById('nacionalidad').value,
+      instruccion:document.getElementById('instruccion').value,
+      hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
+      diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
+      departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
+      distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
+      celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
+      cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
+      emergNombre:document.getElementById('emergNombre').value.trim(),
+      emergParentesco:document.getElementById('emergParentesco').value,
+      emergCelular:document.getElementById('emergCelular').value.trim(),
+      enfermedad:(ev||{}).value||'',
+      enfermedadDesc:document.getElementById('enfermedadDesc').value.trim(),
+      sistemaPension:(pv||{}).value||'',
+      afpNombre:(av||{}).value||'',
+      ayudaAfiliacion:(aav||{}).value||'',
+      tieneCuenta:esMenor?(tcm?tcm.value:''):(tcv?tcv.value:''),
+      banco:tieneCuenta?document.getElementById('banco').value:'Pendiente apertura',
+      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
+      titularCuenta:tieneCuenta?document.getElementById('titularCuenta').value.trim():'Pendiente apertura',
+      sinDni:document.getElementById('sinDni').checked?'Sí - Regularizará después':'No',
+      apodNombre:esMenor?document.getElementById('apodNombre').value.trim():'',
+      apodDni:esMenor?document.getElementById('apodDni').value.trim():'',
+      apodParentesco:esMenor?document.getElementById('apodParentesco').value:'',
+      apodCelular:esMenor?document.getElementById('apodCelular').value.trim():'',
+      apodBanco:'',apodCuenta:''
+    };
 
   var formEl=document.getElementById('hidden-gas-form');
   document.getElementById('hidden-gas-data').value=JSON.stringify(datos);
