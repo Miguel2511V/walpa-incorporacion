@@ -2,328 +2,248 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Ficha de Incorporación — Walpa Chicken</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --maroon:  #4A0E0E;
-  --maroon2: #3A0B0B;
-  --yellow:  #F5C200;
-  --yellow2: #E0B000;
-  --red:     #CC2222;
-  --white:   #FFFFFF;
-  --bg:      #FBF5EC;
-  --card:    #FFFFFF;
-  --ice:     #FFF8EE;
-  --line:    #E8D8C0;
-  --muted:   #9A7E5A;
-  --text:    #2A1506;
-  --ok:      #2D7A3A;
-  --err:     #CC2222;
-  --r:       14px;
-  --rs:      10px;
-  --sh:      0 2px 16px rgba(74,14,14,.08);
-  --sh2:     0 8px 32px rgba(74,14,14,.13);
+  --ink:#3A0808;--ink2:#2A0606;--gold:#F5C200;--gold2:#D4A800;
+  --red:#CC2222;--white:#FFFFFF;--bg:#FBF3E8;--card:#FFFFFF;
+  --ice:#FFF8EE;--line:#E8D5B8;--muted:#9A7555;--text:#2A1506;
+  --ok:#1A6B35;--err:#CC2222;--r:16px;--rs:10px;
+  --sh:0 8px 40px rgba(58,8,8,.13);
 }
-
 html{scroll-behavior:smooth}
-body{
-  font-family:'Outfit',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  font-size:15px;
-  line-height:1.5;
-  -webkit-text-size-adjust:100%;
-}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
 
-/* ══ HEADER ══ */
-.site-header{
-  background:var(--maroon2);
-  padding:0 20px;
-  height:58px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;
-  box-shadow:0 2px 12px rgba(0,0,0,.35);
-}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-crown{font-size:1.4rem;line-height:1}
-.logo-text{display:flex;flex-direction:column;line-height:1.1}
-.logo-walpa{font-size:1.1rem;font-weight:700;color:var(--yellow);letter-spacing:.3px}
-.logo-chicken{font-size:.62rem;color:rgba(255,255,255,.55);font-weight:400;letter-spacing:1.5px;text-transform:uppercase}
-.header-tag{font-size:.63rem;color:rgba(255,255,255,.35);letter-spacing:.8px;text-transform:uppercase;display:none}
-@media(min-width:480px){.header-tag{display:block}}
+/* HEADER */
+.hdr{background:var(--ink2);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hdr-logo{display:flex;align-items:center;gap:10px}
+.hdr-crown{font-size:1.3rem}
+.hdr-name{font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.3px}
+.hdr-sub{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:1.2px;text-transform:uppercase;display:none}
+@media(min-width:480px){.hdr-sub{display:block}}
 
-/* ══ HERO ══ */
-.hero{
-  background:linear-gradient(150deg,#2A0808 0%,#4A0E0E 50%,#6B1515 100%);
-  padding:28px 20px 44px;
-  text-align:center;
-  position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at 70% 50%, rgba(245,194,0,.08) 0%, transparent 65%);
-}
-.hero-crown{font-size:2rem;margin-bottom:8px;position:relative}
-.hero h1{font-size:1.35rem;font-weight:700;color:var(--white);margin-bottom:6px;position:relative}
-.hero h1 span{color:var(--yellow)}
-.hero p{font-size:.82rem;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto;font-weight:300;line-height:1.6;position:relative}
-@media(min-width:480px){
-  .hero{padding:36px 24px 52px}
-  .hero h1{font-size:1.55rem}
-  .hero p{font-size:.88rem}
-}
+/* HERO */
+.hero{background:linear-gradient(150deg,#1E0404 0%,#3A0808 45%,#6B1010 100%);padding:28px 20px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(245,194,0,.07) 0%,transparent 65%);pointer-events:none}
+.hero-crown{font-size:2.2rem;margin-bottom:8px;display:block;position:relative}
+.hero h1{font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:8px;position:relative}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{font-size:.82rem;color:rgba(255,255,255,.58);max-width:420px;margin:0 auto;font-weight:300;line-height:1.65;position:relative}
+@media(min-width:480px){.hero h1{font-size:1.6rem}.hero p{font-size:.88rem}}
 
-/* Progress dots */
-.steps-track{
-  display:flex;align-items:center;justify-content:center;
-  margin:22px auto 0;max-width:360px;padding:0 4px;
-}
-.step-dot{
-  width:26px;height:26px;min-width:26px;border-radius:50%;
-  border:2px solid rgba(245,194,0,.25);color:rgba(255,255,255,.35);
-  font-size:.68rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  background:transparent;transition:all .3s;
-}
-.step-dot.done{background:var(--ok);border-color:var(--ok);color:#fff}
-.step-dot.active{background:var(--yellow);border-color:var(--yellow);color:var(--maroon2);box-shadow:0 0 0 4px rgba(245,194,0,.25)}
-.step-line{flex:1;height:2px;background:rgba(245,194,0,.15);min-width:8px}
-.step-line.done{background:var(--ok)}
+/* DOTS PROGRESS */
+.dots{display:flex;align-items:center;justify-content:center;margin:22px auto 0;max-width:380px;padding:0 4px;position:relative}
+.dot{width:26px;height:26px;min-width:26px;border-radius:50%;border:2px solid rgba(245,194,0,.2);color:rgba(255,255,255,.3);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;background:transparent;transition:all .3s}
+.dot.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.dot.active{background:var(--gold);border-color:var(--gold);color:var(--ink2);box-shadow:0 0 0 4px rgba(245,194,0,.22)}
+.dline{flex:1;height:2px;background:rgba(245,194,0,.12);min-width:8px}
+.dline.done{background:var(--ok)}
 
-/* ══ MAIN ══ */
-.main{max-width:660px;margin:-20px auto 48px;padding:0 12px}
+/* MAIN */
+.main{max-width:660px;margin:-22px auto 48px;padding:0 12px}
 @media(min-width:480px){.main{padding:0 16px}}
 
-/* ══ CARD ══ */
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh2);overflow:hidden;display:none;animation:fadeUp .35s ease both}
+/* CARD */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:none;animation:up .3s ease both}
 .card.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-.card-top{padding:20px;border-bottom:1px solid var(--ice);display:flex;align-items:flex-start;gap:12px}
+.card-top{padding:20px;border-bottom:2px solid var(--ice);display:flex;align-items:flex-start;gap:12px}
 @media(min-width:480px){.card-top{padding:24px 28px}}
-.card-icon{width:40px;height:40px;min-width:40px;border-radius:var(--rs);background:var(--ice);display:flex;align-items:center;justify-content:center;font-size:1.15rem}
-.card-top h2{font-size:1.05rem;font-weight:700;color:var(--maroon);margin-bottom:3px}
-.card-top p{font-size:.8rem;color:var(--muted);font-weight:300;line-height:1.55}
-@media(min-width:480px){.card-top h2{font-size:1.12rem}}
+.ctop-ico{width:44px;height:44px;min-width:44px;border-radius:var(--rs);background:linear-gradient(135deg,var(--ink),#6B1010);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(58,8,8,.25)}
+.card-top h2{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.card-top p{font-size:.79rem;color:var(--muted);font-weight:300;line-height:1.55}
+.badge-minor{display:inline-block;background:linear-gradient(135deg,#1A4FD6,#2563EB);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:100px;margin-top:6px;text-transform:uppercase}
 
 .card-body{padding:20px}
 @media(min-width:480px){.card-body{padding:24px 28px}}
 
-/* ══ FIELDS ══ */
+/* FIELDS */
 .field{margin-bottom:16px}
-.field>label{display:block;font-size:.78rem;font-weight:600;color:var(--maroon);margin-bottom:5px;letter-spacing:.2px}
+.field>label{display:block;font-size:.77rem;font-weight:600;color:var(--ink);margin-bottom:5px;letter-spacing:.2px}
 .req{color:var(--red);margin-left:2px}
 .hint{font-size:.72rem;color:var(--muted);margin-bottom:5px;font-weight:300;line-height:1.5}
 
-/* Inputs — sin placeholder visible, sin watermark */
-input[type=text],
-input[type=email],
-input[type=tel],
-select{
+input[type=text],input[type=email],input[type=tel],select{
   width:100%;height:48px;padding:0 14px;
   border:1.5px solid var(--line);border-radius:var(--rs);
   font-family:'Outfit',sans-serif;font-size:16px;
   color:var(--text);background:var(--ice);
-  transition:border-color .2s,box-shadow .2s,background .2s;
+  transition:border-color .2s,box-shadow .2s;
   outline:none;appearance:none;-webkit-appearance:none;
-  touch-action:manipulation;
+  touch-action:manipulation;text-transform:uppercase;
 }
-input[type=text]::placeholder,
-input[type=email]::placeholder,
-input[type=tel]::placeholder{color:transparent}
-@media(min-width:480px){
-  input[type=text],input[type=email],input[type=tel],select{height:46px;font-size:.9rem}
-}
-input:focus,select:focus{
-  border-color:var(--yellow2);background:#fff;
-  box-shadow:0 0 0 3px rgba(245,194,0,.18);
-}
-input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34,.1)}
+input[type=email]{text-transform:lowercase}
+input[type=tel]{text-transform:none}
+input::placeholder,select::placeholder{text-transform:none;color:transparent}
+@media(min-width:480px){input[type=text],input[type=email],input[type=tel],select{height:46px;font-size:.9rem}}
+input:focus,select:focus{border-color:var(--gold2);background:#fff;box-shadow:0 0 0 3px rgba(212,168,0,.15)}
+input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34,.09)}
 
 .sel-wrap{position:relative}
-.sel-wrap::after{
-  content:'';position:absolute;right:14px;top:50%;
-  transform:translateY(-50%);pointer-events:none;
-  border:5px solid transparent;border-top:6px solid var(--muted);border-bottom:none;
-}
+.sel-wrap::after{content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;border:5px solid transparent;border-top:6px solid var(--muted);border-bottom:none}
+select{text-transform:none}
 
-/* Grid */
-.row{display:grid;gap:0;grid-template-columns:1fr}
-.c2,.c3{grid-template-columns:1fr;gap:0}
-@media(min-width:480px){
-  .c2{grid-template-columns:1fr 1fr;gap:14px}
-  .c3{grid-template-columns:1fr 1fr 1fr;gap:14px}
-}
+.row{display:grid;grid-template-columns:1fr;gap:0}
+.c2,.c3{grid-template-columns:1fr}
+@media(min-width:480px){.c2{grid-template-columns:1fr 1fr;gap:14px}.c3{grid-template-columns:1fr 1fr 1fr;gap:14px}}
 
-/* Chips */
+/* CHIPS */
 .chips{display:flex;gap:10px}
-.chip{
-  flex:1;border:1.5px solid var(--line);border-radius:var(--rs);
-  padding:13px 10px;text-align:center;cursor:pointer;
-  font-size:.88rem;font-weight:500;color:var(--muted);
-  background:var(--ice);transition:all .18s;user-select:none;
-  min-height:48px;display:flex;align-items:center;justify-content:center;
-  -webkit-tap-highlight-color:transparent;
-}
+.chip{flex:1;border:1.5px solid var(--line);border-radius:var(--rs);padding:13px 10px;text-align:center;cursor:pointer;font-size:.88rem;font-weight:500;color:var(--muted);background:var(--ice);transition:all .18s;user-select:none;min-height:48px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
 .chip input{display:none}
-.chip.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:600}
+.chip.on{border-color:var(--gold2);background:#FFFBEA;color:var(--ink);font-weight:600;border-width:2px}
 
-/* Sede chips — más grandes */
-.sede-chips{display:flex;flex-direction:column;gap:10px}
-@media(min-width:420px){.sede-chips{flex-direction:row}}
-.sede-chip{
-  flex:1;border:1.5px solid var(--line);border-radius:var(--rs);
-  padding:16px 14px;text-align:center;cursor:pointer;
-  font-size:.9rem;font-weight:500;color:var(--muted);
-  background:var(--ice);transition:all .18s;user-select:none;
-  -webkit-tap-highlight-color:transparent;line-height:1.4;
-}
+/* SEDE CHIPS */
+.sede-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sede-chip{border:2px solid var(--line);border-radius:var(--r);padding:18px 14px;text-align:center;cursor:pointer;background:var(--ice);transition:all .2s;user-select:none;-webkit-tap-highlight-color:transparent}
 .sede-chip input{display:none}
-.sede-chip .sede-ico{font-size:1.3rem;margin-bottom:4px;display:block}
-.sede-chip.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:600;border-width:2px}
+.sede-chip .s-ico{font-size:2rem;display:block;margin-bottom:8px;line-height:1}
+.sede-chip .s-nom{font-size:.9rem;font-weight:700;color:var(--ink);display:block}
+.sede-chip .s-dir{font-size:.72rem;color:var(--muted);margin-top:3px;display:block;font-weight:300}
+.sede-chip.on{border-color:var(--gold);background:#FFFBEA;box-shadow:0 4px 16px rgba(212,168,0,.2)}
 
-/* Radio rows */
-.radio-list{display:flex;flex-direction:column;gap:8px}
-.rr{
-  display:flex;align-items:center;gap:12px;
-  border:1.5px solid var(--line);border-radius:var(--rs);
-  padding:14px 16px;cursor:pointer;font-size:.88rem;
-  color:var(--text);background:var(--ice);transition:all .18s;
-  user-select:none;min-height:52px;-webkit-tap-highlight-color:transparent;
-}
+/* RADIO */
+.rlist{display:flex;flex-direction:column;gap:8px}
+.rr{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:var(--rs);padding:14px 16px;cursor:pointer;font-size:.88rem;color:var(--text);background:var(--ice);transition:all .18s;user-select:none;min-height:52px;-webkit-tap-highlight-color:transparent}
 .rr input{display:none}
-.rr-dot{width:20px;height:20px;min-width:20px;border-radius:50%;border:2px solid var(--line);background:#fff;transition:all .18s}
-.rr.on{border-color:var(--yellow2);background:#FFFBEA;color:var(--maroon);font-weight:500;border-width:2px}
-.rr.on .rr-dot{border-color:var(--yellow);background:var(--yellow);box-shadow:inset 0 0 0 3px #fff}
+.rdot{width:20px;height:20px;min-width:20px;border-radius:50%;border:2px solid var(--line);background:#fff;transition:all .18s;flex-shrink:0}
+.rr.on{border-color:var(--gold2);background:#FFFBEA;color:var(--ink);font-weight:500;border-width:2px}
+.rr.on .rdot{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #fff}
 
-/* File upload */
+/* UPLOAD */
 .upload-grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:480px){.upload-grid{grid-template-columns:1fr 1fr}}
-.upload-box{
-  border:2px dashed var(--line);border-radius:var(--rs);
-  padding:24px 16px;text-align:center;cursor:pointer;
-  background:var(--ice);transition:all .2s;
-  position:relative;overflow:hidden;min-height:110px;
-  -webkit-tap-highlight-color:transparent;
-}
-.upload-box:hover,.upload-box.drag{border-color:var(--yellow2);background:#FFFBEA}
-.upload-box input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px}
-.upload-ico{font-size:1.5rem;margin-bottom:5px}
-.upload-lbl{font-size:.84rem;font-weight:600;color:var(--maroon)}
-.upload-sub{font-size:.71rem;color:var(--muted);margin-top:3px}
-.upload-ok{font-size:.75rem;color:var(--ok);margin-top:8px;font-weight:600;display:none;word-break:break-all}
-.upload-ok.show{display:block}
+.ubox{border:2px dashed var(--line);border-radius:var(--rs);padding:22px 16px;text-align:center;cursor:pointer;background:var(--ice);transition:all .2s;position:relative;overflow:hidden;min-height:100px;-webkit-tap-highlight-color:transparent}
+.ubox:hover{border-color:var(--gold2);background:#FFFBEA}
+.ubox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px}
+.uico{font-size:1.5rem;margin-bottom:5px}
+.ulbl{font-size:.84rem;font-weight:600;color:var(--ink)}
+.usub{font-size:.71rem;color:var(--muted);margin-top:3px}
+.uok{font-size:.75rem;color:var(--ok);margin-top:8px;font-weight:600;display:none;word-break:break-all}
+.uok.show{display:block}
 
-/* Checkbox */
-.ck-wrap{
-  display:flex;gap:12px;align-items:flex-start;
-  border:1.5px solid var(--line);border-radius:var(--rs);
-  padding:14px;background:var(--ice);cursor:pointer;transition:all .2s;
-  -webkit-tap-highlight-color:transparent;
-}
-.ck-wrap:has(input:checked){border-color:var(--yellow2);background:#FFFBEA;border-width:2px}
-.ck-wrap input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--yellow2);cursor:pointer;appearance:auto;-webkit-appearance:auto;flex-shrink:0}
+/* CHECKBOX */
+.ck-wrap{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--rs);padding:14px;background:var(--ice);cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.ck-wrap:has(input:checked){border-color:var(--gold2);background:#FFFBEA;border-width:2px}
+.ck-wrap input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--gold2);cursor:pointer;appearance:auto;-webkit-appearance:auto;flex-shrink:0}
 .ck-txt{font-size:.82rem;line-height:1.65;color:var(--text)}
+.ck-bold{font-weight:600;color:var(--ink)}
 
-.divider{height:1px;background:var(--ice);margin:18px 0}
-.sub-field{margin-top:10px;padding:14px;background:var(--ice);border-radius:var(--rs);border-left:3px solid var(--yellow)}
+/* DECLARACION JURADA BOX */
+.dj-box{background:linear-gradient(135deg,#FFF8EE,#FFF3DC);border:2px solid var(--gold2);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px}
+.dj-box .dj-title{font-size:.75rem;font-weight:700;color:var(--ink);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.dj-box .dj-body{font-size:.8rem;color:var(--text);line-height:1.65}
 
-/* Error */
+/* SUB FIELD */
+.sub-field{margin-top:10px;padding:14px;background:var(--ice);border-radius:var(--rs);border-left:3px solid var(--gold)}
+.sub-field>label{font-size:.77rem;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
+
+/* SECTION LABEL */
+.sec-label{font-size:.72rem;font-weight:700;color:var(--gold2);letter-spacing:1px;text-transform:uppercase;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* MINOR ALERT */
+.minor-alert{background:linear-gradient(135deg,#EBF3FF,#DBEAFE);border:2px solid #2563EB;border-radius:var(--rs);padding:16px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
+.minor-alert .ma-ico{font-size:1.4rem;flex-shrink:0}
+.minor-alert .ma-txt{font-size:.82rem;line-height:1.65;color:#1E3A6B}
+.minor-alert .ma-txt strong{color:#0B2D6B}
+
+/* ERROR */
 .emsg{font-size:.72rem;color:var(--err);margin-top:5px;font-weight:500;display:none}
 .emsg.show{display:block}
+.divider{height:1px;background:var(--ice);margin:18px 0}
 
-/* ══ NAVEGACIÓN ══ */
-.card-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:16px 20px;border-top:1px solid var(--ice);background:var(--ice);gap:10px;
-}
+/* NAV */
+.card-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-top:1px solid var(--ice);background:var(--ice);gap:10px}
 @media(min-width:480px){.card-nav{padding:16px 28px}}
-
-.btn{
-  padding:13px 22px;border-radius:var(--rs);
-  font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;
-  cursor:pointer;border:none;transition:all .2s;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:50px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
+.btn{padding:12px 22px;border-radius:var(--rs);font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted);flex-shrink:0}
-.btn-ghost:hover{border-color:var(--maroon);color:var(--maroon)}
-.btn-main{
-  background:var(--yellow);color:var(--maroon2);
-  box-shadow:0 4px 12px rgba(245,194,0,.4);flex:1;
-}
-.btn-main:hover{background:var(--yellow2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(245,194,0,.45)}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn-main{background:linear-gradient(135deg,var(--ink),#6B1010);color:var(--gold);box-shadow:0 4px 14px rgba(58,8,8,.3);flex:1}
+.btn-main:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(58,8,8,.4)}
 .btn-main:active{transform:scale(.98)}
 .btn:disabled{opacity:.5;pointer-events:none}
-@media(min-width:480px){.btn-main{flex:0 0 auto;min-width:140px}}
+@media(min-width:480px){.btn-main{flex:0 0 auto;min-width:150px}}
 
-/* ══ ÉXITO ══ */
-.success{display:none;text-align:center;padding:48px 24px 44px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh2);animation:fadeUp .5s ease}
+/* SUCCESS */
+.success{display:none;text-align:center;padding:52px 24px 48px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);animation:up .5s ease}
 .success.show{display:block}
-.s-crown{font-size:3rem;margin-bottom:12px;display:block}
-.s-circle{width:76px;height:76px;margin:0 auto 20px;background:linear-gradient(135deg,#1A5C28,#2D7A3A);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(45,122,58,.35)}
+.s-crown{font-size:3rem;display:block;margin-bottom:14px;animation:bounce 1s ease .3s both}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.s-circle{width:76px;height:76px;margin:0 auto 20px;background:linear-gradient(135deg,#0D4A22,#1A6B35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(26,107,53,.35)}
 .s-circle svg{width:38px;height:38px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.s-title{font-size:1.6rem;font-weight:700;color:var(--maroon);margin-bottom:6px;line-height:1.3}
-.s-walpa{color:var(--yellow2)}
+.s-title{font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.s-walpa{color:var(--gold2)}
+.s-div{width:52px;height:3px;background:linear-gradient(90deg,var(--ink),var(--gold));border-radius:4px;margin:16px auto}
 .s-body{font-size:.88rem;color:var(--muted);line-height:1.8;max-width:380px;margin:0 auto}
-.s-divider{width:48px;height:3px;background:linear-gradient(90deg,var(--maroon),var(--yellow));border-radius:4px;margin:18px auto}
 
-/* Spinner */
-.spin{width:18px;height:18px;border:2.5px solid rgba(74,14,14,.2);border-top-color:var(--maroon2);border-radius:50%;animation:rot .65s linear infinite}
+/* SPINNER */
+.spin{width:18px;height:18px;border:2.5px solid rgba(245,194,0,.3);border-top-color:var(--gold);border-radius:50%;animation:rot .65s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-crown">👑</span>
-    <div class="logo-text">
-      <span class="logo-walpa">Walpa</span>
-      <span class="logo-chicken">Chicken</span>
+<header class="hdr">
+  <div class="hdr-logo">
+    <span class="hdr-crown">👑</span>
+    <div>
+      <div class="hdr-name">Walpa Chicken</div>
     </div>
   </div>
-  <span class="header-tag">Ficha de Incorporación</span>
+  <span class="hdr-sub">Ficha de Incorporación</span>
 </header>
 
 <div class="hero">
-  <div class="hero-crown">👑</div>
-  <h1>Bienvenido/a al equipo <span>Walpa</span></h1>
-  <p>Complete su ficha en pocos pasos. Tenga a la mano su DNI y tarjeta bancaria antes de comenzar.</p>
-  <div class="steps-track">
-    <div class="step-dot active" id="sd1">1</div><div class="step-line" id="sl1"></div>
-    <div class="step-dot" id="sd2">2</div><div class="step-line" id="sl2"></div>
-    <div class="step-dot" id="sd3">3</div><div class="step-line" id="sl3"></div>
-    <div class="step-dot" id="sd4">4</div><div class="step-line" id="sl4"></div>
-    <div class="step-dot" id="sd5">5</div><div class="step-line" id="sl5"></div>
-    <div class="step-dot" id="sd6">6</div><div class="step-line" id="sl6"></div>
-    <div class="step-dot" id="sd7">7</div>
+  <span class="hero-crown">👑</span>
+  <h1>Bienvenido/a al equipo <em>Walpa</em></h1>
+  <p>Completa tu ficha en pocos pasos. Ten a la mano tu DNI y tarjeta bancaria.</p>
+  <div class="dots" id="dotsTrack">
+    <div class="dot active" id="sd1">1</div><div class="dline" id="sl1"></div>
+    <div class="dot" id="sd2">2</div><div class="dline" id="sl2"></div>
+    <div class="dot" id="sd3">3</div><div class="dline" id="sl3"></div>
+    <div class="dot" id="sd4">4</div><div class="dline" id="sl4"></div>
+    <div class="dot" id="sd5">5</div><div class="dline" id="sl5"></div>
+    <div class="dot" id="sd6">6</div><div class="dline" id="sl6"></div>
+    <div class="dot" id="sd7">7</div><div class="dline" id="sl7"></div>
+    <div class="dot" id="sd8">8</div>
   </div>
 </div>
 
 <div class="main">
 
-<!-- 1. DATOS PERSONALES -->
+<!-- ══ PASO 1: DATOS PERSONALES ══ -->
 <div class="card active" id="step1">
   <div class="card-top">
-    <div class="card-icon">👤</div>
-    <div><h2>Datos Personales</h2><p>Ingrese sus datos exactamente como aparecen en su DNI.</p></div>
+    <div class="ctop-ico">👤</div>
+    <div>
+      <h2>Datos Personales</h2>
+      <p>Ingresa tus datos exactamente como aparecen en tu DNI.</p>
+    </div>
   </div>
   <div class="card-body">
     <div class="field">
       <label>Número de DNI <span class="req">*</span></label>
       <div class="hint">8 dígitos numéricos</div>
-      <input type="text" id="dni" inputmode="numeric" maxlength="8">
+      <input type="text" id="dni" inputmode="numeric" maxlength="8" onblur="detectarMenor()">
       <div class="emsg" id="e-dni">Ingrese exactamente 8 dígitos numéricos.</div>
     </div>
+
+    <!-- Alerta menor de edad (oculta por defecto) -->
+    <div class="minor-alert" id="minorAlert" style="display:none">
+      <span class="ma-ico">🔵</span>
+      <div class="ma-txt">
+        <strong>Colaborador menor de edad detectado.</strong><br>
+        El formulario incluirá una sección adicional con los datos del apoderado (padre, madre o tutor legal), quienes deberán firmar el contrato. El sueldo se depositará en la cuenta del apoderado.
+      </div>
+    </div>
+
     <div class="field">
       <label>Nombres <span class="req">*</span></label>
-      <div class="hint">Tal como figuran en su DNI, en mayúsculas</div>
       <input type="text" id="nombres" autocomplete="given-name">
       <div class="emsg" id="e-nombres">Campo requerido.</div>
     </div>
@@ -362,26 +282,28 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
         </div>
       </div>
     </div>
-    <div class="field">
-      <label>Grado de Instrucción <span class="req">*</span></label>
-      <div class="sel-wrap">
-        <select id="instruccion">
-          <option value="">Seleccionar...</option>
-          <option>Primaria completa</option><option>Secundaria incompleta</option>
-          <option>Secundaria completa</option><option>Técnico incompleto</option>
-          <option>Técnico completo</option><option>Universitario incompleto</option>
-          <option>Universitario completo</option><option>Posgrado</option>
-        </select>
+    <div class="row c2">
+      <div class="field">
+        <label>Grado de Instrucción <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="instruccion">
+            <option value="">Seleccionar...</option>
+            <option>Primaria completa</option><option>Secundaria incompleta</option>
+            <option>Secundaria completa</option><option>Técnico incompleto</option>
+            <option>Técnico completo</option><option>Universitario incompleto</option>
+            <option>Universitario completo</option><option>Posgrado</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-instruccion">Seleccione una opción.</div>
       </div>
-      <div class="emsg" id="e-instruccion">Seleccione una opción.</div>
-    </div>
-    <div class="field">
-      <label>Sexo <span class="req">*</span></label>
-      <div class="chips">
-        <label class="chip" id="chip-m"><input type="radio" name="sexo" value="Masculino" onchange="chipSel('chip-m','chip-f')">♂ Masculino</label>
-        <label class="chip" id="chip-f"><input type="radio" name="sexo" value="Femenino"  onchange="chipSel('chip-f','chip-m')">♀ Femenino</label>
+      <div class="field">
+        <label>Sexo <span class="req">*</span></label>
+        <div class="chips">
+          <label class="chip" id="chip-m"><input type="radio" name="sexo" value="Masculino" onchange="chipSel('chip-m','chip-f')">♂ Masculino</label>
+          <label class="chip" id="chip-f"><input type="radio" name="sexo" value="Femenino" onchange="chipSel('chip-f','chip-m')">♀ Femenino</label>
+        </div>
+        <div class="emsg" id="e-sexo">Seleccione una opción.</div>
       </div>
-      <div class="emsg" id="e-sexo">Seleccione una opción.</div>
     </div>
     <div class="divider"></div>
     <div class="field">
@@ -391,44 +313,41 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
         <label class="chip" id="chip-hn"><input type="radio" name="hijos" value="No" onchange="chipSel('chip-hn','chip-hs');toggleHijos(false)">No</label>
       </div>
       <div class="emsg" id="e-hijos">Seleccione una opción.</div>
-      <div id="cantHijosWrap" style="display:none;margin-top:12px">
+      <div id="cantHijosWrap" style="display:none;margin-top:10px">
         <div class="sub-field">
-          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:6px">¿Cuántos hijos menores tiene? <span class="req">*</span></label>
+          <label>¿Cuántos hijos menores tiene? <span class="req">*</span></label>
           <div class="sel-wrap" style="max-width:180px">
-            <select id="cantHijos">
-              <option value="">— Cantidad —</option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>Más de 5</option>
-            </select>
+            <select id="cantHijos"><option value="">— Cantidad —</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>Más de 5</option></select>
           </div>
           <div class="emsg" id="e-cantHijos">Indique la cantidad.</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="card-nav">
-    <div style="flex:1"></div>
-    <button class="btn btn-main" onclick="goTo(2)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><div style="flex:1"></div><button class="btn btn-main" onclick="goTo(2)">Siguiente →</button></div>
 </div>
 
-<!-- 2. FECHA DE NACIMIENTO -->
+<!-- ══ PASO 2: FECHA DE NACIMIENTO ══ -->
 <div class="card" id="step2">
   <div class="card-top">
-    <div class="card-icon">📅</div>
-    <div><h2>Fecha de Nacimiento</h2><p>Seleccione su fecha tal como aparece en su DNI.</p></div>
+    <div class="ctop-ico">📅</div>
+    <div>
+      <h2>Fecha de Nacimiento</h2>
+      <p>Selecciona tu fecha tal como aparece en tu DNI.</p>
+      <div class="badge-minor" id="badgeMinor" style="display:none">👶 Colaborador menor de edad</div>
+    </div>
   </div>
   <div class="card-body">
     <div class="row c3">
       <div class="field">
         <label>Día <span class="req">*</span></label>
-        <div class="sel-wrap"><select id="diaNac"></select></div>
+        <div class="sel-wrap"><select id="diaNac" onchange="detectarMenorFecha()"></select></div>
         <div class="emsg" id="e-diaNac">Seleccione el día.</div>
       </div>
       <div class="field">
         <label>Mes <span class="req">*</span></label>
         <div class="sel-wrap">
-          <select id="mesNac">
+          <select id="mesNac" onchange="detectarMenorFecha()">
             <option value="">— Mes —</option>
             <option value="01">Enero</option><option value="02">Febrero</option>
             <option value="03">Marzo</option><option value="04">Abril</option>
@@ -442,22 +361,23 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
       </div>
       <div class="field">
         <label>Año <span class="req">*</span></label>
-        <div class="sel-wrap"><select id="anioNac"></select></div>
+        <div class="sel-wrap"><select id="anioNac" onchange="detectarMenorFecha()"></select></div>
         <div class="emsg" id="e-anioNac">Seleccione el año.</div>
       </div>
     </div>
+    <div class="minor-alert" id="minorAlert2" style="display:none">
+      <span class="ma-ico">🔵</span>
+      <div class="ma-txt"><strong>Eres menor de edad.</strong> En los últimos pasos te pediremos los datos de tu apoderado (padre, madre o tutor). El sueldo se depositará en la cuenta del apoderado.</div>
+    </div>
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(1)">← Atrás</button>
-    <button class="btn btn-main" onclick="goTo(3)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(1)">← Atrás</button><button class="btn btn-main" onclick="goTo(3)">Siguiente →</button></div>
 </div>
 
-<!-- 3. DOMICILIO -->
+<!-- ══ PASO 3: DOMICILIO ══ -->
 <div class="card" id="step3">
   <div class="card-top">
-    <div class="card-icon">🏠</div>
-    <div><h2>Domicilio Actual</h2><p>Ingrese la dirección donde vive actualmente.</p></div>
+    <div class="ctop-ico">🏠</div>
+    <div><h2>Domicilio Actual</h2><p>Ingresa la dirección donde vives actualmente.</p></div>
   </div>
   <div class="card-body">
     <div class="row c2">
@@ -504,142 +424,169 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
       <div class="emsg" id="e-direccion">Campo requerido.</div>
     </div>
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(2)">← Atrás</button>
-    <button class="btn btn-main" onclick="goTo(4)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(2)">← Atrás</button><button class="btn btn-main" onclick="goTo(4)">Siguiente →</button></div>
 </div>
 
-<!-- 4. CONTACTO Y SEDE -->
+<!-- ══ PASO 4: CONTACTO, PUESTO Y EMERGENCIA ══ -->
 <div class="card" id="step4">
   <div class="card-top">
-    <div class="card-icon">📱</div>
-    <div><h2>Contacto y Sede</h2><p>Sus datos de contacto y la sede donde trabajará.</p></div>
+    <div class="ctop-ico">📱</div>
+    <div><h2>Contacto y Puesto</h2><p>Datos de contacto, sede de trabajo y contacto de emergencia.</p></div>
   </div>
   <div class="card-body">
-    <div class="field">
-      <label>Número de Celular <span class="req">*</span></label>
-      <div class="hint">9 dígitos numéricos</div>
-      <input type="tel" id="celular" inputmode="numeric" maxlength="9" autocomplete="tel">
-      <div class="emsg" id="e-celular">Ingrese 9 dígitos numéricos.</div>
-    </div>
-    <div class="field">
-      <label>Correo Electrónico <span class="req">*</span></label>
-      <input type="email" id="email" autocomplete="email" inputmode="email">
-      <div class="emsg" id="e-email">Ingrese un correo electrónico válido.</div>
+    <div class="row c2">
+      <div class="field">
+        <label>Celular <span class="req">*</span></label>
+        <div class="hint">9 dígitos</div>
+        <input type="tel" id="celular" inputmode="numeric" maxlength="9" autocomplete="tel">
+        <div class="emsg" id="e-celular">Ingrese 9 dígitos numéricos.</div>
+      </div>
+      <div class="field">
+        <label>Correo Electrónico <span class="req">*</span></label>
+        <input type="email" id="email" autocomplete="email" inputmode="email">
+        <div class="emsg" id="e-email">Ingrese un correo electrónico válido.</div>
+      </div>
     </div>
     <div class="field">
       <label>Cargo o Puesto <span class="req">*</span></label>
-      <div class="hint">El cargo acordado con su jefe directo</div>
+      <div class="hint">El cargo acordado con tu jefe directo</div>
       <input type="text" id="cargo">
       <div class="emsg" id="e-cargo">Campo requerido.</div>
     </div>
-    <div class="divider"></div>
     <div class="field">
       <label>Sede de Trabajo <span class="req">*</span></label>
-      <div class="hint">Seleccione la sede donde realizará sus funciones</div>
-      <div class="sede-chips">
+      <div class="sede-grid">
         <label class="sede-chip" id="sede-flores">
           <input type="radio" name="sede" value="Walpa Flores" onchange="sedeChip('sede-flores','sede-jardines')">
-          <span class="sede-ico">🌸</span>
-          <strong>Walpa Flores</strong>
+          <span class="s-ico">🌸</span>
+          <span class="s-nom">Walpa Flores</span>
         </label>
         <label class="sede-chip" id="sede-jardines">
           <input type="radio" name="sede" value="Walpa Los Jardines" onchange="sedeChip('sede-jardines','sede-flores')">
-          <span class="sede-ico">🌳</span>
-          <strong>Walpa Los Jardines</strong>
+          <span class="s-ico">🌳</span>
+          <span class="s-nom">Walpa Los Jardines</span>
         </label>
       </div>
       <div class="emsg" id="e-sede">Seleccione su sede de trabajo.</div>
     </div>
+    <div class="divider"></div>
+    <div class="sec-label">Contacto de Emergencia</div>
+    <div class="row c2">
+      <div class="field">
+        <label>Nombre Completo <span class="req">*</span></label>
+        <input type="text" id="emergNombre">
+        <div class="emsg" id="e-emergNombre">Campo requerido.</div>
+      </div>
+      <div class="field">
+        <label>Parentesco <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="emergParentesco">
+            <option value="">Seleccionar...</option>
+            <option>Padre</option><option>Madre</option><option>Cónyuge/Conviviente</option>
+            <option>Hermano/a</option><option>Hijo/a</option><option>Tío/a</option>
+            <option>Abuelo/a</option><option>Amigo/a</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-emergParentesco">Seleccione el parentesco.</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Celular de Emergencia <span class="req">*</span></label>
+      <input type="tel" id="emergCelular" inputmode="numeric" maxlength="9">
+      <div class="emsg" id="e-emergCelular">Ingrese 9 dígitos numéricos.</div>
+    </div>
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(3)">← Atrás</button>
-    <button class="btn btn-main" onclick="goTo(5)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(3)">← Atrás</button><button class="btn btn-main" onclick="goTo(5)">Siguiente →</button></div>
 </div>
 
-<!-- 5. PENSIONES -->
+<!-- ══ PASO 5: SALUD Y PENSIONES ══ -->
 <div class="card" id="step5">
   <div class="card-top">
-    <div class="card-icon">🏦</div>
-    <div><h2>Sistema de Pensiones</h2><p>Si no recuerda cuál es el suyo, revise su última boleta de pago o elija "No lo sé".</p></div>
+    <div class="ctop-ico">🏥</div>
+    <div><h2>Salud y Pensiones</h2><p>Información sobre tu estado de salud y sistema previsional.</p></div>
   </div>
   <div class="card-body">
+    <div class="dj-box">
+      <div class="dj-title">⚖️ Declaración Jurada</div>
+      <div class="dj-body">Las respuestas sobre tu estado de salud tienen carácter de Declaración Jurada. La información proporcionada es confidencial y solo será usada para evaluar la aptitud para el puesto.</div>
+    </div>
     <div class="field">
-      <label>¿A qué sistema pertenece? <span class="req">*</span></label>
-      <div class="radio-list">
-        <label class="rr" id="rr-onp">
-          <input type="radio" name="pension" value="ONP" onchange="selRR('rr-onp',['rr-afp','rr-na','rr-ns']);toggleAfp(false);toggleNoAfiliado(false)">
-          <div class="rr-dot"></div>
-          <div><strong>ONP</strong> — Sistema Nacional de Pensiones (del Estado)</div>
-        </label>
-        <label class="rr" id="rr-afp">
-          <input type="radio" name="pension" value="AFP" onchange="selRR('rr-afp',['rr-onp','rr-na','rr-ns']);toggleAfp(true);toggleNoAfiliado(false)">
-          <div class="rr-dot"></div>
-          <div><strong>AFP</strong> — Sistema Privado de Pensiones</div>
-        </label>
-        <label class="rr" id="rr-na">
-          <input type="radio" name="pension" value="No afiliado" onchange="selRR('rr-na',['rr-onp','rr-afp','rr-ns']);toggleAfp(false);toggleNoAfiliado(true)">
-          <div class="rr-dot"></div>
-          <div>Aún no estoy afiliado/a</div>
-        </label>
-        <label class="rr" id="rr-ns">
-          <input type="radio" name="pension" value="No lo sé" onchange="selRR('rr-ns',['rr-onp','rr-afp','rr-na']);toggleAfp(false);toggleNoAfiliado(false)">
-          <div class="rr-dot"></div>
-          <div>No lo sé — <span style="color:var(--muted);font-weight:400">RRHH me orientará</span></div>
-        </label>
+      <label>¿Padeces alguna enfermedad o condición que te impida realizar las funciones de tu puesto? <span class="req">*</span></label>
+      <div class="chips">
+        <label class="chip" id="chip-ens"><input type="radio" name="enfermedad" value="Sí" onchange="chipSel('chip-ens','chip-enn');toggleEnfermedad(true)">Sí</label>
+        <label class="chip" id="chip-enn"><input type="radio" name="enfermedad" value="No" onchange="chipSel('chip-enn','chip-ens');toggleEnfermedad(false)">No</label>
+      </div>
+      <div class="emsg" id="e-enfermedad">Seleccione una opción.</div>
+      <div id="enfermedadWrap" style="display:none;margin-top:10px">
+        <div class="sub-field">
+          <label>Describe brevemente la condición <span class="req">*</span></label>
+          <input type="text" id="enfermedadDesc" placeholder="">
+          <div class="emsg" id="e-enfermedadDesc">Campo requerido.</div>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sec-label">Sistema de Pensiones</div>
+    <div class="field">
+      <label>¿A qué sistema perteneces? <span class="req">*</span></label>
+      <div class="rlist">
+        <label class="rr" id="rr-onp"><input type="radio" name="pension" value="ONP" onchange="selRR('rr-onp',['rr-afp','rr-na','rr-ns']);toggleAfp(false);toggleNoAfil(false)"><div class="rdot"></div><div><strong>ONP</strong> — Sistema Nacional (del Estado)</div></label>
+        <label class="rr" id="rr-afp"><input type="radio" name="pension" value="AFP" onchange="selRR('rr-afp',['rr-onp','rr-na','rr-ns']);toggleAfp(true);toggleNoAfil(false)"><div class="rdot"></div><div><strong>AFP</strong> — Sistema Privado de Pensiones</div></label>
+        <label class="rr" id="rr-na"><input type="radio" name="pension" value="No afiliado" onchange="selRR('rr-na',['rr-onp','rr-afp','rr-ns']);toggleAfp(false);toggleNoAfil(true)"><div class="rdot"></div><div>Aún no estoy afiliado/a</div></label>
+        <label class="rr" id="rr-ns"><input type="radio" name="pension" value="No lo sé" onchange="selRR('rr-ns',['rr-onp','rr-afp','rr-na']);toggleAfp(false);toggleNoAfil(false)"><div class="rdot"></div><div>No lo sé — <span style="color:var(--muted);font-weight:400">RRHH me orientará</span></div></label>
       </div>
       <div class="emsg" id="e-pension">Seleccione una opción.</div>
-
-      <!-- Sub: elegir AFP (+ opción No lo sé dentro de AFP) -->
-      <div id="afpWrap" style="display:none;margin-top:12px">
+      <div id="afpWrap" style="display:none;margin-top:10px">
         <div class="sub-field">
-          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:6px">¿A cuál AFP pertenece? <span class="req">*</span></label>
-          <div class="radio-list">
-            <label class="rr" id="afp-hab"><input type="radio" name="afpNombreR" value="Habitat" onchange="selAfp('afp-hab',['afp-int','afp-pri','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Habitat</label>
-            <label class="rr" id="afp-int"><input type="radio" name="afpNombreR" value="Integra"  onchange="selAfp('afp-int',['afp-hab','afp-pri','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Integra</label>
-            <label class="rr" id="afp-pri"><input type="radio" name="afpNombreR" value="Prima"    onchange="selAfp('afp-pri',['afp-hab','afp-int','afp-pro','afp-ns'])"><div class="rr-dot"></div>AFP Prima</label>
-            <label class="rr" id="afp-pro"><input type="radio" name="afpNombreR" value="Profuturo" onchange="selAfp('afp-pro',['afp-hab','afp-int','afp-pri','afp-ns'])"><div class="rr-dot"></div>AFP Profuturo</label>
-            <label class="rr" id="afp-ns"><input type="radio" name="afpNombreR" value="No lo sé"  onchange="selAfp('afp-ns',['afp-hab','afp-int','afp-pri','afp-pro'])"><div class="rr-dot"></div>No lo sé — <span style="color:var(--muted);font-weight:400">RRHH verificará por mí</span></label>
+          <label>¿A cuál AFP perteneces? <span class="req">*</span></label>
+          <div class="rlist">
+            <label class="rr" id="afp-h"><input type="radio" name="afpR" value="Habitat" onchange="selRR('afp-h',['afp-i','afp-p','afp-pr','afp-ns2'])"><div class="rdot"></div>AFP Habitat</label>
+            <label class="rr" id="afp-i"><input type="radio" name="afpR" value="Integra" onchange="selRR('afp-i',['afp-h','afp-p','afp-pr','afp-ns2'])"><div class="rdot"></div>AFP Integra</label>
+            <label class="rr" id="afp-p"><input type="radio" name="afpR" value="Prima" onchange="selRR('afp-p',['afp-h','afp-i','afp-pr','afp-ns2'])"><div class="rdot"></div>AFP Prima</label>
+            <label class="rr" id="afp-pr"><input type="radio" name="afpR" value="Profuturo" onchange="selRR('afp-pr',['afp-h','afp-i','afp-p','afp-ns2'])"><div class="rdot"></div>AFP Profuturo</label>
+            <label class="rr" id="afp-ns2"><input type="radio" name="afpR" value="No lo sé" onchange="selRR('afp-ns2',['afp-h','afp-i','afp-p','afp-pr'])"><div class="rdot"></div>No lo sé — RRHH verificará</label>
           </div>
           <div class="emsg" id="e-afpNombre">Seleccione su AFP.</div>
         </div>
       </div>
-
-      <!-- Sub: no afiliado → quiere ayuda -->
-      <div id="noAfiliadoWrap" style="display:none;margin-top:12px">
+      <div id="noAfilWrap" style="display:none;margin-top:10px">
         <div class="sub-field">
-          <label style="font-size:.78rem;font-weight:600;color:var(--maroon);display:block;margin-bottom:8px">¿Desea que le ayudemos a afiliarse? <span class="req">*</span></label>
+          <label>¿Deseas que te ayudemos a afiliarte? <span class="req">*</span></label>
           <div class="chips">
-            <label class="chip" id="chip-ay"><input type="radio" name="ayudaAfil" value="Sí, deseo que me ayuden" onchange="chipSel('chip-ay','chip-no')">Sí, por favor</label>
-            <label class="chip" id="chip-no"><input type="radio" name="ayudaAfil" value="No, lo haré por mi cuenta" onchange="chipSel('chip-no','chip-ay')">Lo haré por mi cuenta</label>
+            <label class="chip" id="chip-ay"><input type="radio" name="ayudaAfil" value="Sí" onchange="chipSel('chip-ay','chip-noa')">Sí, por favor</label>
+            <label class="chip" id="chip-noa"><input type="radio" name="ayudaAfil" value="No" onchange="chipSel('chip-noa','chip-ay')">Lo haré yo</label>
           </div>
           <div class="emsg" id="e-ayudaAfil">Seleccione una opción.</div>
-          <p style="font-size:.75rem;color:var(--muted);margin-top:10px;line-height:1.6">
-            💡 Si elige <strong>"Sí, por favor"</strong>, RRHH coordinará el trámite de afiliación durante su primer mes. No se preocupe, es un proceso sencillo.
-          </p>
         </div>
       </div>
     </div>
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(4)">← Atrás</button>
-    <button class="btn btn-main" onclick="goTo(6)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(4)">← Atrás</button><button class="btn btn-main" onclick="goTo(6)">Siguiente →</button></div>
 </div>
 
-<!-- 6. DATOS BANCARIOS -->
+<!-- ══ PASO 6: DATOS BANCARIOS ══ -->
 <div class="card" id="step6">
   <div class="card-top">
-    <div class="card-icon">💳</div>
-    <div><h2>Datos Bancarios</h2><p>Su sueldo será depositado en esta cuenta. Tenga a la mano su tarjeta o app del banco.</p></div>
+    <div class="ctop-ico">💳</div>
+    <div>
+      <h2>Datos Bancarios</h2>
+      <p id="step6Desc">Tu sueldo será depositado en esta cuenta. Ten a la mano tu tarjeta o la app de tu banco.</p>
+    </div>
   </div>
   <div class="card-body">
+    <!-- Aviso menor de edad -->
+    <div class="minor-alert" id="minorBancoAlert" style="display:none">
+      <span class="ma-ico">🔵</span>
+      <div class="ma-txt"><strong>Como eres menor de edad</strong>, el sueldo se depositará en la cuenta de tu apoderado. Ingresa los datos bancarios de tu padre, madre o tutor.</div>
+    </div>
 
-    <!-- Opción: no tengo cuenta -->
+    <div class="dj-box">
+      <div class="dj-title">⚖️ Declaración Jurada</div>
+      <div class="dj-body">Al registrar tus datos bancarios confirmas bajo Declaración Jurada que la cuenta es activa, está a tu nombre (o de tu apoderado si eres menor de edad), y autorizas a Walpa Chicken a depositar tu remuneración en ella.</div>
+    </div>
+
     <div class="field">
-      <label>¿Cuenta con una cuenta bancaria activa? <span class="req">*</span></label>
+      <label>¿Cuentas con una cuenta bancaria activa? <span class="req">*</span></label>
       <div class="chips">
         <label class="chip" id="chip-tsi"><input type="radio" name="tieneCuenta" value="Sí" onchange="chipSel('chip-tsi','chip-tno');toggleCuenta(true)">Sí, tengo cuenta</label>
         <label class="chip" id="chip-tno"><input type="radio" name="tieneCuenta" value="No" onchange="chipSel('chip-tno','chip-tsi');toggleCuenta(false)">No tengo cuenta</label>
@@ -647,7 +594,6 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
       <div class="emsg" id="e-tieneCuenta">Seleccione una opción.</div>
     </div>
 
-    <!-- Formulario de cuenta (visible si tiene cuenta) -->
     <div id="cuentaWrap">
       <div class="field">
         <label>Banco <span class="req">*</span></label>
@@ -665,112 +611,178 @@ input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34
       </div>
       <div class="field">
         <label>Número de Cuenta <span class="req">*</span></label>
-        <div class="hint">Solo números, sin espacios. Lo encuentra en su tarjeta o en la app de su banco</div>
+        <div class="hint">Solo números, sin espacios</div>
         <input type="text" id="numeroCuenta" inputmode="numeric">
         <div class="emsg" id="e-numeroCuenta">Ingrese al menos 8 dígitos.</div>
       </div>
     </div>
 
-    <!-- Mensaje si NO tiene cuenta -->
     <div id="noCuentaWrap" style="display:none">
-      <div class="sub-field" style="border-left-color:var(--yellow);background:#FFFBEA">
-        <p style="font-size:.85rem;font-weight:600;color:var(--maroon);margin-bottom:8px">🏦 No se preocupe, le ayudamos a abrir su cuenta</p>
-        <p style="font-size:.8rem;color:var(--text);line-height:1.7;margin-bottom:10px">
-          Por defecto tramitaremos la apertura de una <strong>Cuenta de Ahorros BCP</strong> a su nombre, sin costo y sin requisitos complicados. Solo necesitará su DNI.<br><br>
-          RRHH coordinará todo durante su primer mes. Su sueldo se depositará ahí desde el primer pago.
-        </p>
-        <div style="background:var(--white);border-radius:8px;padding:12px;border:1px solid var(--line);display:flex;align-items:center;gap:10px">
-          <span style="font-size:1.4rem">🟡</span>
+      <div class="sub-field" style="border-color:var(--gold);background:#FFFBEA">
+        <p style="font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:8px">🏦 Te ayudamos a abrir tu cuenta</p>
+        <p style="font-size:.8rem;color:var(--text);line-height:1.7;margin-bottom:10px">Gestionaremos la apertura de una <strong>Cuenta de Ahorros BCP</strong> gratuita a tu nombre. Solo necesitas tu DNI. RRHH coordinará todo durante tu primer mes.</p>
+        <div style="background:#fff;border-radius:8px;padding:12px;border:1px solid var(--line);display:flex;align-items:center;gap:10px">
+          <span style="font-size:1.3rem">🟡</span>
           <div>
-            <div style="font-size:.8rem;font-weight:700;color:var(--maroon)">BCP — Banco de Crédito del Perú</div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--ink)">BCP — Banco de Crédito del Perú</div>
             <div style="font-size:.72rem;color:var(--muted)">Cuenta de Ahorros · Sin costo de apertura</div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(5)">← Atrás</button>
-    <button class="btn btn-main" onclick="goTo(7)">Siguiente →</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(5)">← Atrás</button><button class="btn btn-main" onclick="goTo(7)">Siguiente →</button></div>
 </div>
 
-<!-- 7. FOTOS + DECLARACIÓN -->
+<!-- ══ PASO 7: APODERADO (solo menores) / FOTOS (mayores) ══ -->
 <div class="card" id="step7">
   <div class="card-top">
-    <div class="card-icon">📎</div>
-    <div><h2>Fotos del DNI y Confirmación</h2><p>Adjunte fotos nítidas de ambas caras de su DNI.</p></div>
+    <div class="ctop-ico" id="step7Ico">👨‍👩‍👧</div>
+    <div>
+      <h2 id="step7Title">Datos del Apoderado</h2>
+      <p id="step7Desc2">Como eres menor de edad, necesitamos los datos de tu padre, madre o tutor legal.</p>
+    </div>
+  </div>
+  <div class="card-body" id="step7Body">
+    <!-- Apoderado (solo si es menor) -->
+    <div id="apoderadoSection">
+      <div class="field">
+        <label>Nombres y Apellidos del Apoderado <span class="req">*</span></label>
+        <input type="text" id="apodNombre">
+        <div class="emsg" id="e-apodNombre">Campo requerido.</div>
+      </div>
+      <div class="row c2">
+        <div class="field">
+          <label>DNI del Apoderado <span class="req">*</span></label>
+          <input type="text" id="apodDni" inputmode="numeric" maxlength="8">
+          <div class="emsg" id="e-apodDni">Ingrese 8 dígitos.</div>
+        </div>
+        <div class="field">
+          <label>Parentesco <span class="req">*</span></label>
+          <div class="sel-wrap">
+            <select id="apodParentesco">
+              <option value="">Seleccionar...</option>
+              <option>Padre</option><option>Madre</option><option>Tutor legal</option><option>Abuelo/a</option><option>Tío/a</option>
+            </select>
+          </div>
+          <div class="emsg" id="e-apodParentesco">Seleccione el parentesco.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Celular del Apoderado <span class="req">*</span></label>
+        <input type="tel" id="apodCelular" inputmode="numeric" maxlength="9">
+        <div class="emsg" id="e-apodCelular">Ingrese 9 dígitos.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="sec-label">Cuenta Bancaria del Apoderado</div>
+      <div class="field">
+        <label>Banco <span class="req">*</span></label>
+        <div class="sel-wrap">
+          <select id="apodBanco">
+            <option value="">Seleccionar banco...</option>
+            <option>BCP — Banco de Crédito del Perú</option><option>BBVA Perú</option>
+            <option>Interbank</option><option>Scotiabank Perú</option><option>BanBif</option>
+            <option>Banco Pichincha</option><option>Mibanco</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="emsg" id="e-apodBanco">Seleccione el banco.</div>
+      </div>
+      <div class="field">
+        <label>Número de Cuenta <span class="req">*</span></label>
+        <input type="text" id="apodCuenta" inputmode="numeric">
+        <div class="emsg" id="e-apodCuenta">Ingrese al menos 8 dígitos.</div>
+      </div>
+    </div>
+
+    <!-- Fotos DNI (siempre presentes en paso 7 para mayores, paso 8 para menores) -->
+    <div id="fotosSection7" style="display:none">
+      <div class="upload-grid">
+        <div class="field">
+          <label>Foto DNI — Parte delantera <span class="req">*</span></label>
+          <div class="ubox" id="ub-a7"><input type="file" id="fotoAnverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-a7','ub-a7')"><div class="uico">📷</div><div class="ulbl">Toca para tomar o subir foto</div><div class="usub">JPG, PNG o PDF — máx. 10 MB</div><div class="uok" id="ok-a7"></div></div>
+          <div class="emsg" id="e-fotoA">Suba la foto del frente de su DNI.</div>
+        </div>
+        <div class="field">
+          <label>Foto DNI — Parte trasera <span class="req">*</span></label>
+          <div class="ubox" id="ub-r7"><input type="file" id="fotoReverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-r7','ub-r7')"><div class="uico">📷</div><div class="ulbl">Toca para tomar o subir foto</div><div class="usub">JPG, PNG o PDF — máx. 10 MB</div><div class="uok" id="ok-r7"></div></div>
+          <div class="emsg" id="e-fotoR">Suba la foto del reverso de su DNI.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(6)">← Atrás</button><button class="btn btn-main" id="btnNext7" onclick="goTo(8)">Siguiente →</button></div>
+</div>
+
+<!-- ══ PASO 8: FOTOS + CONFIRMACIÓN ══ -->
+<div class="card" id="step8">
+  <div class="card-top">
+    <div class="ctop-ico">📎</div>
+    <div><h2>Fotos del DNI y Confirmación</h2><p>Adjunta fotos nítidas de ambas caras de tu DNI y confirma tus datos.</p></div>
   </div>
   <div class="card-body">
     <div class="upload-grid">
       <div class="field">
         <label>Foto DNI — Parte delantera <span class="req">*</span></label>
-        <div class="upload-box" id="ub-a">
-          <input type="file" id="fotoAnverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-a','ub-a')">
-          <div class="upload-ico">📷</div>
-          <div class="upload-lbl">Toque para tomar o subir foto</div>
-          <div class="upload-sub">JPG, PNG o PDF — máx. 10 MB</div>
-          <div class="upload-ok" id="ok-a"></div>
-        </div>
-        <div class="emsg" id="e-fotoA">Suba la foto del frente de su DNI.</div>
+        <div class="ubox" id="ub-a"><input type="file" id="fotoAnverso2" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-a','ub-a')"><div class="uico">📷</div><div class="ulbl">Toca para tomar o subir foto</div><div class="usub">JPG, PNG o PDF — máx. 10 MB</div><div class="uok" id="ok-a"></div></div>
+        <div class="emsg" id="e-fotoA2">Suba la foto del frente de su DNI.</div>
       </div>
       <div class="field">
         <label>Foto DNI — Parte trasera <span class="req">*</span></label>
-        <div class="upload-box" id="ub-r">
-          <input type="file" id="fotoReverso" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-r','ub-r')">
-          <div class="upload-ico">📷</div>
-          <div class="upload-lbl">Toque para tomar o subir foto</div>
-          <div class="upload-sub">JPG, PNG o PDF — máx. 10 MB</div>
-          <div class="upload-ok" id="ok-r"></div>
-        </div>
-        <div class="emsg" id="e-fotoR">Suba la foto del reverso de su DNI.</div>
+        <div class="ubox" id="ub-r"><input type="file" id="fotoReverso2" accept="image/*,.pdf" capture="environment" onchange="onFile(this,'ok-r','ub-r')"><div class="uico">📷</div><div class="ulbl">Toca para tomar o subir foto</div><div class="usub">JPG, PNG o PDF — máx. 10 MB</div><div class="uok" id="ok-r"></div></div>
+        <div class="emsg" id="e-fotoR2">Suba la foto del reverso de su DNI.</div>
       </div>
     </div>
     <div class="divider"></div>
     <div class="field">
       <label class="ck-wrap">
         <input type="checkbox" id="declaracion">
-        <span class="ck-txt">Confirmo que todos los datos ingresados son verídicos y corresponden a mis documentos oficiales. Entiendo que proporcionar información falsa puede afectar mi relación laboral con Walpa Chicken.</span>
+        <span class="ck-txt"><span class="ck-bold">Declaración Jurada:</span> Confirmo que todos los datos ingresados en este formulario son verídicos y corresponden a mis documentos oficiales. Entiendo que proporcionar información falsa puede afectar mi relación laboral con Walpa Chicken.</span>
       </label>
       <div class="emsg" id="e-decl">Debe confirmar la declaración para continuar.</div>
     </div>
   </div>
-  <div class="card-nav">
-    <button class="btn btn-ghost" onclick="goTo(6)">← Atrás</button>
-    <button class="btn btn-main" id="btnEnviar" onclick="enviar()">Enviar Ficha</button>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(7)">← Atrás</button><button class="btn btn-main" id="btnEnviar" onclick="enviar()">Enviar Ficha</button></div>
 </div>
 
-<!-- ÉXITO -->
+<!-- ══ ÉXITO ══ -->
 <div class="success" id="successScreen">
   <span class="s-crown">👑</span>
   <div class="s-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
   <h2 class="s-title">¡Bienvenido/a a la<br>familia <span class="s-walpa">Walpa</span>!</h2>
-  <div class="s-divider"></div>
-  <p class="s-body">Sus datos han sido registrados exitosamente. El equipo de Recursos Humanos se comunicará con usted a la brevedad para coordinar los siguientes pasos de su incorporación.</p>
+  <div class="s-div"></div>
+  <p class="s-body">Tus datos han sido registrados exitosamente. El equipo de Recursos Humanos se comunicará contigo a la brevedad para coordinar los siguientes pasos de tu incorporación.</p>
 </div>
 
 </div><!-- /main -->
 
-<script>
-// ══════════════════════════════════════════════════════════
-//  IMPORTANTE: Pega aquí la URL de tu Google Apps Script
-//  después de implementarlo como Aplicación Web
-// ══════════════════════════════════════════════════════════
-var GAS_URL = "https://script.google.com/macros/s/AKfycbxaDWW7Z8KKHdTLOsz0gy_fb7Wv3M-9f3zEwGAyJRm6Nk9czp4GIY3oSIJ37o7dtEAn8Q/exec";
+<iframe name="hidden-iframe" style="display:none"></iframe>
+<form id="hidden-gas-form" method="POST" target="hidden-iframe" style="display:none">
+  <input type="hidden" id="hidden-gas-data" name="datos">
+  <input type="hidden" id="hidden-foto-a"  name="foto_a">
+  <input type="hidden" id="hidden-foto-an" name="foto_an">
+  <input type="hidden" id="hidden-foto-at" name="foto_at">
+  <input type="hidden" id="hidden-foto-r"  name="foto_r">
+  <input type="hidden" id="hidden-foto-rn" name="foto_rn">
+  <input type="hidden" id="hidden-foto-rt" name="foto_rt">
+</form>
 
-// Días y años
+<script>
+var GAS_URL = "https://script.google.com/macros/s/AKfycbxaDWW7Z8KKHdTLOsz0gy_fb7Wv3M-9f3zEwGAyJRm6Nk9czp4GIY3oSIJ37o7dtEAn8Q/exec";
+var TOTAL = 8;
+var current = 1;
+var esMenor = false;
+
+// ── Poblar días y años ──
 (function(){
   var sd=document.getElementById('diaNac');
   sd.innerHTML='<option value="">— Día —</option>';
   for(var d=1;d<=31;d++) sd.innerHTML+='<option>'+d+'</option>';
   var sa=document.getElementById('anioNac');
   sa.innerHTML='<option value="">— Año —</option>';
-  for(var a=2006;a>=1950;a--) sa.innerHTML+='<option>'+a+'</option>';
+  for(var a=2024;a>=1950;a--) sa.innerHTML+='<option>'+a+'</option>';
 })();
 
-// Distritos Lima
+// ── Distritos Lima ──
 var distritosLima=["San Juan de Lurigancho","Ate","Comas","Villa El Salvador","Villa María del Triunfo","San Martín de Porres","Los Olivos","Puente Piedra","Carabayllo","Chorrillos","San Juan de Miraflores","Independencia","El Agustino","Santa Anita","Lurigancho","Rímac","La Victoria","Breña","Lima (Cercado)","La Molina","Miraflores","San Isidro","San Borja","Surco (Santiago de Surco)","Surquillo","Lince","Jesús María","Pueblo Libre","Magdalena del Mar","San Miguel","Barranco","Chaclacayo","Lurín","Pachacámac","Cieneguilla","Ancón","Santa Rosa","Punta Negra","Punta Hermosa","San Bartolo","Santa María del Mar"];
 function poblarDistritos(lista,def){
   var sel=document.getElementById('distrito');sel.innerHTML='';
@@ -783,190 +795,264 @@ function onDeptChange(){
   else document.getElementById('distrito').innerHTML='<option value="">Seleccionar...</option>';
 }
 
-// Chips
+// ── Detección menor de edad ──
+function calcularEdad(dia,mes,anio){
+  var hoy=new Date();
+  var nac=new Date(parseInt(anio),parseInt(mes)-1,parseInt(dia));
+  var edad=hoy.getFullYear()-nac.getFullYear();
+  var m=hoy.getMonth()-nac.getMonth();
+  if(m<0||(m===0&&hoy.getDate()<nac.getDate())) edad--;
+  return edad;
+}
+function detectarMenorFecha(){
+  var d=document.getElementById('diaNac').value;
+  var m=document.getElementById('mesNac').value;
+  var a=document.getElementById('anioNac').value;
+  if(!d||!m||!a) return;
+  var edad=calcularEdad(d,m,a);
+  actualizarMenor(edad<18);
+}
+function detectarMenor(){
+  // Cuando el DNI es el bloque del paso 1 se activa el chequeo de fecha después
+  detectarMenorFecha();
+}
+function actualizarMenor(es){
+  esMenor=es;
+  document.getElementById('minorAlert').style.display=es?'flex':'none';
+  document.getElementById('minorAlert2').style.display=es?'flex':'none';
+  document.getElementById('badgeMinor').style.display=es?'inline-block':'none';
+  document.getElementById('minorBancoAlert').style.display=es?'flex':'none';
+
+  // Paso 7: si menor → apoderado + fotos en paso 8
+  // Si mayor → paso 7 muestra solo fotos directamente
+  if(!es){
+    document.getElementById('apoderadoSection').style.display='none';
+    document.getElementById('fotosSection7').style.display='block';
+    document.getElementById('step7Title').textContent='Fotos del DNI y Confirmación';
+    document.getElementById('step7Desc2').textContent='Adjunta fotos nítidas de ambas caras de tu DNI.';
+    document.getElementById('step7Ico').textContent='📎';
+    document.getElementById('btnNext7').textContent='Siguiente →';
+    // Ocultar paso 8 (no necesario para mayores, saltan de 7 al éxito)
+    document.getElementById('btnNext7').onclick=function(){ goTo(8); };
+    // Update dots to show 7 steps effectively but keep 8 in DOM
+  } else {
+    document.getElementById('apoderadoSection').style.display='block';
+    document.getElementById('fotosSection7').style.display='none';
+    document.getElementById('step7Title').textContent='Datos del Apoderado';
+    document.getElementById('step7Desc2').textContent='Como eres menor de edad, necesitamos los datos de tu padre, madre o tutor legal.';
+    document.getElementById('step7Ico').textContent='👨‍👩‍👧';
+    document.getElementById('btnNext7').textContent='Siguiente →';
+    document.getElementById('btnNext7').onclick=function(){ goTo(8); };
+  }
+}
+actualizarMenor(false); // Por defecto mayor
+
+// ── UI helpers ──
 function chipSel(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
 function sedeChip(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
-function selRR(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){document.getElementById(id).classList.remove('on');});}
-function selAfp(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){document.getElementById(id).classList.remove('on');});}
-function toggleAfp(show){document.getElementById('afpWrap').style.display=show?'block':'none';if(!show){var rs=document.querySelectorAll('input[name="afpNombreR"]');rs.forEach(function(r){r.checked=false;});document.querySelectorAll('[id^="afp-"]').forEach(function(el){el.classList.remove('on');});}}
-function toggleNoAfiliado(show){document.getElementById('noAfiliadoWrap').style.display=show?'block':'none';if(!show){var rs=document.querySelectorAll('input[name="ayudaAfil"]');rs.forEach(function(r){r.checked=false;});['chip-ay','chip-no'].forEach(function(id){document.getElementById(id).classList.remove('on');});}}
+function selRR(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('on');});}
 function toggleHijos(show){document.getElementById('cantHijosWrap').style.display=show?'block':'none';if(!show)document.getElementById('cantHijos').value='';}
+function toggleEnfermedad(show){document.getElementById('enfermedadWrap').style.display=show?'block':'none';}
+function toggleAfp(show){document.getElementById('afpWrap').style.display=show?'block':'none';}
+function toggleNoAfil(show){document.getElementById('noAfilWrap').style.display=show?'block':'none';}
 function toggleCuenta(show){
   document.getElementById('cuentaWrap').style.display=show?'block':'none';
   document.getElementById('noCuentaWrap').style.display=show?'none':'block';
   if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';}
 }
-function onFile(inp,okId,boxId){var f=inp.files[0];if(!f)return;var ok=document.getElementById(okId);ok.textContent='✔ '+f.name;ok.classList.add('show');document.getElementById(boxId).querySelector('.upload-ico').textContent='✅';}
+function onFile(inp,okId,boxId){var f=inp.files[0];if(!f)return;document.getElementById(okId).textContent='✔ '+f.name;document.getElementById(okId).classList.add('show');document.getElementById(boxId).querySelector('.uico').textContent='✅';}
 
-// Navegación
-var current=1,TOTAL=7;
+// ── Navegación ──
 function goTo(n){
   if(n>current&&!validar(current)) return;
+  // Si es mayor y va de 7 directo a enviar
+  if(!esMenor && current===7 && n===8){
+    // Mover al éxito directamente al enviar desde paso 7
+    enviarDesde7();
+    return;
+  }
   document.getElementById('step'+current).classList.remove('active');
   document.getElementById('step'+n).classList.add('active');
   for(var i=1;i<=TOTAL;i++){
-    var dot=document.getElementById('sd'+i);dot.classList.remove('active','done');
+    var dot=document.getElementById('sd'+i);if(!dot)continue;
+    dot.classList.remove('active','done');
     if(i<n)dot.classList.add('done');else if(i===n)dot.classList.add('active');
-    if(i<TOTAL)document.getElementById('sl'+i).classList.toggle('done',i<n);
+    if(i<TOTAL){var line=document.getElementById('sl'+i);if(line)line.classList.toggle('done',i<n);}
   }
   current=n;window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Validación
-function v(id){var el=document.getElementById(id);var ok=el&&el.value.trim()!=='';var em=document.getElementById('e-'+id);if(el)el.classList.toggle('err',!ok);if(em)em.classList.toggle('show',!ok);return ok;}
+// ── Validación ──
+function v(id){var el=document.getElementById(id);if(!el)return true;var ok=el.value.trim()!=='';var em=document.getElementById('e-'+id);if(el)el.classList.toggle('err',!ok);if(em)em.classList.toggle('show',!ok);return ok;}
 function validar(n){
   var ok=true;
   if(n===1){
     var dniOk=/^[0-9]{8}$/.test(document.getElementById('dni').value);
-    document.getElementById('dni').classList.toggle('err',!dniOk);document.getElementById('e-dni').classList.toggle('show',!dniOk);
+    document.getElementById('dni').classList.toggle('err',!dniOk);
+    document.getElementById('e-dni').classList.toggle('show',!dniOk);
     if(!dniOk)ok=false;
     ['nombres','apPaterno','apMaterno','estadoCivil','instruccion'].forEach(function(id){if(!v(id))ok=false;});
-    var sexoOk=!!document.querySelector('input[name="sexo"]:checked');document.getElementById('e-sexo').classList.toggle('show',!sexoOk);if(!sexoOk)ok=false;
-    var hijosOk=!!document.querySelector('input[name="hijos"]:checked');document.getElementById('e-hijos').classList.toggle('show',!hijosOk);if(!hijosOk)ok=false;
-    var hv=document.querySelector('input[name="hijos"]:checked');if(hv&&hv.value==='Sí'&&!v('cantHijos'))ok=false;
+    if(!document.querySelector('input[name="sexo"]:checked')){document.getElementById('e-sexo').classList.add('show');ok=false;}else document.getElementById('e-sexo').classList.remove('show');
+    if(!document.querySelector('input[name="hijos"]:checked')){document.getElementById('e-hijos').classList.add('show');ok=false;}else document.getElementById('e-hijos').classList.remove('show');
+    var hv=document.querySelector('input[name="hijos"]:checked');
+    if(hv&&hv.value==='Sí'&&!v('cantHijos'))ok=false;
   }
-  if(n===2){['diaNac','mesNac','anioNac'].forEach(function(id){if(!v(id))ok=false;});}
+  if(n===2){
+    ['diaNac','mesNac','anioNac'].forEach(function(id){if(!v(id))ok=false;});
+    detectarMenorFecha();
+  }
   if(n===3){['departamento','provincia','distrito','direccion'].forEach(function(id){if(!v(id))ok=false;});}
   if(n===4){
     var celOk=/^[0-9]{9}$/.test(document.getElementById('celular').value);
     document.getElementById('celular').classList.toggle('err',!celOk);document.getElementById('e-celular').classList.toggle('show',!celOk);if(!celOk)ok=false;
-    ['email','cargo'].forEach(function(id){if(!v(id))ok=false;});
-    var sedeOk=!!document.querySelector('input[name="sede"]:checked');document.getElementById('e-sede').classList.toggle('show',!sedeOk);if(!sedeOk)ok=false;
+    ['email','cargo','emergNombre','emergParentesco'].forEach(function(id){if(!v(id))ok=false;});
+    var ecOk=/^[0-9]{9}$/.test(document.getElementById('emergCelular').value);
+    document.getElementById('emergCelular').classList.toggle('err',!ecOk);document.getElementById('e-emergCelular').classList.toggle('show',!ecOk);if(!ecOk)ok=false;
+    if(!document.querySelector('input[name="sede"]:checked')){document.getElementById('e-sede').classList.add('show');ok=false;}else document.getElementById('e-sede').classList.remove('show');
   }
   if(n===5){
-    var pOk=!!document.querySelector('input[name="pension"]:checked');document.getElementById('e-pension').classList.toggle('show',!pOk);if(!pOk)ok=false;
+    if(!document.querySelector('input[name="enfermedad"]:checked')){document.getElementById('e-enfermedad').classList.add('show');ok=false;}else document.getElementById('e-enfermedad').classList.remove('show');
+    var ev=document.querySelector('input[name="enfermedad"]:checked');
+    if(ev&&ev.value==='Sí'&&!v('enfermedadDesc'))ok=false;
+    if(!document.querySelector('input[name="pension"]:checked')){document.getElementById('e-pension').classList.add('show');ok=false;}else document.getElementById('e-pension').classList.remove('show');
     var pv=document.querySelector('input[name="pension"]:checked');
-    if(pv&&pv.value==='AFP'){
-      var afpOk=!!document.querySelector('input[name="afpNombreR"]:checked');
-      document.getElementById('e-afpNombre').classList.toggle('show',!afpOk);if(!afpOk)ok=false;
-    }
-    if(pv&&pv.value==='No afiliado'){
-      var aOk=!!document.querySelector('input[name="ayudaAfil"]:checked');
-      document.getElementById('e-ayudaAfil').classList.toggle('show',!aOk);if(!aOk)ok=false;
-    }
+    if(pv&&pv.value==='AFP'){if(!document.querySelector('input[name="afpR"]:checked')){document.getElementById('e-afpNombre').classList.add('show');ok=false;}else document.getElementById('e-afpNombre').classList.remove('show');}
+    if(pv&&pv.value==='No afiliado'){if(!document.querySelector('input[name="ayudaAfil"]:checked')){document.getElementById('e-ayudaAfil').classList.add('show');ok=false;}else document.getElementById('e-ayudaAfil').classList.remove('show');}
   }
   if(n===6){
-    var tcOk=!!document.querySelector('input[name="tieneCuenta"]:checked');
-    document.getElementById('e-tieneCuenta').classList.toggle('show',!tcOk);if(!tcOk)ok=false;
+    if(!document.querySelector('input[name="tieneCuenta"]:checked')){document.getElementById('e-tieneCuenta').classList.add('show');ok=false;}else document.getElementById('e-tieneCuenta').classList.remove('show');
     var tc=document.querySelector('input[name="tieneCuenta"]:checked');
     if(tc&&tc.value==='Sí'){['banco','numeroCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+  }
+  if(n===7){
+    if(esMenor){
+      ['apodNombre','apodParentesco','apodBanco','apodCuenta'].forEach(function(id){if(!v(id))ok=false;});
+      var adniOk=/^[0-9]{8}$/.test(document.getElementById('apodDni').value);
+      document.getElementById('apodDni').classList.toggle('err',!adniOk);document.getElementById('e-apodDni').classList.toggle('show',!adniOk);if(!adniOk)ok=false;
+      var acOk=/^[0-9]{9}$/.test(document.getElementById('apodCelular').value);
+      document.getElementById('apodCelular').classList.toggle('err',!acOk);document.getElementById('e-apodCelular').classList.toggle('show',!acOk);if(!acOk)ok=false;
+    } else {
+      // Para mayores, paso 7 tiene las fotos
+      var fA=document.getElementById('fotoAnverso').files[0];
+      var fR=document.getElementById('fotoReverso').files[0];
+      if(!fA){document.getElementById('e-fotoA').classList.add('show');ok=false;}else document.getElementById('e-fotoA').classList.remove('show');
+      if(!fR){document.getElementById('e-fotoR').classList.add('show');ok=false;}else document.getElementById('e-fotoR').classList.remove('show');
+    }
+  }
+  if(n===8){
+    var fA2=document.getElementById('fotoAnverso2').files[0];
+    var fR2=document.getElementById('fotoReverso2').files[0];
+    if(!fA2){document.getElementById('e-fotoA2').classList.add('show');ok=false;}else document.getElementById('e-fotoA2').classList.remove('show');
+    if(!fR2){document.getElementById('e-fotoR2').classList.add('show');ok=false;}else document.getElementById('e-fotoR2').classList.remove('show');
+    if(!document.getElementById('declaracion').checked){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
   }
   return ok;
 }
 
-// Comprimir imagen con canvas antes de enviar (reduce de 3MB a ~80KB)
+// ── Comprimir imagen ──
 function comprimirImagen(file){
   return new Promise(function(resolve){
-    // Si es PDF, enviarlo como base64 directo sin comprimir
-    if(file.type === 'application/pdf'){
-      var r=new FileReader();
-      r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:'application/pdf',nombre:file.name});};
-      r.readAsDataURL(file);
-      return;
-    }
-    var img=new Image();
-    var url=URL.createObjectURL(file);
+    if(!file){resolve(null);return;}
+    if(file.type==='application/pdf'){var r=new FileReader();r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:'application/pdf',nombre:file.name});};r.readAsDataURL(file);return;}
+    var img=new Image();var url=URL.createObjectURL(file);
     img.onload=function(){
-      var MAX=1200;
-      var w=img.width, h=img.height;
+      var MAX=1200;var w=img.width,h=img.height;
       if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}
-      var canvas=document.createElement('canvas');
-      canvas.width=w; canvas.height=h;
+      var canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
       canvas.getContext('2d').drawImage(img,0,0,w,h);
       URL.revokeObjectURL(url);
       var dataUrl=canvas.toDataURL('image/jpeg',0.78);
       resolve({b64:dataUrl.split(',')[1],tipo:'image/jpeg',nombre:file.name.replace(/\.[^.]+$/,'.jpg')});
     };
-    img.onerror=function(){
-      // fallback sin compresión
-      var r=new FileReader();
-      r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:file.type,nombre:file.name});};
-      r.readAsDataURL(file);
-    };
+    img.onerror=function(){var r=new FileReader();r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:file.type,nombre:file.name});};r.readAsDataURL(file);};
     img.src=url;
   });
 }
 
-function enviar(){
+// ── Envío para mayores (desde paso 7) ──
+function enviarDesde7(){
+  if(!validar(7)) return;
+  var btn=document.getElementById('btnNext7');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
   var fA=document.getElementById('fotoAnverso').files[0];
   var fR=document.getElementById('fotoReverso').files[0];
-  var dec=document.getElementById('declaracion').checked;
-  var ok=true;
-  if(!fA){document.getElementById('e-fotoA').classList.add('show');ok=false;}else document.getElementById('e-fotoA').classList.remove('show');
-  if(!fR){document.getElementById('e-fotoR').classList.add('show');ok=false;}else document.getElementById('e-fotoR').classList.remove('show');
-  if(!dec){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
-  if(!ok)return;
+  if(!document.getElementById('declaracion') || !document.getElementById('declaracion').checked){
+    // Agregar checkbox aquí si no existe, o mover al paso 7
+  }
+  // Reuse sendData
+  Promise.all([comprimirImagen(fA),comprimirImagen(fR)]).then(function(imgs){
+    enviarDatos(imgs,btn,7);
+  });
+}
 
-  var btn=document.getElementById('btnEnviar');
-  btn.disabled=true;
-  btn.innerHTML='<div class="spin"></div> Comprimiendo fotos...';
+// ── Envío final ──
+function enviar(){
+  if(!validar(8))return;
+  var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
+  var fA=document.getElementById('fotoAnverso2').files[0];
+  var fR=document.getElementById('fotoReverso2').files[0];
+  Promise.all([comprimirImagen(fA),comprimirImagen(fR)]).then(function(imgs){
+    enviarDatos(imgs,btn,8);
+  });
+}
 
+function enviarDatos(imgs,btn,fromStep){
   var pv=document.querySelector('input[name="pension"]:checked');
   var hv=document.querySelector('input[name="hijos"]:checked');
   var sv=document.querySelector('input[name="sede"]:checked');
-  var av=document.querySelector('input[name="afpNombreR"]:checked');
+  var av=document.querySelector('input[name="afpR"]:checked');
   var aav=document.querySelector('input[name="ayudaAfil"]:checked');
   var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
   var tieneCuenta=tcv&&tcv.value==='Sí';
+  var ev=document.querySelector('input[name="enfermedad"]:checked');
 
-  Promise.all([comprimirImagen(fA), comprimirImagen(fR)]).then(function(imgs){
-    btn.innerHTML='<div class="spin"></div> Enviando...';
-    var datos={
-      dni:document.getElementById('dni').value.trim(),
-      nombres:document.getElementById('nombres').value.trim(),
-      apPaterno:document.getElementById('apPaterno').value.trim(),
-      apMaterno:document.getElementById('apMaterno').value.trim(),
-      sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
-      estadoCivil:document.getElementById('estadoCivil').value,
-      nacionalidad:document.getElementById('nacionalidad').value,
-      instruccion:document.getElementById('instruccion').value,
-      hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
-      diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
-      departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
-      distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
-      celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
-      cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
-      sistemaPension:(pv||{}).value||'',
-      afpNombre:(av||{}).value||'',
-      ayudaAfiliacion:(aav||{}).value||'',
-      tieneCuenta:tcv?tcv.value:'',
-      banco:tieneCuenta?document.getElementById('banco').value:'BCP (apertura pendiente)',
-      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura'
-    };
+  var datos={
+    esMenor:esMenor?'Sí':'No',
+    dni:document.getElementById('dni').value.trim(),
+    nombres:document.getElementById('nombres').value.trim(),
+    apPaterno:document.getElementById('apPaterno').value.trim(),
+    apMaterno:document.getElementById('apMaterno').value.trim(),
+    sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
+    estadoCivil:document.getElementById('estadoCivil').value,
+    nacionalidad:document.getElementById('nacionalidad').value,
+    instruccion:document.getElementById('instruccion').value,
+    hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
+    diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
+    departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
+    distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
+    celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
+    cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
+    emergNombre:document.getElementById('emergNombre').value.trim(),
+    emergParentesco:document.getElementById('emergParentesco').value,
+    emergCelular:document.getElementById('emergCelular').value.trim(),
+    enfermedad:(ev||{}).value||'',
+    enfermedadDesc:document.getElementById('enfermedadDesc').value.trim(),
+    sistemaPension:(pv||{}).value||'',
+    afpNombre:(av||{}).value||'',
+    ayudaAfiliacion:(aav||{}).value||'',
+    tieneCuenta:tcv?tcv.value:'',
+    banco:tieneCuenta?document.getElementById('banco').value:'BCP (apertura pendiente)',
+    numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
+    apodNombre:esMenor?document.getElementById('apodNombre').value.trim():'',
+    apodDni:esMenor?document.getElementById('apodDni').value.trim():'',
+    apodParentesco:esMenor?document.getElementById('apodParentesco').value:'',
+    apodCelular:esMenor?document.getElementById('apodCelular').value.trim():'',
+    apodBanco:esMenor?document.getElementById('apodBanco').value:'',
+    apodCuenta:esMenor?document.getElementById('apodCuenta').value.trim():''
+  };
 
-    // Envío via formulario oculto — fotos como campos separados
-    var formEl=document.getElementById('hidden-gas-form');
-    document.getElementById('hidden-gas-data').value=JSON.stringify(datos);
-    document.getElementById('hidden-foto-a').value  = imgs[0] ? imgs[0].b64    : '';
-    document.getElementById('hidden-foto-an').value = imgs[0] ? imgs[0].nombre : '';
-    document.getElementById('hidden-foto-at').value = imgs[0] ? imgs[0].tipo   : '';
-    document.getElementById('hidden-foto-r').value  = imgs[1] ? imgs[1].b64    : '';
-    document.getElementById('hidden-foto-rn').value = imgs[1] ? imgs[1].nombre : '';
-    document.getElementById('hidden-foto-rt').value = imgs[1] ? imgs[1].tipo   : '';
-    formEl.action=GAS_URL;
-    formEl.submit();
+  var formEl=document.getElementById('hidden-gas-form');
+  document.getElementById('hidden-gas-data').value=JSON.stringify(datos);
+  if(imgs[0]){document.getElementById('hidden-foto-a').value=imgs[0].b64;document.getElementById('hidden-foto-an').value=imgs[0].nombre;document.getElementById('hidden-foto-at').value=imgs[0].tipo;}
+  if(imgs[1]){document.getElementById('hidden-foto-r').value=imgs[1].b64;document.getElementById('hidden-foto-rn').value=imgs[1].nombre;document.getElementById('hidden-foto-rt').value=imgs[1].tipo;}
+  formEl.action=GAS_URL;formEl.submit();
 
-    // Mostrar éxito a los 4 segundos
-    setTimeout(function(){
-      document.getElementById('step7').classList.remove('active');
-      for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);dot.classList.add('done');dot.textContent='✓';}
-      document.getElementById('successScreen').classList.add('show');
-      window.scrollTo({top:0,behavior:'smooth'});
-    }, 4000);
-  });
+  setTimeout(function(){
+    for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);if(dot){dot.classList.add('done');dot.textContent='✓';}}
+    document.getElementById('step'+fromStep).classList.remove('active');
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },4000);
 }
 </script>
-<!-- Form oculto para envío sin CORS -->
-<iframe name="hidden-iframe" style="display:none"></iframe>
-<form id="hidden-gas-form" method="POST" target="hidden-iframe" style="display:none">
-  <input type="hidden" id="hidden-gas-data" name="datos">
-  <input type="hidden" id="hidden-foto-a"  name="foto_a">
-  <input type="hidden" id="hidden-foto-an" name="foto_an">
-  <input type="hidden" id="hidden-foto-at" name="foto_at">
-  <input type="hidden" id="hidden-foto-r"  name="foto_r">
-  <input type="hidden" id="hidden-foto-rn" name="foto_rn">
-  <input type="hidden" id="hidden-foto-rt" name="foto_rt">
-</form>
-
 </body>
 </html>
