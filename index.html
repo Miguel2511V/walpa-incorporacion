@@ -1,340 +1,390 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Ficha de Incorporación — Walpa Chicken</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#3A0808;--ink2:#2A0606;--gold:#F5C200;--gold2:#D4A800;
-  --red:#CC2222;--white:#FFFFFF;--bg:#FBF3E8;--card:#FFFFFF;
-  --ice:#FFF8EE;--line:#E8D5B8;--muted:#9A7555;--text:#2A1506;
-  --ok:#1A6B35;--err:#CC2222;--r:16px;--rs:10px;
-  --sh:0 8px 40px rgba(58,8,8,.13);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
-
-/* HEADER */
-.hdr{background:var(--ink2);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.4)}
-.hdr-logo{display:flex;align-items:center;gap:10px}
-.hdr-crown{font-size:1.3rem}
-.hdr-name{font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:.3px}
-.hdr-sub{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:1.2px;text-transform:uppercase;display:none}
-@media(min-width:480px){.hdr-sub{display:block}}
-
-/* HERO */
-.hero{background:linear-gradient(150deg,#1E0404 0%,#3A0808 45%,#6B1010 100%);padding:28px 20px 48px;text-align:center;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(245,194,0,.07) 0%,transparent 65%);pointer-events:none}
-.hero-mark{margin:0 auto 16px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;position:relative}
-.hero-mark svg{width:64px;height:64px;filter:drop-shadow(0 4px 12px rgba(245,194,0,.25))}
-.hdr-mark{width:32px;height:32px;display:flex;align-items:center;justify-content:center}
-.hdr-mark svg{width:28px;height:28px}
-.s-mark{width:72px;height:72px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
-.s-mark svg{width:72px;height:72px;filter:drop-shadow(0 4px 14px rgba(58,8,8,.12))}
-.hero h1{font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:8px;position:relative}
-.hero h1 em{color:var(--gold);font-style:normal}
-.hero p{font-size:.82rem;color:rgba(255,255,255,.58);max-width:420px;margin:0 auto;font-weight:300;line-height:1.65;position:relative}
-@media(min-width:480px){.hero h1{font-size:1.6rem}.hero p{font-size:.88rem}}
-
-/* DOTS PROGRESS */
-.dots{display:flex;align-items:center;justify-content:center;margin:22px auto 0;max-width:380px;padding:0 4px;position:relative}
-.dot{width:26px;height:26px;min-width:26px;border-radius:50%;border:2px solid rgba(245,194,0,.2);color:rgba(255,255,255,.3);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;background:transparent;transition:all .3s}
-.dot.done{background:var(--ok);border-color:var(--ok);color:#fff}
-.dot.active{background:var(--gold);border-color:var(--gold);color:var(--ink2);box-shadow:0 0 0 4px rgba(245,194,0,.22)}
-.dline{flex:1;height:2px;background:rgba(245,194,0,.12);min-width:8px}
-.dline.done{background:var(--ok)}
-
-/* MAIN */
-.main{max-width:660px;margin:-22px auto 48px;padding:0 12px}
-@media(min-width:480px){.main{padding:0 16px}}
-
-/* CARD */
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:none;animation:up .3s ease both}
-.card.active{display:block}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
-.card-top{padding:20px;border-bottom:2px solid var(--ice);display:flex;align-items:flex-start;gap:12px}
-@media(min-width:480px){.card-top{padding:24px 28px}}
-.ctop-ico{width:44px;height:44px;min-width:44px;border-radius:var(--rs);background:linear-gradient(135deg,var(--ink),#6B1010);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(58,8,8,.25)}
-.card-top h2{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:4px}
-.card-top p{font-size:.79rem;color:var(--muted);font-weight:300;line-height:1.55}
-.badge-minor{display:inline-block;background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--ink2);font-size:.68rem;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:100px;margin-top:6px;text-transform:uppercase}
-
-.card-body{padding:20px}
-@media(min-width:480px){.card-body{padding:24px 28px}}
-
-/* FIELDS */
-.field{margin-bottom:16px}
-.field>label{display:block;font-size:.77rem;font-weight:600;color:var(--ink);margin-bottom:5px;letter-spacing:.2px}
-.req{color:var(--red);margin-left:2px}
-.hint{font-size:.72rem;color:var(--muted);margin-bottom:5px;font-weight:300;line-height:1.5}
-
-input[type=text],input[type=email],input[type=tel],select{
-  width:100%;height:48px;padding:0 14px;
-  border:1.5px solid var(--line);border-radius:var(--rs);
-  font-family:'Outfit',sans-serif;font-size:16px;
-  color:var(--text);background:var(--ice);
-  transition:border-color .2s,box-shadow .2s;
-  outline:none;appearance:none;-webkit-appearance:none;
-  touch-action:manipulation;text-transform:uppercase;
-}
-input[type=email]{text-transform:lowercase}
-input[type=tel]{text-transform:none}
-input::placeholder,select::placeholder{text-transform:none;color:transparent}
-@media(min-width:480px){input[type=text],input[type=email],input[type=tel],select{height:46px;font-size:.9rem}}
-input:focus,select:focus{border-color:var(--gold2);background:#fff;box-shadow:0 0 0 3px rgba(212,168,0,.15)}
-input.err,select.err{border-color:var(--err);box-shadow:0 0 0 3px rgba(204,34,34,.09)}
-
-.sel-wrap{position:relative}
-.sel-wrap::after{content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;border:5px solid transparent;border-top:6px solid var(--muted);border-bottom:none}
-select{text-transform:none}
-
-.row{display:grid;grid-template-columns:1fr;gap:0}
-.c2,.c3{grid-template-columns:1fr}
-@media(min-width:480px){.c2{grid-template-columns:1fr 1fr;gap:14px}.c3{grid-template-columns:1fr 1fr 1fr;gap:14px}}
-
-/* CHIPS */
-.chips{display:flex;gap:10px}
-.chip{flex:1;border:1.5px solid var(--line);border-radius:var(--rs);padding:13px 10px;text-align:center;cursor:pointer;font-size:.88rem;font-weight:500;color:var(--muted);background:var(--ice);transition:all .18s;user-select:none;min-height:48px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
-.chip input{display:none}
-.chip.on{border-color:var(--gold2);background:#FFFBEA;color:var(--ink);font-weight:600;border-width:2px}
-
-/* SEDE CHIPS */
-.sede-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sede-chip{border:2px solid var(--line);border-radius:var(--r);padding:18px 14px;text-align:center;cursor:pointer;background:var(--ice);transition:all .2s;user-select:none;-webkit-tap-highlight-color:transparent}
-.sede-chip input{display:none}
-.sede-chip .s-ico{font-size:2rem;display:block;margin-bottom:8px;line-height:1}
-.sede-chip .s-nom{font-size:.9rem;font-weight:700;color:var(--ink);display:block}
-.sede-chip .s-dir{font-size:.72rem;color:var(--muted);margin-top:3px;display:block;font-weight:300}
-.sede-chip.on{border-color:var(--gold);background:#FFFBEA;box-shadow:0 4px 16px rgba(212,168,0,.2)}
-
-/* RADIO */
-.rlist{display:flex;flex-direction:column;gap:8px}
-.rr{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:var(--rs);padding:14px 16px;cursor:pointer;font-size:.88rem;color:var(--text);background:var(--ice);transition:all .18s;user-select:none;min-height:52px;-webkit-tap-highlight-color:transparent}
-.rr input{display:none}
-.rdot{width:20px;height:20px;min-width:20px;border-radius:50%;border:2px solid var(--line);background:#fff;transition:all .18s;flex-shrink:0}
-.rr.on{border-color:var(--gold2);background:#FFFBEA;color:var(--ink);font-weight:500;border-width:2px}
-.rr.on .rdot{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #fff}
-
-/* UPLOAD */
-.upload-grid{display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:480px){.upload-grid{grid-template-columns:1fr 1fr}}
-.ubox{border:2px dashed var(--line);border-radius:var(--rs);padding:22px 16px;text-align:center;cursor:pointer;background:var(--ice);transition:all .2s;position:relative;overflow:hidden;min-height:100px;-webkit-tap-highlight-color:transparent}
-.ubox:hover{border-color:var(--gold2);background:#FFFBEA}
-.ubox input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px}
-.uico{font-size:1.5rem;margin-bottom:5px}
-.ulbl{font-size:.84rem;font-weight:600;color:var(--ink)}
-.usub{font-size:.71rem;color:var(--muted);margin-top:3px}
-.uok{font-size:.75rem;color:var(--ok);margin-top:8px;font-weight:600;display:none;word-break:break-all}
-.uok.show{display:block}
-
-/* CHECKBOX */
-.ck-wrap{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--rs);padding:14px;background:var(--ice);cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.ck-wrap:has(input:checked){border-color:var(--gold2);background:#FFFBEA;border-width:2px}
-.ck-wrap input{width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--gold2);cursor:pointer;appearance:auto;-webkit-appearance:auto;flex-shrink:0}
-.ck-txt{font-size:.82rem;line-height:1.65;color:var(--text)}
-.ck-bold{font-weight:600;color:var(--ink)}
-
-/* DECLARACION JURADA BOX */
-.dj-box{background:linear-gradient(135deg,#FFF8EE,#FFF3DC);border:2px solid var(--gold2);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px}
-.dj-box .dj-title{font-size:.75rem;font-weight:700;color:var(--ink);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.dj-box .dj-body{font-size:.8rem;color:var(--text);line-height:1.65}
-
-/* SUB FIELD */
-.sub-field{margin-top:10px;padding:14px;background:var(--ice);border-radius:var(--rs);border-left:3px solid var(--gold)}
-.sub-field>label{font-size:.77rem;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
-
-/* SECTION LABEL */
-.sec-label{font-size:.72rem;font-weight:700;color:var(--gold2);letter-spacing:1px;text-transform:uppercase;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
-
-/* MINOR ALERT */
-.minor-alert{background:linear-gradient(135deg,#FFF8EE,#FFEEC8);border:2px solid var(--gold2);border-radius:var(--rs);padding:16px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
-.minor-alert .ma-ico{font-size:1.4rem;flex-shrink:0}
-.minor-alert .ma-txt{font-size:.82rem;line-height:1.65;color:#5A2D00}
-.minor-alert .ma-txt strong{color:var(--ink)}
-
-/* BOTON CAMARA */
-.btn-camara{
-  width:100%;margin-top:8px;padding:10px;
-  background:linear-gradient(135deg,var(--ink),#6B1010);
-  color:var(--gold);border:none;border-radius:var(--rs);
-  font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  box-shadow:0 3px 10px rgba(58,8,8,.25);
-}
-
-/* ERROR */
-.emsg{font-size:.72rem;color:var(--err);margin-top:5px;font-weight:500;display:none}
-.emsg.show{display:block}
-.divider{height:1px;background:var(--ice);margin:18px 0}
-
-/* NAV */
-.card-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-top:1px solid var(--ice);background:var(--ice);gap:10px}
-@media(min-width:480px){.card-nav{padding:16px 28px}}
-.btn{padding:12px 22px;border-radius:var(--rs);font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted);flex-shrink:0}
-.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
-.btn-main{background:linear-gradient(135deg,var(--ink),#6B1010);color:var(--gold);box-shadow:0 4px 14px rgba(58,8,8,.3);flex:1}
-.btn-main:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(58,8,8,.4)}
-.btn-main:active{transform:scale(.98)}
-.btn:disabled{opacity:.5;pointer-events:none}
-@media(min-width:480px){.btn-main{flex:0 0 auto;min-width:150px}}
-
-/* SUCCESS */
-.success{display:none;text-align:center;padding:52px 24px 48px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);animation:up .5s ease}
-.success.show{display:block}
-.s-mark{width:72px;height:72px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;animation:fadeIn .6s ease .2s both}
-@keyframes fadeIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-.s-circle{width:76px;height:76px;margin:0 auto 20px;background:linear-gradient(135deg,#0D4A22,#1A6B35);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(26,107,53,.35)}
-.s-circle svg{width:38px;height:38px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.s-title{font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
-.s-walpa{color:var(--gold2)}
-.s-div{width:52px;height:3px;background:linear-gradient(90deg,var(--ink),var(--gold));border-radius:4px;margin:16px auto}
-.s-body{font-size:.88rem;color:var(--muted);line-height:1.8;max-width:380px;margin:0 auto}
-
-/* SPINNER */
-.spin{width:18px;height:18px;border:2.5px solid rgba(245,194,0,.3);border-top-color:var(--gold);border-radius:50%;animation:rot .65s linear infinite}
-@keyframes rot{to{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-
-<header class="hdr">
-  <div class="hdr-logo">
-    <div class="hdr-mark">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 10L10 22L16 13L22 22L26 10" stroke="#F5C200" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div>
-      <div class="hdr-name">Walpa Chicken</div>
     </div>
   </div>
-  <span class="hdr-sub">Ficha de Incorporación</span>
-</header>
-
-<div class="hero">
-  <div class="hero-mark">
-    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="56" height="56" rx="14" fill="rgba(245,194,0,0.12)"/>
-      <path d="M12 17L18.5 39L28 24L37.5 39L44 17" stroke="#F5C200" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 17H44" stroke="#F5C200" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
-      <path d="M12 39H44" stroke="#F5C200" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
-    </svg>
-  </div>
-  <h1>Bienvenido/a al equipo <em>Walpa</em></h1>
-  <p>Completa tu ficha en pocos pasos. Ten a la mano tu DNI y tarjeta bancaria.</p>
-  <div class="dots" id="dotsTrack">
-    <div class="dot active" id="sd1">1</div><div class="dline" id="sl1"></div>
-    <div class="dot" id="sd2">2</div><div class="dline" id="sl2"></div>
-    <div class="dot" id="sd3">3</div><div class="dline" id="sl3"></div>
-    <div class="dot" id="sd4">4</div><div class="dline" id="sl4"></div>
-    <div class="dot" id="sd5">5</div><div class="dline" id="sl5"></div>
-    <div class="dot" id="sd6">6</div><div class="dline" id="sl6"></div>
-    <div class="dot" id="sd7">7</div><div class="dline" id="sl7"></div>
-    <div class="dot" id="sd8">8</div>
-  </div>
+  <div class="card-nav"><button class="btn btn-ghost" onclick="goTo(7)">← Atrás</button><button class="btn btn-main" id="btnEnviar" onclick="enviar()">Enviar Ficha</button></div>
 </div>
 
-<div class="main">
-
-<!-- ══ PASO 1: DATOS PERSONALES ══ -->
-<div class="card active" id="step1">
-  <div class="card-top">
-    <div class="ctop-ico">👤</div>
-    <div>
-      <h2>Datos Personales</h2>
-      <p>Ingresa tus datos exactamente como aparecen en tu DNI.</p>
-    </div>
+<!-- ══ ÉXITO ══ -->
+<div class="success" id="successScreen">
+  <div class="s-mark">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64" rx="16" fill="rgba(58,8,8,0.06)"/>
+      <path d="M13 20L21 44L32 27L43 44L51 20" stroke="#3A0808" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 20H51" stroke="#D4A800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <path d="M13 44H51" stroke="#D4A800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    </svg>
   </div>
-  <div class="card-body">
-    <div class="field">
-      <label>Número de DNI <span class="req">*</span></label>
-      <div class="hint">8 dígitos numéricos</div>
-      <input type="text" id="dni" inputmode="numeric" maxlength="8" onblur="detectarMenor()">
-      <div class="emsg" id="e-dni">Ingrese exactamente 8 dígitos numéricos.</div>
-    </div>
+  <div class="s-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h2 class="s-title">¡Bienvenido/a a la<br>familia <span class="s-walpa">Walpa</span>!</h2>
+  <div class="s-div"></div>
+  <p class="s-body">Tus datos han sido registrados exitosamente. El equipo de Recursos Humanos se comunicará contigo a la brevedad para coordinar los siguientes pasos de tu incorporación.</p>
+</div>
 
-    <!-- Alerta menor de edad (oculta por defecto) -->
-    <div class="minor-alert" id="minorAlert" style="display:none">
-      <span class="ma-ico">🔵</span>
-      <div class="ma-txt">
-        <strong>Colaborador menor de edad detectado.</strong><br>
-        El formulario incluirá una sección adicional con los datos del apoderado (padre, madre o tutor legal), quienes deberán firmar el contrato. El sueldo se depositará en la cuenta del apoderado.
-      </div>
-    </div>
+</div><!-- /main -->
 
-    <div class="field">
-      <label>Nombres <span class="req">*</span></label>
-      <input type="text" id="nombres" autocomplete="given-name">
-      <div class="emsg" id="e-nombres">Campo requerido.</div>
-    </div>
-    <div class="row c2">
-      <div class="field">
-        <label>Apellido Paterno <span class="req">*</span></label>
-        <input type="text" id="apPaterno" autocomplete="family-name">
-        <div class="emsg" id="e-apPaterno">Campo requerido.</div>
-      </div>
-      <div class="field">
-        <label>Apellido Materno <span class="req">*</span></label>
-        <input type="text" id="apMaterno">
-        <div class="emsg" id="e-apMaterno">Campo requerido.</div>
-      </div>
-    </div>
-    <div class="row c2">
-      <div class="field">
-        <label>Estado Civil <span class="req">*</span></label>
-        <div class="sel-wrap">
-          <select id="estadoCivil">
-            <option value="">Seleccionar...</option>
-            <option>Soltero/a</option><option>Casado/a</option>
-            <option>Conviviente</option><option>Divorciado/a</option><option>Viudo/a</option>
-          </select>
-        </div>
-        <div class="emsg" id="e-estadoCivil">Seleccione una opción.</div>
-      </div>
-      <div class="field">
-        <label>Nacionalidad <span class="req">*</span></label>
-        <div class="sel-wrap">
-          <select id="nacionalidad">
-            <option>Peruana</option><option>Colombiana</option><option>Venezolana</option>
-            <option>Ecuatoriana</option><option>Boliviana</option><option>Argentina</option>
-            <option>Chilena</option><option>Otra</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row c2">
-      <div class="field">
-        <label>Grado de Instrucción <span class="req">*</span></label>
-        <div class="sel-wrap">
-          <select id="instruccion">
-            <option value="">Seleccionar...</option>
-            <option>Primaria completa</option><option>Secundaria incompleta</option>
-            <option>Secundaria completa</option><option>Técnico incompleto</option>
-            <option>Técnico completo</option><option>Universitario incompleto</option>
-            <option>Universitario completo</option><option>Posgrado</option>
-          </select>
-        </div>
-        <div class="emsg" id="e-instruccion">Seleccione una opción.</div>
-      </div>
-      <div class="field">
-        <label>Sexo <span class="req">*</span></label>
-        <div class="chips">
-          <label class="chip" id="chip-m"><input type="radio" name="sexo" value="Masculino" onchange="chipSel('chip-m','chip-f')">♂ Masculino</label>
-          <label class="chip" id="chip-f"><input type="radio" name="sexo" value="Femenino" onchange="chipSel('chip-f','chip-m')">♀ Femenino</label>
-        </div>
-        <div class="emsg" id="e-sexo">Seleccione una opción.</div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="field">
-      <label>¿Tiene hijos menores de 18 años? <span class="req">*</span></label>
-      <div class="chips">
-        <label class="chip" id="chip-hs"><input type="radio" name="hijos" value="Sí" onchange="chipSel('chip-hs','chip-hn');toggleHijos(true)">Sí</label>
-        <label class="chip" id="chip-hn"><input type="radio" name="hijos" value="No" onchange="chipSel('chip-hn','chip-hs');togg
+<iframe name="hidden-iframe" style="display:none"></iframe>
+<form id="hidden-gas-form" method="POST" target="hidden-iframe" style="display:none">
+  <input type="hidden" id="hidden-gas-data" name="datos">
+  <input type="hidden" id="hidden-foto-a"  name="foto_a">
+  <input type="hidden" id="hidden-foto-an" name="foto_an">
+  <input type="hidden" id="hidden-foto-at" name="foto_at">
+  <input type="hidden" id="hidden-foto-r"  name="foto_r">
+  <input type="hidden" id="hidden-foto-rn" name="foto_rn">
+  <input type="hidden" id="hidden-foto-rt" name="foto_rt">
+</form>
+
+<script>
+var GAS_URL = "https://script.google.com/macros/s/AKfycbxaDWW7Z8KKHdTLOsz0gy_fb7Wv3M-9f3zEwGAyJRm6Nk9czp4GIY3oSIJ37o7dtEAn8Q/exec";
+var TOTAL = 8;
+var current = 1;
+var esMenor = false;
+
+// ── Poblar días y años ──
+(function(){
+  var sd=document.getElementById('diaNac');
+  sd.innerHTML='<option value="">— Día —</option>';
+  for(var d=1;d<=31;d++) sd.innerHTML+='<option>'+d+'</option>';
+  var sa=document.getElementById('anioNac');
+  sa.innerHTML='<option value="">— Año —</option>';
+  for(var a=2024;a>=1950;a--) sa.innerHTML+='<option>'+a+'</option>';
+})();
+
+// ── Distritos Lima ──
+var distritosLima=["San Juan de Lurigancho","Ate","Comas","Villa El Salvador","Villa María del Triunfo","San Martín de Porres","Los Olivos","Puente Piedra","Carabayllo","Chorrillos","San Juan de Miraflores","Independencia","El Agustino","Santa Anita","Lurigancho","Rímac","La Victoria","Breña","Lima (Cercado)","La Molina","Miraflores","San Isidro","San Borja","Surco (Santiago de Surco)","Surquillo","Lince","Jesús María","Pueblo Libre","Magdalena del Mar","San Miguel","Barranco","Chaclacayo","Lurín","Pachacámac","Cieneguilla","Ancón","Santa Rosa","Punta Negra","Punta Hermosa","San Bartolo","Santa María del Mar"];
+function poblarDistritos(lista,def){
+  var sel=document.getElementById('distrito');sel.innerHTML='';
+  lista.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;if(d===def)o.selected=true;sel.appendChild(o);});
+}
+poblarDistritos(distritosLima,"San Juan de Lurigancho");
+function onDeptChange(){
+  var dep=document.getElementById('departamento').value;
+  if(dep==='Lima') poblarDistritos(distritosLima,"San Juan de Lurigancho");
+  else document.getElementById('distrito').innerHTML='<option value="">Seleccionar...</option>';
+}
+
+// ── Detección menor de edad ──
+function calcularEdad(dia,mes,anio){
+  var hoy=new Date();
+  var nac=new Date(parseInt(anio),parseInt(mes)-1,parseInt(dia));
+  var edad=hoy.getFullYear()-nac.getFullYear();
+  var m=hoy.getMonth()-nac.getMonth();
+  if(m<0||(m===0&&hoy.getDate()<nac.getDate())) edad--;
+  return edad;
+}
+function detectarMenorFecha(){
+  var d=document.getElementById('diaNac').value;
+  var m=document.getElementById('mesNac').value;
+  var a=document.getElementById('anioNac').value;
+  if(!d||!m||!a) return;
+  var edad=calcularEdad(d,m,a);
+  actualizarMenor(edad<18);
+}
+function detectarMenor(){
+  // Cuando el DNI es el bloque del paso 1 se activa el chequeo de fecha después
+  detectarMenorFecha();
+}
+function actualizarMenor(es){
+  esMenor=es;
+  document.getElementById('minorAlert').style.display=es?'flex':'none';
+  document.getElementById('minorAlert2').style.display=es?'flex':'none';
+  document.getElementById('badgeMinor').style.display=es?'inline-block':'none';
+  document.getElementById('minorBancoAlert').style.display=es?'flex':'none';
+  // Banco: menores ven su propio Sí/No, mayores ven la pregunta de mayor
+  document.getElementById('mayorCuentaSection').style.display=es?'none':'block';
+  document.getElementById('menorCuentaSection').style.display=es?'block':'none';
+  // Para menores, cuentaWrap empieza oculto hasta que elijan "Sí"
+  if(es){
+    document.getElementById('cuentaWrap').style.display='none';
+    document.getElementById('sinCuentaMenorMsg').style.display='none';
+  } else {
+    // Para mayores resetear según su elección
+    var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
+    document.getElementById('cuentaWrap').style.display=(tcv&&tcv.value==='Sí')?'block':'none';
+    document.getElementById('noCuentaWrap').style.display=(tcv&&tcv.value==='No')?'block':'none';
+  }
+  // Paso 7
+  if(!es){
+    document.getElementById('apoderadoSection').style.display='none';
+    document.getElementById('fotosSection7').style.display='block';
+    document.getElementById('step7Title').textContent='Fotos del DNI y Confirmación';
+    document.getElementById('step7Desc2').textContent='Adjunta fotos nítidas de ambas caras de tu DNI.';
+    document.getElementById('step7Ico').textContent='📎';
+    document.getElementById('btnNext7').onclick=function(){ goTo(8); };
+  } else {
+    document.getElementById('apoderadoSection').style.display='block';
+    document.getElementById('fotosSection7').style.display='none';
+    document.getElementById('step7Title').textContent='Datos del Apoderado';
+    document.getElementById('step7Desc2').textContent='Como eres menor de edad, necesitamos los datos de tu padre, madre o tutor legal.';
+    document.getElementById('step7Ico').textContent='👨‍👩‍👧';
+    document.getElementById('btnNext7').onclick=function(){ goTo(8); };
+  }
+}
+actualizarMenor(false); // Por defecto mayor
+
+// ── UI helpers ──
+function chipSel(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
+function sedeChip(on,off){document.getElementById(on).classList.add('on');document.getElementById(off).classList.remove('on');}
+function selRR(on,offs){document.getElementById(on).classList.add('on');offs.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('on');});}
+function toggleHijos(show){document.getElementById('cantHijosWrap').style.display=show?'block':'none';if(!show)document.getElementById('cantHijos').value='';}
+function toggleEnfermedad(show){document.getElementById('enfermedadWrap').style.display=show?'block':'none';}
+function toggleAfp(show){document.getElementById('afpWrap').style.display=show?'block':'none';}
+function toggleNoAfil(show){document.getElementById('noAfilWrap').style.display=show?'block':'none';}
+function toggleCuenta(show){
+  document.getElementById('cuentaWrap').style.display=show?'block':'none';
+  document.getElementById('noCuentaWrap').style.display=show?'none':'block';
+  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';document.getElementById('titularCuenta').value='';}
+}
+function toggleCuentaMenor(show){
+  document.getElementById('cuentaWrap').style.display=show?'block':'none';
+  document.getElementById('sinCuentaMenorMsg').style.display=show?'none':'block';
+  if(!show){document.getElementById('banco').value='';document.getElementById('numeroCuenta').value='';document.getElementById('titularCuenta').value='';}
+}
+function toggleSinDni(sinDni){
+  // Si marca que no tiene DNI, las fotos ya no son obligatorias
+  var grid=document.querySelector('.upload-grid');
+  if(grid) grid.style.opacity=sinDni?'0.4':'1';
+  document.getElementById('fotoAnverso2').disabled=sinDni;
+  document.getElementById('fotoReverso2').disabled=sinDni;
+}
+function abrirGaleria(inputId){
+  document.getElementById(inputId).removeAttribute('capture');
+  document.getElementById(inputId).click();
+}
+function abrirCamara(inputId,okId,boxId){
+  // Solicitar permiso de cámara explícitamente
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({video:true})
+      .then(function(stream){
+        // Permiso concedido — detener stream y abrir input con cámara
+        stream.getTracks().forEach(function(t){t.stop();});
+        var inp=document.getElementById(inputId);
+        inp.setAttribute('capture','environment');
+        inp.click();
+      })
+      .catch(function(){
+        // Permiso denegado — abrir galería como fallback
+        var inp=document.getElementById(inputId);
+        inp.removeAttribute('capture');
+        inp.click();
+        alert('No se pudo acceder a la cámara. Por favor permita el acceso en la configuración de su navegador, o suba la foto desde la galería.');
+      });
+  } else {
+    // Navegador no soporta getUserMedia — abrir file picker normal
+    var inp=document.getElementById(inputId);
+    inp.setAttribute('capture','environment');
+    inp.click();
+  }
+}
+function onFile(inp,okId,boxId){var f=inp.files[0];if(!f)return;document.getElementById(okId).textContent='✔ '+f.name;document.getElementById(okId).classList.add('show');document.getElementById(boxId).querySelector('.uico').textContent='✅';}
+
+// ── Navegación ──
+function goTo(n){
+  if(n>current&&!validar(current)) return;
+  // Si es mayor y va de 7 directo a enviar
+  if(!esMenor && current===7 && n===8){
+    // Mover al éxito directamente al enviar desde paso 7
+    enviarDesde7();
+    return;
+  }
+  document.getElementById('step'+current).classList.remove('active');
+  document.getElementById('step'+n).classList.add('active');
+  for(var i=1;i<=TOTAL;i++){
+    var dot=document.getElementById('sd'+i);if(!dot)continue;
+    dot.classList.remove('active','done');
+    if(i<n)dot.classList.add('done');else if(i===n)dot.classList.add('active');
+    if(i<TOTAL){var line=document.getElementById('sl'+i);if(line)line.classList.toggle('done',i<n);}
+  }
+  current=n;window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── Validación ──
+function v(id){var el=document.getElementById(id);if(!el)return true;var ok=el.value.trim()!=='';var em=document.getElementById('e-'+id);if(el)el.classList.toggle('err',!ok);if(em)em.classList.toggle('show',!ok);return ok;}
+function validar(n){
+  var ok=true;
+  if(n===1){
+    var dniOk=/^[0-9]{8}$/.test(document.getElementById('dni').value);
+    document.getElementById('dni').classList.toggle('err',!dniOk);
+    document.getElementById('e-dni').classList.toggle('show',!dniOk);
+    if(!dniOk)ok=false;
+    ['nombres','apPaterno','apMaterno','estadoCivil','instruccion'].forEach(function(id){if(!v(id))ok=false;});
+    if(!document.querySelector('input[name="sexo"]:checked')){document.getElementById('e-sexo').classList.add('show');ok=false;}else document.getElementById('e-sexo').classList.remove('show');
+    if(!document.querySelector('input[name="hijos"]:checked')){document.getElementById('e-hijos').classList.add('show');ok=false;}else document.getElementById('e-hijos').classList.remove('show');
+    var hv=document.querySelector('input[name="hijos"]:checked');
+    if(hv&&hv.value==='Sí'&&!v('cantHijos'))ok=false;
+  }
+  if(n===2){
+    ['diaNac','mesNac','anioNac'].forEach(function(id){if(!v(id))ok=false;});
+    detectarMenorFecha();
+  }
+  if(n===3){['departamento','provincia','distrito','direccion'].forEach(function(id){if(!v(id))ok=false;});}
+  if(n===4){
+    var celOk=/^[0-9]{9}$/.test(document.getElementById('celular').value);
+    document.getElementById('celular').classList.toggle('err',!celOk);document.getElementById('e-celular').classList.toggle('show',!celOk);if(!celOk)ok=false;
+    ['email','cargo','emergNombre','emergParentesco'].forEach(function(id){if(!v(id))ok=false;});
+    var ecOk=/^[0-9]{9}$/.test(document.getElementById('emergCelular').value);
+    document.getElementById('emergCelular').classList.toggle('err',!ecOk);document.getElementById('e-emergCelular').classList.toggle('show',!ecOk);if(!ecOk)ok=false;
+    if(!document.querySelector('input[name="sede"]:checked')){document.getElementById('e-sede').classList.add('show');ok=false;}else document.getElementById('e-sede').classList.remove('show');
+  }
+  if(n===5){
+    if(!document.querySelector('input[name="enfermedad"]:checked')){document.getElementById('e-enfermedad').classList.add('show');ok=false;}else document.getElementById('e-enfermedad').classList.remove('show');
+    var ev=document.querySelector('input[name="enfermedad"]:checked');
+    if(ev&&ev.value==='Sí'&&!v('enfermedadDesc'))ok=false;
+    if(!document.querySelector('input[name="pension"]:checked')){document.getElementById('e-pension').classList.add('show');ok=false;}else document.getElementById('e-pension').classList.remove('show');
+    var pv=document.querySelector('input[name="pension"]:checked');
+    if(pv&&pv.value==='AFP'){if(!document.querySelector('input[name="afpR"]:checked')){document.getElementById('e-afpNombre').classList.add('show');ok=false;}else document.getElementById('e-afpNombre').classList.remove('show');}
+    if(pv&&pv.value==='No afiliado'){if(!document.querySelector('input[name="ayudaAfil"]:checked')){document.getElementById('e-ayudaAfil').classList.add('show');ok=false;}else document.getElementById('e-ayudaAfil').classList.remove('show');}
+  }
+  if(n===6){
+    if(esMenor){
+      var tcm=document.querySelector('input[name="tieneCuentaMenor"]:checked');
+      if(!tcm){document.getElementById('e-tieneCuentaMenor').classList.add('show');ok=false;}
+      else{
+        document.getElementById('e-tieneCuentaMenor').classList.remove('show');
+        // Si tienen cuenta, validar los campos
+        if(tcm.value==='Sí'){['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+        // Si no tienen cuenta, pueden avanzar sin llenar banco
+      }
+    } else {
+      if(!document.querySelector('input[name="tieneCuenta"]:checked')){document.getElementById('e-tieneCuenta').classList.add('show');ok=false;}else document.getElementById('e-tieneCuenta').classList.remove('show');
+      var tc=document.querySelector('input[name="tieneCuenta"]:checked');
+      if(tc&&tc.value==='Sí'){['banco','numeroCuenta','titularCuenta'].forEach(function(id){if(!v(id))ok=false;});}
+    }
+  }
+  if(n===7){
+    if(esMenor){
+      ['apodNombre','apodParentesco','apodBanco','apodCuenta'].forEach(function(id){if(!v(id))ok=false;});
+      var adniOk=/^[0-9]{8}$/.test(document.getElementById('apodDni').value);
+      document.getElementById('apodDni').classList.toggle('err',!adniOk);document.getElementById('e-apodDni').classList.toggle('show',!adniOk);if(!adniOk)ok=false;
+      var acOk=/^[0-9]{9}$/.test(document.getElementById('apodCelular').value);
+      document.getElementById('apodCelular').classList.toggle('err',!acOk);document.getElementById('e-apodCelular').classList.toggle('show',!acOk);if(!acOk)ok=false;
+    } else {
+      // Para mayores, paso 7 tiene las fotos
+      var fA=document.getElementById('fotoAnverso').files[0];
+      var fR=document.getElementById('fotoReverso').files[0];
+      if(!fA){document.getElementById('e-fotoA').classList.add('show');ok=false;}else document.getElementById('e-fotoA').classList.remove('show');
+      if(!fR){document.getElementById('e-fotoR').classList.add('show');ok=false;}else document.getElementById('e-fotoR').classList.remove('show');
+    }
+  }
+  if(n===8){
+    var sinDni=document.getElementById('sinDni').checked;
+    if(!sinDni){
+      var fA2=document.getElementById('fotoAnverso2').files[0];
+      var fR2=document.getElementById('fotoReverso2').files[0];
+      if(!fA2){document.getElementById('e-fotoA2').classList.add('show');ok=false;}else document.getElementById('e-fotoA2').classList.remove('show');
+      if(!fR2){document.getElementById('e-fotoR2').classList.add('show');ok=false;}else document.getElementById('e-fotoR2').classList.remove('show');
+    } else {
+      document.getElementById('e-fotoA2').classList.remove('show');
+      document.getElementById('e-fotoR2').classList.remove('show');
+    }
+    if(!document.getElementById('declaracion').checked){document.getElementById('e-decl').classList.add('show');ok=false;}else document.getElementById('e-decl').classList.remove('show');
+  }
+  return ok;
+}
+
+// ── Comprimir imagen ──
+function comprimirImagen(file){
+  return new Promise(function(resolve){
+    if(!file){resolve(null);return;}
+    if(file.type==='application/pdf'){var r=new FileReader();r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:'application/pdf',nombre:file.name});};r.readAsDataURL(file);return;}
+    var img=new Image();var url=URL.createObjectURL(file);
+    img.onload=function(){
+      var MAX=1200;var w=img.width,h=img.height;
+      if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}
+      var canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      var dataUrl=canvas.toDataURL('image/jpeg',0.78);
+      resolve({b64:dataUrl.split(',')[1],tipo:'image/jpeg',nombre:file.name.replace(/\.[^.]+$/,'.jpg')});
+    };
+    img.onerror=function(){var r=new FileReader();r.onload=function(e){resolve({b64:e.target.result.split(',')[1],tipo:file.type,nombre:file.name});};r.readAsDataURL(file);};
+    img.src=url;
+  });
+}
+
+// ── Envío para mayores (desde paso 7) ──
+function enviarDesde7(){
+  if(!validar(7)) return;
+  var btn=document.getElementById('btnNext7');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
+  var fA=document.getElementById('fotoAnverso').files[0];
+  var fR=document.getElementById('fotoReverso').files[0];
+  if(!document.getElementById('declaracion') || !document.getElementById('declaracion').checked){
+    // Agregar checkbox aquí si no existe, o mover al paso 7
+  }
+  // Reuse sendData
+  Promise.all([comprimirImagen(fA),comprimirImagen(fR)]).then(function(imgs){
+    enviarDatos(imgs,btn,7);
+  });
+}
+
+// ── Envío final ──
+function enviar(){
+  if(!validar(8))return;
+  var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.innerHTML='<div class="spin"></div> Enviando...';
+  var fA=document.getElementById('fotoAnverso2').files[0];
+  var fR=document.getElementById('fotoReverso2').files[0];
+  Promise.all([comprimirImagen(fA),comprimirImagen(fR)]).then(function(imgs){
+    enviarDatos(imgs,btn,8);
+  });
+}
+
+function enviarDatos(imgs,btn,fromStep){
+  var pv=document.querySelector('input[name="pension"]:checked');
+  var hv=document.querySelector('input[name="hijos"]:checked');
+  var sv=document.querySelector('input[name="sede"]:checked');
+  var av=document.querySelector('input[name="afpR"]:checked');
+  var aav=document.querySelector('input[name="ayudaAfil"]:checked');
+  var tcv=document.querySelector('input[name="tieneCuenta"]:checked');
+  var ev=document.querySelector('input[name="enfermedad"]:checked');
+  var tcm=document.querySelector('input[name="tieneCuentaMenor"]:checked');
+  var tieneCuenta=(esMenor?(tcm&&tcm.value==='Sí'):(tcv&&tcv.value==='Sí'));
+  var datos={
+      esMenor:esMenor?'Sí':'No',
+      dni:document.getElementById('dni').value.trim(),
+      nombres:document.getElementById('nombres').value.trim(),
+      apPaterno:document.getElementById('apPaterno').value.trim(),
+      apMaterno:document.getElementById('apMaterno').value.trim(),
+      sexo:(document.querySelector('input[name="sexo"]:checked')||{}).value||'',
+      estadoCivil:document.getElementById('estadoCivil').value,
+      nacionalidad:document.getElementById('nacionalidad').value,
+      instruccion:document.getElementById('instruccion').value,
+      hijosMenores:(hv||{}).value||'',cantHijos:document.getElementById('cantHijos').value,
+      diaNac:document.getElementById('diaNac').value,mesNac:document.getElementById('mesNac').value,anioNac:document.getElementById('anioNac').value,
+      departamento:document.getElementById('departamento').value,provincia:document.getElementById('provincia').value,
+      distrito:document.getElementById('distrito').value,direccion:document.getElementById('direccion').value.trim(),
+      celular:document.getElementById('celular').value.trim(),email:document.getElementById('email').value.trim(),
+      cargo:document.getElementById('cargo').value.trim(),sede:(sv||{}).value||'',
+      emergNombre:document.getElementById('emergNombre').value.trim(),
+      emergParentesco:document.getElementById('emergParentesco').value,
+      emergCelular:document.getElementById('emergCelular').value.trim(),
+      enfermedad:(ev||{}).value||'',
+      enfermedadDesc:document.getElementById('enfermedadDesc').value.trim(),
+      sistemaPension:(pv||{}).value||'',
+      afpNombre:(av||{}).value||'',
+      ayudaAfiliacion:(aav||{}).value||'',
+      tieneCuenta:esMenor?(tcm?tcm.value:''):(tcv?tcv.value:''),
+      banco:tieneCuenta?document.getElementById('banco').value:'Pendiente apertura',
+      numeroCuenta:tieneCuenta?document.getElementById('numeroCuenta').value.trim():'Pendiente apertura',
+      titularCuenta:tieneCuenta?document.getElementById('titularCuenta').value.trim():'Pendiente apertura',
+      sinDni:document.getElementById('sinDni').checked?'Sí - Regularizará después':'No',
+      apodNombre:esMenor?document.getElementById('apodNombre').value.trim():'',
+      apodDni:esMenor?document.getElementById('apodDni').value.trim():'',
+      apodParentesco:esMenor?document.getElementById('apodParentesco').value:'',
+      apodCelular:esMenor?document.getElementById('apodCelular').value.trim():'',
+      apodBanco:'',apodCuenta:''
+    };
+
+  var formEl=document.getElementById('hidden-gas-form');
+  document.getElementById('hidden-gas-data').value=JSON.stringify(datos);
+  if(imgs[0]){document.getElementById('hidden-foto-a').value=imgs[0].b64;document.getElementById('hidden-foto-an').value=imgs[0].nombre;document.getElementById('hidden-foto-at').value=imgs[0].tipo;}
+  if(imgs[1]){document.getElementById('hidden-foto-r').value=imgs[1].b64;document.getElementById('hidden-foto-rn').value=imgs[1].nombre;document.getElementById('hidden-foto-rt').value=imgs[1].tipo;}
+  formEl.action=GAS_URL;formEl.submit();
+
+  setTimeout(function(){
+    for(var i=1;i<=TOTAL;i++){var dot=document.getElementById('sd'+i);if(dot){dot.classList.add('done');dot.textContent='✓';}}
+    document.getElementById('step'+fromStep).classList.remove('active');
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },4000);
+}
+</script>
+</body>
+</html>
